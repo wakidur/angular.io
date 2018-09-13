@@ -1,0 +1,26 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+      <h2>Guess the Number !</h2>
+      <div class="card bg-light mb-3">
+          <div class="card-body">
+            <p class="card-text">Guess the computer generated random number between 1  and 1000.</p>
+          </div>
+      </div>
+      <div class="form-row align-items-center">
+      <div class="col-auto"><label class="my-1 mr-2" for="inlineFormInput">Your Guess:</label></div>
+        <div class="col-auto">
+            <input type="number" [value]="guess" class="form-control mb-2"  id="inlineFormInput" (input)="guess = $event.target.value" />
+        </div>
+        <div class="col-auto"> <button (click)="verifyGuess()" class="btn btn-primary  mb-2">Verify</button> </div>
+        <div class="col-auto"> <button (click)="initializeGame()" class="btn btn-warning  mb-2">Restart</button> </div>
+      </div>
+      <div>
+         <p *ngIf="deviation < 0" class="alert alert-warning">Your guess is higher.</p>
+         <p *ngIf="deviation > 0" class="alert alert-warning">Your guess is lower.</p>
+         <p *ngIf="deviation === 0" class="alert alert-success">Yes! That's it.</p>
+      </div>
+      <p class="text-info">No of guesses :
+        <span class="badge">{{noOfTries}}</span>
+      </p>
+  </div> 
+

@@ -1,0 +1,24 @@
+$ node_modules .gitignore
+# exclude everything except sap-ui-router/node_modules
+sap-ui-router/node_modules
+sap-ui-router/package-lock.json
+sap-ui-router/example.js
+sap-ui-router/directives/exerciseDirectives.js
+CSS-Layout/flexbox/.sass-cache
+CSS-Layout/flexbox/flex-box.css.map
+.vscode
+
+bootstrap-4-project.zip
+package-lock.json
+admin-app/node_modules
+admin-app/package-lock.json
+admin-app/assets/scss/.sass-cache
+
+
+express-backend/node_modules
+express-backend/package-lock.json
+
+
+angularjs/component-based-application/node_modules
+angularjs/component-based-application/package-lock.json 
+
