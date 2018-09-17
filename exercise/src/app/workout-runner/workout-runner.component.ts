@@ -4,8 +4,6 @@ import { Exercise, ExercisePlan, WorkoutPlan } from './model/model';
 @Component({
   selector: 'app-workout-runner',
   templateUrl: './workout-runner.component.html',
-  // template: ` <pre>Current Exercise: {{currentExercise | json}}</pre>
-  //             <pre>Time Left: {{currentExercise.duration-exerciseRunningDuration}}</pre>`,
   styleUrls: ['./workout-runner.component.css']
 })
 export class WorkoutRunnerComponent implements OnInit {
@@ -73,7 +71,11 @@ export class WorkoutRunnerComponent implements OnInit {
           'A jumping jack or star jump, also called side-straddle hop is a physical jumping exercise.',
           'JumpingJacks.png',
           'jumpingjacks.wav',
-          `Assume an erect position, with feet together and arms at your side.Slightly bend your knees, and propel yourself a few inches into the air. While in air, bring your legs out to the side about shoulder width or slightly wider. As you are moving your legs outward,you should raise your arms up over your head; arms should be slightly bent throughout the entire in-air movement. Your feet should land shoulder width or wider as your hands meet above your head with arms slightly bent`,
+          `Assume an erect position, with feet together and arms at your side.Slightly bend your knees,
+          and propel yourself a few inches into the air. While in air, bring your legs out to the side about shoulder
+          width or slightly wider. As you are moving your legs outward,you should raise your arms up over your head; arms
+          should be slightly bent throughout the entire in-air movement.
+          Your feet should land shoulder width or wider as your hands meet above your head with arms slightly bent`,
           ['dmYwZH_BNd0', 'BABOdJ-2Z6o', 'c4DAnQ6DtF8']),
         30));
 
