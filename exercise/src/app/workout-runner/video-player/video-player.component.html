@@ -1,3 +1,8 @@
-<p>
-  video-player works!
-</p>
+<div class="card">
+    <h4 class="card-header">Videos</h4>
+  <div class="card-body">
+    <div *ngFor="let video of safeVideoUrls">
+      <iframe width="198" height="132" [src]="video" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
