@@ -57,28 +57,7 @@ export class WorkoutRunnerComponent implements OnInit {
       this.pauseResumeToggle();
     }
   }
-  /*
-  startExercise(exercisePlan: ExercisePlan) {
-    this.currentExercise = exercisePlan;
-    this.exerciseRunningDuration = 0;
-    const intervalId = setInterval(() => {
-      if (this.exerciseRunningDuration >= this.currentExercise.duration) {
-        clearInterval(intervalId);
-        const next: ExercisePlan = this.getNextExercise();
-        if (next) {
-          if (next !== this.restExercise) {
-            this.currentExerciseIndex++;
-          }
-          this.startExercise(next);
-        } else {
-          console.log("Workout complete!");
-        }
-      } else {
-        this.exerciseRunningDuration++;
-      }
-    }, 1000);
-  }
- */
+
   startExercise(exercisePlan: ExercisePlan) {
     this.currentExercise = exercisePlan;
     this.exerciseRunningDuration = 0;
@@ -104,6 +83,7 @@ export class WorkoutRunnerComponent implements OnInit {
       --this.workoutTimeRemaining;
     }, 1000);
   }
+
   getNextExercise(): ExercisePlan {
     let nextExercise: ExercisePlan = null;
     if (this.currentExercise === this.restExercise) {
