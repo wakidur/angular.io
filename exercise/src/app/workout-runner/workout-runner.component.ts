@@ -33,7 +33,7 @@ export class WorkoutRunnerComponent implements OnInit {
     this.startExercise(this.workoutPlan.exercises[this.currentExerciseIndex]);
   }
 
-  pusse() {
+  pause() {
     clearInterval(this.exerciseTrackingInterval);
     this.workoutPaused = true;
   }
@@ -43,8 +43,21 @@ export class WorkoutRunnerComponent implements OnInit {
     this.workoutPaused = false;
   }
 
-  pauseResumeToggle() {}
+  pauseResumeToggle() {
+    if (this.workoutPaused) {
+      this.resume();
+    } else {
+      this.pause();
+    }
+  }
 
+  onKeyPressed(event: KeyboardEvent) {
+    if (event.which === 80 || event.which === 112) {
+      // 'p' or 'P' key to toggle pause and resume,
+      this.pauseResumeToggle();
+    }
+  }
+  /*
   startExercise(exercisePlan: ExercisePlan) {
     this.currentExercise = exercisePlan;
     this.exerciseRunningDuration = 0;
@@ -65,20 +78,13 @@ export class WorkoutRunnerComponent implements OnInit {
       }
     }, 1000);
   }
-
-  getNextExercise(): ExercisePlan {
-    let nextExercise: ExercisePlan = null;
-    if (this.currentExercise === this.restExercise) {
-      nextExercise = this.workoutPlan.exercises[this.currentExerciseIndex + 1];
-    } else if (
-      this.currentExerciseIndex <
-      this.workoutPlan.exercises.length - 1
-    ) {
-      nextExercise = this.restExercise;
-    }
-
-    return nextExercise;
+ */
+  startExercise(exercisePlan: ExercisePlan) {
+    this.currentExercise = exercisePlan;
+    this.exerciseRunningDuration = 0;
+    this.startExerciseTimeTracking();
   }
+
   startExerciseTimeTracking() {
     this.exerciseTrackingInterval = window.setInterval(() => {
       if (this.exerciseRunningDuration >= this.currentExercise.duration) {
@@ -98,6 +104,19 @@ export class WorkoutRunnerComponent implements OnInit {
       --this.workoutTimeRemaining;
     }, 1000);
   }
+  getNextExercise(): ExercisePlan {
+    let nextExercise: ExercisePlan = null;
+    if (this.currentExercise === this.restExercise) {
+      nextExercise = this.workoutPlan.exercises[this.currentExerciseIndex + 1];
+    } else if (
+      this.currentExerciseIndex <
+      this.workoutPlan.exercises.length - 1
+    ) {
+      nextExercise = this.restExercise;
+    }
+
+    return nextExercise;
+  }
 
   buildWorkout(): WorkoutPlan {
     const workout = new WorkoutPlan("7MinWorkout", "7 Minute Workout", 10, []);
@@ -109,12 +128,12 @@ export class WorkoutRunnerComponent implements OnInit {
           "A jumping jack or star jump, also called side-straddle hop is a physical jumping exercise.",
           "JumpingJacks.png",
           "jumpingjacks.wav",
-          `Assume an erect position, with feet together and arms at your side.<br>
-          Slightly bend your knees, and propel yourself a few inches into the air. <br>
-          While in air, bring your legs out to the side about shoulder width or slightly wider. <br>
-          As you are moving your legs outward,you should raise your arms up over your head; arms
-          should be slightly bent throughout the entire in-air movement. <br>
-          Your feet should land shoulder width or wider as your hands meet above your head with arms slightly bent`,
+          `Assume an erect position, with feet together and arms at your side. <br>
+                            Slightly bend your knees, and propel yourself a few inches into the air. <br>
+                            While in air, bring your legs out to the side about shoulder width or slightly wider. <br>
+                            As you are moving your legs outward, you should raise your arms up over your head; arms should be
+                            slightly bent throughout the entire in-air movement. <br>
+                            Your feet should land shoulder width or wider as your hands meet above your head with arms slightly bent`,
           ["dmYwZH_BNd0", "BABOdJ-2Z6o", "c4DAnQ6DtF8"]
         ),
         30
