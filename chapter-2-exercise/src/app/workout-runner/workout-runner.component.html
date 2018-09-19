@@ -3,19 +3,14 @@
 
 <div class="row pt-4">
   <div id="description-panel" class="col-sm-3">
-    <app-exercise-description
-    [description]="currentExercise.exercise.description"
-    [steps]="currentExercise.exercise.procedure"></app-exercise-description>
+    <app-exercise-description [description]="currentExercise.exercise.description" [steps]="currentExercise.exercise.procedure"></app-exercise-description>
   </div>
   <div id="exercise-pane" class="col-sm-6">
-    <div id="pause-overlay"
-    (click)="pauseResumeToggle()"
-    (window:keyup)="onKeyPressed($event)" >
-      <span class="pause absolute-center"
-      [ngClass]="{'ion-md-pause': !workoutPaused, 'ion-md-play': workoutPaused}"></span>
+    <div id="pause-overlay" (click)="pauseResumeToggle()" (window:keyup)="onKeyPressed($event)" tabindex="1">
+      <span class="pause absolute-center" [ngClass]="{'ion-md-pause': !workoutPaused, 'ion-md-play': workoutPaused}"></span>
     </div>
 
-    <h4 class="text-center"> Workout Remaining - {{workoutTimeRemaining | secondsToTime}}</h4>
+    <h4 class="text-center">Workout Remaining - {{workoutTimeRemaining | secondsToTime}}</h4>
     <h1 class="text-center"> {{currentExercise.exercise.title}} </h1>
     <div class="image-container row">
       <img class="img-fluid col-sm" [src]="'assets/images/' + currentExercise.exercise.image" alt="loading img">
