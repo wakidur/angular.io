@@ -1,13 +1,15 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Exercise, ExercisePlan, WorkoutPlan } from "./model/model";
 import { Router } from "@angular/router";
+import { WorkoutHistoryTrackerService } from "../core/workout-history-tracker.service";
+import { TrustedHtmlString } from "@angular/core/src/sanitization/bypass";
 
 @Component({
   selector: "app-workout-runner",
   templateUrl: "./workout-runner.component.html",
   styleUrls: ["./workout-runner.component.css"]
 })
-export class WorkoutRunnerComponent implements OnInit {
+export class WorkoutRunnerComponent implements OnInit, OnDestroy {
   workoutPlan: WorkoutPlan;
   workoutTimeRemaining: number;
   restExercise: ExercisePlan;
@@ -17,7 +19,19 @@ export class WorkoutRunnerComponent implements OnInit {
   exerciseTrackingInterval: number;
   workoutPaused: boolean;
 
-  constructor(private router: Router) {}
+
+  constructor(
+    private router: Router,
+    private tracker: WorkoutHistoryTrackerService
+  ) {}
+
+  ngOnDestroy() {
+    if (this.exerciseTrackingInterval) {
+      clearInterval(this.exerciseTrackingInterval);
+    }
+    // this.tracker.endTracking( false );
+
+  }
 
   ngOnInit() {
     this.workoutPlan = this.buildWorkout();
@@ -29,6 +43,7 @@ export class WorkoutRunnerComponent implements OnInit {
   }
 
   start() {
+    this.tracker.startTracking();
     this.workoutTimeRemaining = this.workoutPlan.totalWorkoutDuration();
     this.currentExerciseIndex = 0;
     this.startExercise(this.workoutPlan.exercises[this.currentExerciseIndex]);
@@ -54,7 +69,7 @@ export class WorkoutRunnerComponent implements OnInit {
 
   onKeyPressed(event: KeyboardEvent) {
     if (event.which === 80 || event.which === 112) {
-      // 'p' or 'P' key to toggle pause and resume,
+      // 'p' or 'P' key to toggle pause and resume.
       this.pauseResumeToggle();
     }
   }
@@ -69,6 +84,11 @@ export class WorkoutRunnerComponent implements OnInit {
     this.exerciseTrackingInterval = window.setInterval(() => {
       if (this.exerciseRunningDuration >= this.currentExercise.duration) {
         clearInterval(this.exerciseTrackingInterval);
+        if (this.currentExercise !== this.restExercise) {
+          this.tracker.exerciseComplete(
+            this.workoutPlan.exercises[this.currentExerciseIndex]
+          );
+        }
         const next: ExercisePlan = this.getNextExercise();
         if (next) {
           if (next !== this.restExercise) {
@@ -76,7 +96,7 @@ export class WorkoutRunnerComponent implements OnInit {
           }
           this.startExercise(next);
         } else {
-          console.log("Workout complete!");
+          this.tracker.endTracking(true);
           this.router.navigate(["/finish"]);
         }
         return;
@@ -118,7 +138,7 @@ export class WorkoutRunnerComponent implements OnInit {
                             Your feet should land shoulder width or wider as your hands meet above your head with arms slightly bent`,
           ["dmYwZH_BNd0", "BABOdJ-2Z6o", "c4DAnQ6DtF8"]
         ),
-        5
+        2
       )
     );
 
@@ -134,7 +154,7 @@ export class WorkoutRunnerComponent implements OnInit {
           Then, keeping your back against the wall, lower your hips until your knees form right angles.`,
           ["y-wV4Venusw", "MMV3v4ap4ro"]
         ),
-        5
+        2
       )
     );
 
@@ -157,7 +177,7 @@ export class WorkoutRunnerComponent implements OnInit {
             "OicNTT2xzMI"
           ]
         ),
-        5
+        2
       )
     );
 
@@ -177,7 +197,7 @@ export class WorkoutRunnerComponent implements OnInit {
           Hold for a moment at the top of the movement and then lower slowly back down.`,
           ["Xyd_fa5zoEU", "MKmrqcoCZ-M"]
         ),
-        5
+        2
       )
     );
 
@@ -195,7 +215,7 @@ export class WorkoutRunnerComponent implements OnInit {
           Step back with the leading foot and bring the trailing foot down to finish one step-up.`,
           ["aajhW7DD1EA"]
         ),
-        5
+        2
       )
     );
 
@@ -215,7 +235,7 @@ export class WorkoutRunnerComponent implements OnInit {
               Keep your body tight, and push through your heels to bring yourself back to the starting position.`,
           ["QKKZ9AGYTi4", "UXJrBgI2RxA"]
         ),
-        5
+        2
       )
     );
 
@@ -233,7 +253,7 @@ export class WorkoutRunnerComponent implements OnInit {
           Steadily lower yourself. When your elbows form 90 degrees angles, push yourself back up to starting position.`,
           ["tKjcgfu44sI", "jox1rb5krQI"]
         ),
-        5
+        2
       )
     );
 
@@ -252,7 +272,7 @@ export class WorkoutRunnerComponent implements OnInit {
           Hold this position.`,
           ["pSHjTRCQxIw", "TvxNkmjdhMM"]
         ),
-        5
+        2
       )
     );
 
@@ -268,7 +288,7 @@ export class WorkoutRunnerComponent implements OnInit {
           Do inplace jog with your knees lifting as much as possible towards your chest.`,
           ["OAJ_J3EZkdY", "8opcQdC-V-U"]
         ),
-        5
+        2
       )
     );
 
@@ -285,7 +305,7 @@ export class WorkoutRunnerComponent implements OnInit {
               Do inplace jog with your knees lifting as much as possible towards your chest.`,
           ["Z2n58m2i4jg"]
         ),
-        5
+        2
       )
     );
 
@@ -301,7 +321,7 @@ export class WorkoutRunnerComponent implements OnInit {
           Return to the starting position, lower yourself, then push up and rotate till your left hand points toward the ceiling.`,
           ["qHQ_E-f5278"]
         ),
-        5
+        2
       )
     );
 
@@ -319,7 +339,7 @@ export class WorkoutRunnerComponent implements OnInit {
           Keep your hips square and your neck in line with your spine. Hold the position.`,
           ["wqzrb67Dwf8", "_rdfjFSFKMY"]
         ),
-        5
+        2
       )
     );
 
