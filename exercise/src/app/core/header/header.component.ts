@@ -4,8 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 
 @Component({
   selector: "app-header",
-  templateUrl: "./header.component.html",
-  styles: []
+  templateUrl: "./header.component.html"
 })
 export class HeaderComponent implements OnInit {
   private showHistoryLink = true;

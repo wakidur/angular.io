@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Exercise, ExercisePlan, WorkoutPlan } from "./model/model";
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from "@angular/core";
+import { WorkoutPlan, ExercisePlan, Exercise } from "./model/model";
 import { Router } from "@angular/router";
 import { WorkoutHistoryTrackerService } from "../core/workout-history-tracker.service";
-import { TrustedHtmlString } from "@angular/core/src/sanitization/bypass";
 
 @Component({
   selector: "app-workout-runner",
@@ -19,7 +18,6 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
   exerciseTrackingInterval: number;
   workoutPaused: boolean;
 
-
   constructor(
     private router: Router,
     private tracker: WorkoutHistoryTrackerService
@@ -29,8 +27,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
     if (this.exerciseTrackingInterval) {
       clearInterval(this.exerciseTrackingInterval);
     }
-    // this.tracker.endTracking( false );
-
+    // this.tracker.endTracking(false);
   }
 
   ngOnInit() {

@@ -56,7 +56,6 @@ export class WorkoutHistoryTrackerService {
     return this.workoutHistory;
   }
 }
-
 export class WorkoutLogEntry {
   constructor(
     public startedOn: Date,

@@ -14,6 +14,7 @@ import { SafeResourceUrl, DomSanitizer } from "@angular/platform-browser";
 })
 export class VideoPlayerComponent implements OnInit, OnChanges {
   private youtubeUrlPrefix = "//www.youtube.com/embed/";
+
   @Input()
   videos: Array<string>;
   safeVideoUrls: Array<SafeResourceUrl>;

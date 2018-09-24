@@ -4,10 +4,9 @@ import { WorkoutRunnerComponent } from "./workout-runner.component";
 import { ExerciseDescriptionComponent } from "./exercise-description/exercise-description.component";
 import { VideoPlayerComponent } from "./video-player/video-player.component";
 import { SecondsToTimePipe } from "./shared/seconds-to-time.pipe";
-import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule],
   exports: [WorkoutRunnerComponent],
   declarations: [
     WorkoutRunnerComponent,

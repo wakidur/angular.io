@@ -15,6 +15,4 @@ export class LocalStorageService {
   setItem(key: string, item: any) {
     localStorage[key] = JSON.stringify(item);
   }
-
-  constructor() {}
 }
