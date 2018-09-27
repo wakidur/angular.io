@@ -18,8 +18,7 @@ export class WorkoutHistoryTrackerService {
       storage.getItem<Array<WorkoutLogEntry>>(this.storageKey) || []
     ).map((item: WorkoutLogEntry) => {
       item.startedOn = new Date(item.startedOn.toString());
-      item.endedOn =
-        item.endedOn == null ? null : new Date(item.endedOn.toString());
+      item.endedOn = item.endedOn == null ? null : new Date(item.endedOn.toString());
       return item;
     });
   }

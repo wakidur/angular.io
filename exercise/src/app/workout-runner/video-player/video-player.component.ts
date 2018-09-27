@@ -5,7 +5,9 @@ import {
   Input,
   ViewEncapsulation
 } from "@angular/core";
-import { SafeResourceUrl, DomSanitizer } from "@angular/platform-browser";
+import { Modal } from "ngx-modialog/plugins/bootstrap";
+import { VideoDialogComponent, VideoDialogContext } from "./video-dialog/video-dialog.component";
+import { overlayConfigFactory } from "ngx-modialog";
 
 @Component({
   selector: "app-video-player",
@@ -13,23 +15,15 @@ import { SafeResourceUrl, DomSanitizer } from "@angular/platform-browser";
   styles: []
 })
 export class VideoPlayerComponent implements OnInit, OnChanges {
-  private youtubeUrlPrefix = "//www.youtube.com/embed/";
 
-  @Input()
-  videos: Array<string>;
-  safeVideoUrls: Array<SafeResourceUrl>;
+  @Input() videos: Array<string>;
+  constructor(private modal: Modal) {}
 
-  constructor(private sanitizer: DomSanitizer) {}
-
-  ngOnChanges() {
-    this.safeVideoUrls = this.videos
-      ? this.videos.map(v =>
-          this.sanitizer.bypassSecurityTrustResourceUrl(
-            this.youtubeUrlPrefix + v
-          )
-        )
-      : this.videos;
-  }
+  ngOnChanges() {}
 
   ngOnInit() {}
+
+  playVideo(videoId: string) {
+    this.modal.open(VideoDialogComponent, overlayConfigFactory(new VideoDialogContext(videoId)));
+  }
 }

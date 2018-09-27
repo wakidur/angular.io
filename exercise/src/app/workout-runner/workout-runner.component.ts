@@ -1,5 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from "@angular/core";
-import { WorkoutPlan, ExercisePlan, Exercise } from "./model/model";
+import {
+  WorkoutPlan,
+  ExercisePlan,
+  Exercise,
+  ExerciseProgressEvent,
+  ExerciseChangedEvent
+} from "./model/model";
 import { Router } from "@angular/router";
 import { WorkoutHistoryTrackerService } from "../core/workout-history-tracker.service";
 
@@ -18,6 +24,23 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
   exerciseTrackingInterval: number;
   workoutPaused: boolean;
 
+  @Output()
+  exercisePaused: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  exerciseResumed: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  exerciseProgress: EventEmitter<ExerciseProgressEvent> = new EventEmitter<
+    ExerciseProgressEvent
+  >();
+  @Output()
+  exerciseChanged: EventEmitter<ExerciseChangedEvent> = new EventEmitter<
+    ExerciseChangedEvent
+  >();
+  @Output()
+  workoutStarted: EventEmitter<WorkoutPlan> = new EventEmitter<WorkoutPlan>();
+  @Output()
+  workoutComplete: EventEmitter<WorkoutPlan> = new EventEmitter<WorkoutPlan>();
+
   constructor(
     private router: Router,
     private tracker: WorkoutHistoryTrackerService
@@ -27,7 +50,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
     if (this.exerciseTrackingInterval) {
       clearInterval(this.exerciseTrackingInterval);
     }
-    // this.tracker.endTracking(false);
+    this.tracker.endTracking(false);
   }
 
   ngOnInit() {
@@ -44,16 +67,19 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
     this.workoutTimeRemaining = this.workoutPlan.totalWorkoutDuration();
     this.currentExerciseIndex = 0;
     this.startExercise(this.workoutPlan.exercises[this.currentExerciseIndex]);
+    this.workoutStarted.emit(this.workoutPlan);
   }
 
   pause() {
     clearInterval(this.exerciseTrackingInterval);
     this.workoutPaused = true;
+    this.exercisePaused.emit(this.currentExerciseIndex);
   }
 
   resume() {
     this.startExerciseTimeTracking();
     this.workoutPaused = false;
+    this.exerciseResumed.emit(this.currentExerciseIndex);
   }
 
   pauseResumeToggle() {
@@ -92,14 +118,26 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
             this.currentExerciseIndex++;
           }
           this.startExercise(next);
+          this.exerciseChanged.emit(
+            new ExerciseChangedEvent(next, this.getNextExercise())
+          );
         } else {
           this.tracker.endTracking(true);
+          this.workoutComplete.emit(this.workoutPlan);
           this.router.navigate(["/finish"]);
         }
         return;
       }
       ++this.exerciseRunningDuration;
       --this.workoutTimeRemaining;
+      this.exerciseProgress.emit(
+        new ExerciseProgressEvent(
+          this.currentExercise,
+          this.exerciseRunningDuration,
+          this.currentExercise.duration - this.exerciseRunningDuration,
+          this.workoutTimeRemaining
+        )
+      );
     }, 1000);
   }
 
@@ -118,7 +156,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
   }
 
   buildWorkout(): WorkoutPlan {
-    const workout = new WorkoutPlan("7MinWorkout", "7 Minute Workout", 1, []);
+    const workout = new WorkoutPlan("7MinWorkout", "7 Minute Workout", 10, []);
     workout.exercises.push(
       new ExercisePlan(
         new Exercise(
@@ -135,7 +173,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
                             Your feet should land shoulder width or wider as your hands meet above your head with arms slightly bent`,
           ["dmYwZH_BNd0", "BABOdJ-2Z6o", "c4DAnQ6DtF8"]
         ),
-        2
+        30
       )
     );
 
@@ -151,7 +189,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
           Then, keeping your back against the wall, lower your hips until your knees form right angles.`,
           ["y-wV4Venusw", "MMV3v4ap4ro"]
         ),
-        2
+        30
       )
     );
 
@@ -174,7 +212,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
             "OicNTT2xzMI"
           ]
         ),
-        2
+        30
       )
     );
 
@@ -194,7 +232,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
           Hold for a moment at the top of the movement and then lower slowly back down.`,
           ["Xyd_fa5zoEU", "MKmrqcoCZ-M"]
         ),
-        2
+        30
       )
     );
 
@@ -212,7 +250,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
           Step back with the leading foot and bring the trailing foot down to finish one step-up.`,
           ["aajhW7DD1EA"]
         ),
-        2
+        30
       )
     );
 
@@ -232,7 +270,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
               Keep your body tight, and push through your heels to bring yourself back to the starting position.`,
           ["QKKZ9AGYTi4", "UXJrBgI2RxA"]
         ),
-        2
+        30
       )
     );
 
@@ -250,7 +288,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
           Steadily lower yourself. When your elbows form 90 degrees angles, push yourself back up to starting position.`,
           ["tKjcgfu44sI", "jox1rb5krQI"]
         ),
-        2
+        30
       )
     );
 
@@ -269,7 +307,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
           Hold this position.`,
           ["pSHjTRCQxIw", "TvxNkmjdhMM"]
         ),
-        2
+        30
       )
     );
 
@@ -285,7 +323,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
           Do inplace jog with your knees lifting as much as possible towards your chest.`,
           ["OAJ_J3EZkdY", "8opcQdC-V-U"]
         ),
-        2
+        30
       )
     );
 
@@ -302,7 +340,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
               Do inplace jog with your knees lifting as much as possible towards your chest.`,
           ["Z2n58m2i4jg"]
         ),
-        2
+        30
       )
     );
 
@@ -318,7 +356,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
           Return to the starting position, lower yourself, then push up and rotate till your left hand points toward the ceiling.`,
           ["qHQ_E-f5278"]
         ),
-        2
+        30
       )
     );
 
@@ -336,7 +374,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
           Keep your hips square and your neck in line with your spine. Hold the position.`,
           ["wqzrb67Dwf8", "_rdfjFSFKMY"]
         ),
-        2
+        30
       )
     );
 
