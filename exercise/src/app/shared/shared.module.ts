@@ -7,6 +7,6 @@ import { WrapAudioDirective } from "./wrap-audio.directive";
 @NgModule({
   imports: [CommonModule],
   declarations: [OrderByPipe, SearchPipe, WrapAudioDirective],
-  exports: [OrderByPipe, SearchPipe]
+  exports: [OrderByPipe, SearchPipe, WrapAudioDirective]
 })
 export class SharedModule {}

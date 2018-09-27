@@ -7,9 +7,10 @@ import { SecondsToTimePipe } from "./shared/seconds-to-time.pipe";
 import { VideoDialogComponent } from "./video-player/video-dialog/video-dialog.component";
 import { WorkoutContainerComponent } from "./workout-container/workout-container.component";
 import { WorkoutAudioComponent } from "./workout-audio/workout-audio.component";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, SharedModule],
   exports: [WorkoutRunnerComponent],
   declarations: [
     WorkoutRunnerComponent,

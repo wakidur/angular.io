@@ -1,11 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from "@angular/core";
-import {
-  WorkoutPlan,
-  ExercisePlan,
-  Exercise,
-  ExerciseProgressEvent,
-  ExerciseChangedEvent
-} from "./model/model";
+import { Component, OnInit, OnDestroy, Output, EventEmitter, ViewEncapsulation } from "@angular/core";
+import { WorkoutPlan, ExercisePlan, Exercise, ExerciseProgressEvent, ExerciseChangedEvent } from "./model/model";
 import { Router } from "@angular/router";
 import { WorkoutHistoryTrackerService } from "../core/workout-history-tracker.service";
 
@@ -24,22 +18,12 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy {
   exerciseTrackingInterval: number;
   workoutPaused: boolean;
 
-  @Output()
-  exercisePaused: EventEmitter<number> = new EventEmitter<number>();
-  @Output()
-  exerciseResumed: EventEmitter<number> = new EventEmitter<number>();
-  @Output()
-  exerciseProgress: EventEmitter<ExerciseProgressEvent> = new EventEmitter<
-    ExerciseProgressEvent
-  >();
-  @Output()
-  exerciseChanged: EventEmitter<ExerciseChangedEvent> = new EventEmitter<
-    ExerciseChangedEvent
-  >();
-  @Output()
-  workoutStarted: EventEmitter<WorkoutPlan> = new EventEmitter<WorkoutPlan>();
-  @Output()
-  workoutComplete: EventEmitter<WorkoutPlan> = new EventEmitter<WorkoutPlan>();
+  @Output() exercisePaused: EventEmitter<number> = new EventEmitter<number>();
+  @Output() exerciseResumed: EventEmitter<number> = new EventEmitter<number>();
+  @Output() exerciseProgress: EventEmitter<ExerciseProgressEvent> = new EventEmitter<ExerciseProgressEvent>();
+  @Output() exerciseChanged: EventEmitter<ExerciseChangedEvent> = new EventEmitter<ExerciseChangedEvent>();
+  @Output() workoutStarted: EventEmitter<WorkoutPlan> = new EventEmitter<WorkoutPlan>();
+  @Output() workoutComplete: EventEmitter<WorkoutPlan> = new EventEmitter<WorkoutPlan>();
 
   constructor(
     private router: Router,
