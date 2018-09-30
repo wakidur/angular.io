@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'abe-finish',
-  templateUrl: './finish.component.html',
-  styles:[]
+  selector: "app-finish",
+  templateUrl: "./finish.component.html",
+  styles: []
 })
 export class FinishComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

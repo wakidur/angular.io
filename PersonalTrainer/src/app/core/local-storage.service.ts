@@ -1,5 +1,5 @@
-import { CoreModule } from './core.module';
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { CoreModule } from "./core.module";
 
 @Injectable({
   providedIn: CoreModule
@@ -15,4 +15,5 @@ export class LocalStorageService {
   setItem(key: string, item: any) {
     localStorage[key] = JSON.stringify(item);
   }
+
 }

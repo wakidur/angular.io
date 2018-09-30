@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'abe-exercise',
-  templateUrl: './exercise.component.html',
+  selector: "app-exercise",
+  templateUrl: "./exercise.component.html",
   styles: []
 })
 export class ExerciseComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

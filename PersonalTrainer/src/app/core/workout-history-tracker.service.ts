@@ -1,25 +1,26 @@
-import { ExercisePlan } from './model';
-import { Injectable } from '@angular/core';
-import { LocalStorageService } from './local-storage.service';
-import { CoreModule } from './core.module';
+import { ExercisePlan } from "../core/model/model";
+import { CoreModule } from "./core.module";
+import { Injectable } from "@angular/core";
+import { LocalStorageService } from "./local-storage.service";
 
 @Injectable({
   providedIn: CoreModule
 })
 export class WorkoutHistoryTrackerService {
-  private maxHistoryItems = 20;   // We only track for last 20 exercise
+  private maxHistoryItems = 20; // We only track for last 20 exercise
   private currentWorkoutLog: WorkoutLogEntry = null;
   private workoutHistory: Array<WorkoutLogEntry> = [];
   private workoutTracked: boolean;
-  private storageKey = 'workouts';
+  private storageKey = "workouts";
 
   constructor(private storage: LocalStorageService) {
-    this.workoutHistory = (storage.getItem<Array<WorkoutLogEntry>>(this.storageKey) || [])
-      .map((item: WorkoutLogEntry) => {
-        item.startedOn = new Date(item.startedOn.toString());
-        item.endedOn = item.endedOn == null ? null : new Date(item.endedOn.toString());
-        return item;
-      });
+    this.workoutHistory = (
+      storage.getItem<Array<WorkoutLogEntry>>(this.storageKey) || []
+    ).map((item: WorkoutLogEntry) => {
+      item.startedOn = new Date(item.startedOn.toString());
+      item.endedOn = item.endedOn == null ? null : new Date(item.endedOn.toString());
+      return item;
+    });
   }
 
   get tracking(): boolean {
@@ -60,5 +61,6 @@ export class WorkoutLogEntry {
     public completed: boolean = false,
     public exercisesDone: number = 0,
     public lastExercise?: string,
-    public endedOn?: Date) { }
+    public endedOn?: Date
+  ) {}
 }

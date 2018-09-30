@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'abe-workout-builder',
+  selector: "app-workout-builder",
   template: `<div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6">
@@ -12,10 +12,7 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class WorkoutBuilderComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
