@@ -9,7 +9,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { CoreModule } from "./core/core.module";
 import { WorkoutHistoryComponent } from "./workout-history/workout-history.component";
 import { SharedModule } from "./shared/shared.module";
-import { WorkoutBuilderModule } from "./workout-builder/workout-builder.module";
 
 @NgModule({
   declarations: [
@@ -19,12 +18,11 @@ import { WorkoutBuilderModule } from "./workout-builder/workout-builder.module";
     WorkoutHistoryComponent
   ],
   imports: [
-    AppRoutingModule,
     BrowserModule,
     WorkoutRunnerModule,
     CoreModule,
     SharedModule,
-    WorkoutBuilderModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
