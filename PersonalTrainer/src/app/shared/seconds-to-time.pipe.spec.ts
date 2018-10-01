@@ -1,4 +1,4 @@
-import { SecondsToTimePipe } from './seconds-to-time.pipe';
+import { SecondsToTimePipe } from '../workout-runner/shared/seconds-to-time.pipe';
 
 describe('SecondsToTimePipe', () => {
   it('create an instance', () => {

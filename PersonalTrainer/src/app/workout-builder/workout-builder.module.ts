@@ -10,9 +10,10 @@ import { WorkoutBuilderRoutingModule } from "./workout-builder-routing.module";
 import { LeftNavExercisesComponent } from "./navigation/left-nav-exercises/left-nav-exercises.component";
 import { LeftNavMainComponent } from "./navigation/left-nav-main/left-nav-main.component";
 import { SubNavMainComponent } from "./navigation/sub-nav-main/sub-nav-main.component";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
-  imports: [CommonModule, WorkoutBuilderRoutingModule],
+  imports: [CommonModule, WorkoutBuilderRoutingModule, SharedModule],
   declarations: [
     WorkoutBuilderComponent,
     ExerciseComponent,

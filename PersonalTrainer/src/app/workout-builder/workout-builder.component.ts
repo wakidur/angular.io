@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
   template: `<div class="container-fluid fixed-top mt-5">
@@ -13,10 +13,7 @@ import { Component, OnInit } from '@angular/core';
               <div>`
 })
 export class WorkoutBuilderComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
