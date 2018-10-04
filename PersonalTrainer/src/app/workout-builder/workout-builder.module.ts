@@ -16,7 +16,12 @@ import { SharedModule } from "../shared/shared.module";
 import { WorkoutBuilderService } from "./builder-services/builder-services.service";
 import { WorkoutResolverService } from "./workout/workout-resolver.service";
 @NgModule({
-  imports: [CommonModule, WorkoutBuilderRoutingModule, SharedModule, FormsModule],
+  imports: [
+    CommonModule,
+    WorkoutBuilderRoutingModule,
+    SharedModule,
+    FormsModule
+  ],
   declarations: [
     WorkoutBuilderComponent,
     ExerciseComponent,
