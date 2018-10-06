@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { WorkoutBuilderComponent } from "./workout-builder.component";
 import { ExerciseComponent } from "./exercise/exercise.component";
@@ -15,23 +15,28 @@ import { SharedModule } from "../shared/shared.module";
 
 import { WorkoutBuilderService } from "./builder-services/builder-services.service";
 import { WorkoutResolverService } from "./workout/workout-resolver.service";
+
+
+
+
 @NgModule({
-  imports: [
-    CommonModule,
-    WorkoutBuilderRoutingModule,
-    SharedModule,
-    FormsModule
-  ],
-  declarations: [
-    WorkoutBuilderComponent,
-    ExerciseComponent,
-    ExercisesComponent,
-    WorkoutComponent,
-    WorkoutsComponent,
-    LeftNavExercisesComponent,
-    LeftNavMainComponent,
-    SubNavMainComponent
-  ],
-  providers: [WorkoutBuilderService, WorkoutResolverService]
+    imports: [
+        CommonModule,
+        WorkoutBuilderRoutingModule,
+        SharedModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
+    declarations: [
+        WorkoutBuilderComponent,
+        ExerciseComponent,
+        ExercisesComponent,
+        WorkoutComponent,
+        WorkoutsComponent,
+        LeftNavExercisesComponent,
+        LeftNavMainComponent,
+        SubNavMainComponent
+    ],
+    providers: [WorkoutBuilderService, WorkoutResolverService]
 })
-export class WorkoutBuilderModule {}
+export class WorkoutBuilderModule { }

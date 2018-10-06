@@ -1,13 +1,8 @@
 <div class="row">
-
     <div>
-
         <app-left-nav-exercises></app-left-nav-exercises>
-
     </div>
-
     <div class="col-sm-10 builder-content">
-
         <div id="workout-container" class="workout-container">
             <div class="row">
                 <h2 class="col-sm-9">{{workout.title||'Workout Title'}} </h2>
@@ -18,7 +13,7 @@
                         <div class="exercise tile" [ngModelGroup]="i">
                             <div class="title">
                                 {{exercisePlan.exercise.title}}
-                                <span class="btn float-right trashcan" (click)="removeExercise(exercisePlan)"><span class="ion-ios-trash-outline"></span></span>
+                                <span class="btn float-right trashcan" (click)="removeExercise(exercisePlan)"><span class="ion-ios-trash"></span></span>
                             </div>
                             <div class="index"><span>{{i +1}}</span></div>
                             <div class="main">
@@ -32,38 +27,27 @@
                                 </div>
                             </div>
                             <div class="order">
-                                <button type="button" class="btn btn-info tile-outside-button" (click)="moveExerciseTo(exercisePlan,0)"><span
-                    class="ion-ios-arrow-dropup-outline"></span></button>
+                                <button type="button" class="btn btn-info tile-outside-button" (click)="moveExerciseTo(exercisePlan,0)">
+                  <span class="ion-ios-arrow-dropup"></span>
+                  </button>
                                 <button type="button" class="btn btn-info tile-inside-button" (click)="moveExerciseTo(exercisePlan,i-1)"><span
                     class="ion-ios-arrow-up"></span></button>
                                 <button type="button" class="btn btn-info tile-inside-button" (click)="moveExerciseTo(exercisePlan,i+1)"><span
                     class="ion-ios-arrow-down"></span></button>
                                 <button type="button" class="btn btn-info tile-outside-button" (click)="moveExerciseTo(exercisePlan,workout.exercises.length-1)"><span
-                    class="ion-ios-arrow-dropdown-outline"></span></button>
+                    class="ion-ios-arrow-dropdown"></span></button>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        <input type="hidden" name="exerciseCount" #exerciseCount="ngModel" class="form-control" id="exercise-count" [(ngModel)]="workout.exercises.length" pattern="[1-9][0-9]*">
-                        <label *ngIf="exerciseCount.control.hasError('pattern') && (removeTouched || submitted)" class="alert alert-danger extended-validation-message">At
-              least one exercise is required</label>
                     </div>
                 </div>
                 <div id="workout-data" class="col-sm-3 workout-data">
                     <div class="form-group row">
                         <label for="workout-name">Name:</label>
-                        <input type="text" name="workoutName" #name="ngModel" class="form-control" id="workout-name" placeholder="Enter workout name. Must be unique." [(ngModel)]="workout.name" [ngModelOptions]="{updateOn: 'blur'}" required>
-                        <label *ngIf="name.control.hasError('required') && (name.touched || submitted)" class="alert alert-danger validation-message">Name
-              is required</label>
+                        <input type="text" name="workoutName" class="form-control" id="workout-name" placeholder="Enter workout name. Must be unique." [(ngModel)]="workout.name">
                     </div>
                     <div class="form-group row">
                         <label for="workout-title">Title:</label>
-                        <input type="text" name="title" class="form-control" #title="ngModel" id="workout-title" placeholder="What would be the workout title?" [(ngModel)]="workout.title" minlength="5" maxlength="20" required>
-                        <div *ngIf="title.touched || submitted">
-                            <label *ngIf="title.control.hasError('required')" class="alert alert-danger validation-message">Title is
-                required.</label>
-                            <label *ngIf="(title.control.hasError('minlength') || title.control.hasError('maxlength')) && workout.title.length > 0" class="alert alert-danger validation-message">Title should be between 5 and 20 characters long.</label>
-                        </div>
+                        <input type="text" name="title" class="form-control" id="workout-title" placeholder="What would be the workout title?" [(ngModel)]="workout.title">
                     </div>
                     <div class="form-group row">
                         <label for="workout-description">Description:</label>
@@ -71,9 +55,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="workout-rest">Rest Time (in seconds):</label>
-                        <input type="number" #rest="ngModel" name="restBetweenExercise" class="form-control" id="workout-rest" placeholder="Rest period between exercise in seconds." [(ngModel)]="workout.restBetweenExercise" required>
-                        <label *ngIf="rest.control.hasError('required') && (rest.touched || submitted)" class="alert alert-danger validation-message">Rest
-              time is required</label>
+                        <input type="number" name="restBetweenExercise" class="form-control" id="workout-rest" placeholder="Rest period between exercise in seconds." [(ngModel)]="workout.restBetweenExercise">
                     </div>
                     <div class="form-group row">
                         <label>Total Exercises:</label>
@@ -89,6 +71,7 @@
                     </div>
                 </div>
             </form>
+            <pre>{{ f.value | json }}</pre>
         </div>
     </div>
 </div>
