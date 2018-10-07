@@ -16,6 +16,9 @@ import { SharedModule } from "../shared/shared.module";
 import { WorkoutBuilderService } from "./builder-services/builder-services.service";
 import { WorkoutResolverService } from "./workout/workout-resolver.service";
 
+import { ExerciseBuilderService } from "./builder-services/exercise-builder.service";
+import { ExerciseResolverService } from "./exercise/exercise-resolver.service";
+
 
 
 
@@ -37,6 +40,6 @@ import { WorkoutResolverService } from "./workout/workout-resolver.service";
         LeftNavMainComponent,
         SubNavMainComponent
     ],
-    providers: [WorkoutBuilderService, WorkoutResolverService]
+    providers: [WorkoutBuilderService, WorkoutResolverService, ExerciseBuilderService, ExerciseResolverService]
 })
 export class WorkoutBuilderModule { }
