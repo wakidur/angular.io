@@ -9,8 +9,9 @@ import { WorkoutAudioComponent } from "./workout-audio/workout-audio.component";
 import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
-  imports: [CommonModule, SharedModule],
-  exports: [WorkoutRunnerComponent],
+  imports: [
+    CommonModule,
+    SharedModule],
   declarations: [
     WorkoutRunnerComponent,
     ExerciseDescriptionComponent,
@@ -19,6 +20,7 @@ import { SharedModule } from "../shared/shared.module";
     WorkoutContainerComponent,
     WorkoutAudioComponent
   ],
+  exports: [WorkoutRunnerComponent],
   entryComponents: [VideoDialogComponent]
 })
 export class WorkoutRunnerModule {}
