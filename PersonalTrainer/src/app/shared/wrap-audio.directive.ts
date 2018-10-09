@@ -6,7 +6,6 @@ import { Directive, ElementRef } from "@angular/core";
 })
 export class WrapAudioDirective {
   private audioPlayer: HTMLAudioElement;
-
   constructor(element: ElementRef) {
     this.audioPlayer = element.nativeElement;
   }
@@ -17,15 +16,12 @@ export class WrapAudioDirective {
   start() {
     this.audioPlayer.play();
   }
-
   get currentTime(): number {
     return this.audioPlayer.currentTime;
   }
-
   get duration(): number {
     return this.audioPlayer.duration;
   }
-
   get playbackComplete() {
     return this.duration == this.currentTime;
   }

@@ -5,6 +5,7 @@ import {
   RouterStateSnapshot
 } from "@angular/router";
 import { Injectable } from "@angular/core";
+
 import { Exercise } from "../../core/model/model";
 import { ExerciseBuilderService } from "../builder-services/exercise-builder.service";
 
@@ -35,5 +36,3 @@ export class ExerciseResolverService implements Resolve<Exercise> {
     }
   }
 }
-
-

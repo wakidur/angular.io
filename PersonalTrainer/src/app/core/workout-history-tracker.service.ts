@@ -1,6 +1,7 @@
-import { ExercisePlan } from "../core/model/model";
-import { CoreModule } from "./core.module";
 import { Injectable } from "@angular/core";
+
+import { ExercisePlan } from "./model/model";
+import { CoreModule } from "./core.module";
 import { LocalStorageService } from "./local-storage.service";
 
 @Injectable({
@@ -18,7 +19,8 @@ export class WorkoutHistoryTrackerService {
       storage.getItem<Array<WorkoutLogEntry>>(this.storageKey) || []
     ).map((item: WorkoutLogEntry) => {
       item.startedOn = new Date(item.startedOn.toString());
-      item.endedOn = item.endedOn == null ? null : new Date(item.endedOn.toString());
+      item.endedOn =
+        item.endedOn == null ? null : new Date(item.endedOn.toString());
       return item;
     });
   }

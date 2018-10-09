@@ -9,18 +9,17 @@ import { WorkoutBuilderService } from "../../builder-services/builder-services.s
   templateUrl: "./left-nav-exercises.component.html"
 })
 export class LeftNavExercisesComponent implements OnInit {
-  public exerciseList: Array<Exercise> = [];
+  exerciseList: Array<Exercise> = [];
 
   constructor(
-    private workoutService: WorkoutServiceService,
-    public workoutBuilderService: WorkoutBuilderService
-  ) {}
+    public workoutService: WorkoutServiceService,
+    public workoutBuilderService: WorkoutBuilderService) {}
 
   ngOnInit() {
-    this.exerciseList = this.workoutService.getExercises();
-}
+      this.exerciseList = this.workoutService.getExercises();
+  }
 
-addExercise(exercise: Exercise) {
-  this.workoutBuilderService.addExercise(new ExercisePlan(exercise, 30));
-}
+  addExercise(exercise: Exercise) {
+    this.workoutBuilderService.addExercise(new ExercisePlan(exercise, 30));
+  }
 }

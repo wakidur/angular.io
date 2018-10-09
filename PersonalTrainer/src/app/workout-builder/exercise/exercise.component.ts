@@ -7,6 +7,7 @@ import {
   FormControl,
   FormBuilder
 } from "@angular/forms";
+
 import { Exercise } from "../../core/model/model";
 import { AlphaNumericValidator } from "../alphanumeric-validator";
 import { ExerciseBuilderService } from "../builder-services/exercise-builder.service";
