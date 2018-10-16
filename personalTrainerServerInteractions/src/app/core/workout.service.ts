@@ -9,7 +9,6 @@ import { map, catchError } from "rxjs/operators";
 import { CoreModule } from "./core.module";
 import { Exercise, ExercisePlan, WorkoutPlan } from "./model/model";
 
-
 @Injectable({
   providedIn: CoreModule
 })
@@ -19,6 +18,7 @@ export class WorkoutService {
    * Example:
    * https://api.mlab.com/api/1/databases/my-db/collections?apiKey=myAPIKey
    */
+  // Variable declaration.
   workouts: Array<WorkoutPlan> = [];
   exercises: Array<Exercise> = [];
   workout: WorkoutPlan;
@@ -30,10 +30,70 @@ export class WorkoutService {
 
   getExercises(): Observable<Exercise[]> {
     return this.httpClient
-      .get<Exercise>(this.collectionsUrl + "/exercises" + this.params)
+      .get<Exercise[]>(this.collectionsUrl + "/exercises" + this.params)
       .pipe(catchError(this.handleError("getExercises", [])));
   }
 
+  /**
+   * GetAllExercises
+   */
+  public getAllExercises(): Observable<Exercise[]> {
+    return this.httpClient
+      .get<Exercise[]>(this.collectionsUrl + "/exercises" + this.params)
+      .pipe(catchError(this.handleError("getAllExercises", [])));
+  }
+
+  /**
+   * getExerciseByName
+   */
+  public getExerciseByName(exerciseName: string): Observable<Exercise> {
+    return this.httpClient
+      .get<Exercise>(
+        this.collectionsUrl + "/exercises/" + exerciseName + this.params
+      )
+      .pipe(
+        catchError(this.handleError<Exercise>(`getHero id=${exerciseName}`))
+      );
+  }
+
+  /**
+   * getAllWorkouts()
+   */
+  public getAllWorkouts(): Observable<WorkoutPlan[]> {
+    return this.httpClient
+      .get<WorkoutPlan[]>(this.collectionsUrl + "/workouts" + this.params)
+      .pipe(
+        map((workouts: Array<any>) => {
+          const resutl: Array<WorkoutPlan> = [];
+          if (workouts) {
+            workouts.forEach(workout => {
+              resutl.push(
+                new WorkoutPlan(
+                  workout.name,
+                  workout.title,
+                  workout.restBetweenExercise,
+                  workout.exercises,
+                  workout.description
+                )
+              );
+            });
+          }
+          return resutl;
+        }),
+        catchError(this.handleError<WorkoutPlan[]>("getWorkouts", []))
+      );
+  }
+
+  /**
+   * getWorkoutByName
+   */
+  public getWorkoutByName(workoutName: string): Observable<WorkoutPlan> {
+    return forkJoin(
+      this.httpClient.get(this.collectionsUrl +'/exercises' + this.params)
+    )
+  }
+
+  // Error handle
   private handleError<T>(operation = "operation", result?: T) {
     return (error: HttpErrorResponse): Observable<T> => {
       if (error.status === 404) {
