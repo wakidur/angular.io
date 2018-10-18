@@ -28,12 +28,6 @@ export class WorkoutService {
 
   constructor(public httpClient: HttpClient) {}
 
-  getExercises(): Observable<Exercise[]> {
-    return this.httpClient
-      .get<Exercise[]>(this.collectionsUrl + "/exercises" + this.params)
-      .pipe(catchError(this.handleError("getExercises", [])));
-  }
-
   /**
    * GetAllExercises
    */
@@ -54,6 +48,43 @@ export class WorkoutService {
       .pipe(
         catchError(this.handleError<Exercise>(`getHero id=${exerciseName}`))
       );
+  }
+
+  /**
+   * updateExercise
+   */
+  public updateExercise(exercise: Exercise) {
+    for (let i = 0; i < this.exercises.length; i++) {
+      if (this.exercises[i].name === exercise.name) {
+        this.exercises[i] = exercise;
+      }
+    }
+    return exercise;
+  }
+
+  /**
+   * addExercise
+   */
+  public addExercise(exercise: Exercise) {
+    if (exercise.name) {
+      this.exercises.push(exercise);
+      return exercise;
+    }
+  }
+
+  /**
+   * deleteExercise
+   */
+  public deleteExercise(exerciseName: string) {
+    let exerciseIndex: number;
+    for (let i = 0; i < this.exercises.length; i++) {
+      if (this.exercises[i].name === exerciseName) {
+        exerciseIndex = i;
+      }
+    }
+    if (exerciseIndex >= 0) {
+      this.exercises.splice(exerciseIndex, 1);
+    }
   }
 
   /**
@@ -89,10 +120,53 @@ export class WorkoutService {
    */
   public getWorkoutByName(workoutName: string): Observable<WorkoutPlan> {
     return forkJoin(
-      this.httpClient.get(this.collectionsUrl +'/exercises' + this.params)
-    )
+      this.httpClient.get(this.collectionsUrl + "/exercises" + this.params),
+      this.httpClient.get(
+        this.collectionsUrl + "/workouts/" + workoutName + this.params
+      )
+    ).pipe(
+      map((data: any) => {
+        const allExercises = data[0];
+        const workout = new WorkoutPlan(
+          data[1].name,
+          data[1].title,
+          data[1].restBetweenExercise,
+          data[1].exercises,
+          data[1].description
+        );
+        workout.exercises.forEach(
+          (exercisePlan: any) =>
+            (exercisePlan.exercise = allExercises.find(
+              (x: any) => x.name === exercisePlan.name
+            ))
+        );
+        return workout;
+      }),
+      catchError(this.handleError<WorkoutPlan>(`getWorkout id=${workoutName}`))
+    );
   }
 
+  /**
+   * addWorkout
+   */
+  public addWorkout(workout: WorkoutPlan) {
+    if (workout.name) {
+      this.workouts.push(workout);
+      return workout;
+    }
+  }
+
+  /**
+   * updateWorkout
+   */
+  public updateWorkout(workout: WorkoutPlan) {
+    for (let i = 0; i < this.workouts.length; i++) {
+      if (this.workouts[i].name === workout.name) {
+        this.workouts[i] = workout;
+        break;
+      }
+    }
+  }
   // Error handle
   private handleError<T>(operation = "operation", result?: T) {
     return (error: HttpErrorResponse): Observable<T> => {
