@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'abe-sub-nav-main',
-  templateUrl: './sub-nav-main.component.html'
+  selector: "app-sub-nav-main",
+  templateUrl: "./sub-nav-main.component.html"
 })
 export class SubNavMainComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

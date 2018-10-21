@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-auto my-1">
                       <span class="btn alert-danger" title="Delete this video." (click)="deleteVideo(i)">
-                        <span class="ion-ios-trash-outline"></span>
+                        <span class="ion-ios-trash"></span>
                       </span>
                     </div>
                     <label *ngIf="exerciseForm.controls['videos'].controls[i].hasError('required') && (exerciseForm.controls['videos'].controls[i].touched || submitted)" class="alert alert-danger validation-message">Video identifier is required</label>

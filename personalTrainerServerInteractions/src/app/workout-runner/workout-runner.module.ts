@@ -10,7 +10,10 @@ import { WorkoutAudioComponent } from "./workout-audio/workout-audio.component";
 import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
-  imports: [CommonModule, SharedModule],
+  imports: [
+    CommonModule,
+    SharedModule
+  ],
   declarations: [
     WorkoutRunnerComponent,
     ExerciseDescriptionComponent,

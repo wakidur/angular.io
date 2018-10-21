@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { filter } from "rxjs/operators";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.css"]
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  public showHistoryLink = true;
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: NavigationEnd) => {
+        this.showHistoryLink = !e.url.startsWith("/workout");
+      });
   }
 
+  ngOnInit() {}
 }

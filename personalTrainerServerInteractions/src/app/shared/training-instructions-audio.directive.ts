@@ -2,7 +2,7 @@ import { Directive, ElementRef } from "@angular/core";
 
 @Directive({
   selector: "[appTrainingInstructionsAudio]",
-  exportAs: "TrainingInstructionsAudio"
+  exportAs: "WrapAudio"
 })
 export class TrainingInstructionsAudioDirective {
   private audioPlayer: HTMLAudioElement;
