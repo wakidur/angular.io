@@ -4,6 +4,7 @@ import { OrderByPipe } from "./order-by.pipe";
 import { SearchPipe } from "./search.pipe";
 import { SecondsToTimePipe } from "./seconds-to-time.pipe";
 import { TrainingInstructionsAudioDirective } from "./training-instructions-audio.directive";
+import { MyAudioDirective } from "./my-audio.directive";
 
 @NgModule({
   imports: [CommonModule],
@@ -11,13 +12,15 @@ import { TrainingInstructionsAudioDirective } from "./training-instructions-audi
     OrderByPipe,
     SearchPipe,
     SecondsToTimePipe,
-    TrainingInstructionsAudioDirective
+    TrainingInstructionsAudioDirective,
+    MyAudioDirective
   ],
   exports: [
     OrderByPipe,
     SearchPipe,
     SecondsToTimePipe,
-    TrainingInstructionsAudioDirective
+    TrainingInstructionsAudioDirective,
+    MyAudioDirective
   ]
 })
 export class SharedModule {}

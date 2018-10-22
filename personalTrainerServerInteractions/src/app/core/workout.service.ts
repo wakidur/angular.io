@@ -1,9 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import { _throw } from "rxjs/observable/throw";
-import { of } from "rxjs/observable/of";
-import { forkJoin } from "rxjs/observable/forkJoin";
+import { Observable ,  throwError as _throw ,  of ,  forkJoin } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 
 import { CoreModule } from "./core.module";
@@ -150,22 +147,74 @@ export class WorkoutService {
    * addWorkout
    */
   public addWorkout(workout: WorkoutPlan) {
-    if (workout.name) {
-      this.workouts.push(workout);
-      return workout;
-    }
+    // if (workout.name) {
+    //   this.workouts.push(workout);
+    //   return workout;
+    // }
+    const workoutExercises: any = [];
+    workout.exercises.forEach((exercisePlan: any) => {
+      workoutExercises.push({
+        name: exercisePlan.exercise.name,
+        duration: exercisePlan.duration
+      });
+    });
+
+    const body = {
+      _id: workout.name,
+      exercises: workoutExercises,
+      name: workout.name,
+      title: workout.title,
+      description: workout.description,
+      restBetweenExercise: workout.restBetweenExercise
+    };
+
+    return this.httpClient
+      .post(this.collectionsUrl + "/workouts" + this.params, body)
+      .pipe(catchError(this.handleError<WorkoutPlan>()));
   }
 
   /**
    * updateWorkout
    */
   public updateWorkout(workout: WorkoutPlan) {
-    for (let i = 0; i < this.workouts.length; i++) {
-      if (this.workouts[i].name === workout.name) {
-        this.workouts[i] = workout;
-        break;
-      }
-    }
+    // for (let i = 0; i < this.workouts.length; i++) {
+    //   if (this.workouts[i].name === workout.name) {
+    //     this.workouts[i] = workout;
+    //     break;
+    //   }
+    // }
+    const workoutExercises: any = [];
+    workout.exercises.forEach((exercisePlan: any) => {
+      workoutExercises.push({
+        name: exercisePlan.exercise.name,
+        duration: exercisePlan.duration
+      });
+    });
+
+    const body = {
+      _id: workout.name,
+      exercises: workoutExercises,
+      name: workout.name,
+      title: workout.title,
+      description: workout.description,
+      restBetweenExercise: workout.restBetweenExercise
+    };
+
+    return this.httpClient
+      .put(
+        this.collectionsUrl + "/workouts/" + workout.name + this.params,
+        body
+      )
+      .pipe(catchError(this.handleError<WorkoutPlan>()));
+  }
+
+  /**
+   * name
+   */
+  public deleteWorkout(workoutName: string) {
+    return this.httpClient
+      .delete(this.collectionsUrl + "/workouts/" + workoutName + this.params)
+      .pipe(catchError(this.handleError<WorkoutPlan>()));
   }
   // Error handle
   private handleError<T>(operation = "operation", result?: T) {

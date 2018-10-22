@@ -5,8 +5,7 @@ import {
   RouterStateSnapshot
 } from "@angular/router";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { of } from "rxjs/observable/of";
+import { Observable ,  of } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 
 import { Exercise } from "../../core/model/model";

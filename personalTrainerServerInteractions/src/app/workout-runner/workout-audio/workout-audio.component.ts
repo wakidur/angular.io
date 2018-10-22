@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { TrainingInstructionsAudioDirective } from "../../shared/training-instructions-audio.directive";
+import { MyAudioDirective } from "../../shared/my-audio.directive";
 import {
   ExerciseProgressEvent,
   ExerciseChangedEvent
@@ -12,16 +13,16 @@ import {
 })
 export class WorkoutAudioComponent implements OnInit {
   @ViewChild("ticks")
-  private ticks: TrainingInstructionsAudioDirective;
+  private ticks: MyAudioDirective;
   @ViewChild("nextUp")
-  private nextUp: TrainingInstructionsAudioDirective;
+  private nextUp: MyAudioDirective;
   @ViewChild("nextUpExercise")
-  private nextUpExercise: TrainingInstructionsAudioDirective;
+  private nextUpExercise: MyAudioDirective;
   @ViewChild("halfway")
-  private halfway: TrainingInstructionsAudioDirective;
+  private halfway: MyAudioDirective;
   @ViewChild("aboutToComplete")
-  private aboutToComplete: TrainingInstructionsAudioDirective;
-  private nextupSound: string;
+  private aboutToComplete: MyAudioDirective;
+  public nextupSound: string;
 
   constructor() {}
 
