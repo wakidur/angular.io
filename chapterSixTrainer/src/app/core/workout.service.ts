@@ -90,12 +90,9 @@ export class WorkoutService {
 
   getWorkout(workoutName: string): Observable<WorkoutPlan> {
     return forkJoin(
-      this.http.get(this.collectionsUrl + "/exercises" + this.params),
-      this.http.get(
-        this.collectionsUrl + "/workouts/" + workoutName + this.params
-      )
-    ).pipe(
-      map((data: any) => {
+      this.http.get( this.collectionsUrl + "/exercises" + this.params ),
+      this.http.get( this.collectionsUrl + "/workouts/" + workoutName + this.params )
+    ).pipe( map((data: any) => {
         const allExercises = data[0];
         const workout = new WorkoutPlan(
           data[1].name,

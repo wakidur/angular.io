@@ -1,0 +1,84 @@
+{
+    "_id": "7minworkout",
+    "exercises": [{
+            "name": "jumpingJacks",
+            "duration": 30
+        },
+        {
+            "name": "wallSit",
+            "duration": 30
+        },
+        {
+            "name": "pushUp",
+            "duration": 30
+        },
+        {
+            "name": "crunches",
+            "duration": 30
+        },
+        {
+            "name": "stepUpOntoChair",
+            "duration": 30
+        },
+        {
+            "name": "squat",
+            "duration": 30
+        },
+        {
+            "name": "tricepdips",
+            "duration": 30
+        },
+        {
+            "name": "plank",
+            "duration": 30
+        },
+        {
+            "name": "highKnees",
+            "duration": 30
+        },
+        {
+            "name": "lunges",
+            "duration": 30
+        },
+        {
+            "name": "pushupNRotate",
+            "duration": 30
+        },
+        {
+            "name": "sidePlank",
+            "duration": 30
+        }
+    ],
+    "name": "7minworkout",
+    "title": "7 Minute Workout",
+    "description": "A high intensity workout that consists of 12 exercises.",
+    "restBetweenExercise": 10
+}
+
+{
+    "_id": "fffdf",
+    "exercises": [{
+        "name": "crunches",
+        "duration": 30
+    }],
+    "name": "fffdf",
+    "title": "dfdfdfdfdf",
+    "description": "dfdfdf",
+    "restBetweenExercise": 30
+}
+
+{
+    "_id": "crunches",
+    "name": "crunches",
+    "title": "Abdominal Crunches",
+    "description": "The basic crunch is a abdominal exercise in a strength-training program.",
+    "image": "crunches.png",
+    "nameSound": "content/crunches.wav",
+    "related": {
+        "videos": [
+            "Xyd_fa5zoEU",
+            "MKmrqcoCZ-M"
+        ]
+    },
+    "procedure": "Lie on your back with your knees bent and feet flat on the floor, hip-width apart. Place your hands behind your head so your thumbs are behind your ears. Hold your elbows out to the sides but rounded slightly in. Gently pull your abdominals inward. Curl up and forward so that your head, neck, and shoulder blades lift off the floor. Hold for a moment at the top of the movement and then lower slowly back down."
+}

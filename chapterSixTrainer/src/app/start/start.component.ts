@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
+
 import { WorkoutPlan } from "../core/model";
 import { WorkoutService } from "../core/workout.service";
 
@@ -10,7 +11,7 @@ import { WorkoutService } from "../core/workout.service";
 })
 export class StartComponent implements OnInit, OnDestroy {
   public workoutList: Array<WorkoutPlan> = [];
-  public notFound = false;
+  public notFound: boolean = false;
   public searchTerm: string;
   private subscription: any;
 
