@@ -23,6 +23,6 @@ export class MyAudioDirective {
     return this.audioPlayer.duration;
   }
   get playbackComplete() {
-    return this.duration == this.currentTime;
+    return this.duration === this.currentTime;
   }
 }

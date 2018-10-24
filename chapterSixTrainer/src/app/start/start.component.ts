@@ -10,8 +10,9 @@ import { WorkoutService } from "../core/workout.service";
   styles: []
 })
 export class StartComponent implements OnInit, OnDestroy {
+  public isLoader = true;
   public workoutList: Array<WorkoutPlan> = [];
-  public notFound: boolean = false;
+  public notFound = false;
   public searchTerm: string;
   private subscription: any;
 
@@ -21,8 +22,11 @@ export class StartComponent implements OnInit, OnDestroy {
     this.subscription = this.workoutService
       .getWorkouts()
       .subscribe(
-        workoutList => (this.workoutList = workoutList),
-        (err: any) => console.error(err)
+        (workoutList) => {
+          (this.workoutList = workoutList);
+          this.isLoader = false;
+        },
+        (err: any) => console.error(err),
       );
   }
 

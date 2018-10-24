@@ -18,7 +18,7 @@ export class WorkoutAudioComponent implements OnInit {
   private halfway: MyAudioDirective;
   @ViewChild("aboutToComplete")
   private aboutToComplete: MyAudioDirective;
-  private nextupSound: string;
+  public nextupSound: string;
 
   constructor() {}
 

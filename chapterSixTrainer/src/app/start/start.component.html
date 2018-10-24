@@ -8,14 +8,14 @@
     <br />
     <div id="start" class="row">
       <a routerLink="/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">
-        <span>Select a Workout</span>
+        <span>Select a Workout </span>
         <span class="ion-md-play"></span>
       </a>
     </div>
     <br />
     <div id="build" class="row">
       <a routerLink="/builder" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">
-        <span>Create a Workout</span>
+        <span> Create a Workout </span>
         <span class="ion-md-add"></span>
       </a>
     </div>
@@ -24,19 +24,33 @@
     <h2>Workouts</h2>
     <form #f="ngForm" name="formWorkout" class="row">
         <div class="form-group">
-            <input type="text" class="form-control" name="search" placeholder="Search for Workout"
-                   [(ngModel)]="searchTerm"/>
+            <input type="text"
+              class="form-control"
+              name="search"
+              placeholder="Search for Workout"
+              [(ngModel)]="searchTerm"/>
         </div>
         <div *ngIf="workoutList && workoutList.length > 0">
-            <div *ngFor="let workout of workoutList|search:'title': searchTerm|orderBy:'title'" class="workout tile"
-                 (click)="onSelect(workout)">
+            <div
+              *ngFor="let workout of workoutList|search:'title': searchTerm|orderBy:'title'"
+              class="workout tile"
+              (click)="onSelect(workout)">
                 <div class="title">{{workout.title}}</div>
                 <div class="stats">
-                    <span class="duration" title="Duration"><span class="ion-md-time"></span> - {{(workout.totalWorkoutDuration? workout.totalWorkoutDuration(): 0)|secondsToTime}}</span>
-                    <span class="float-right" title="Exercise Count"><span class="ion-md-list"></span> - {{workout.exercises.length}}</span>
+                    <span class="duration" title="Duration">
+                      <span class="ion-md-time"></span>
+                        - {{(workout.totalWorkoutDuration? workout.totalWorkoutDuration(): 0)|secondsToTime}}
+                      </span>
+                    <span class="float-right" title="Exercise Count">
+                      <span class="ion-md-list"></span>
+                      - {{workout.exercises.length}}
+                    </span>
                 </div>
             </div>
         </div>
+        <!-- <i class="fa fa-spinner fa-spin" style="font-size:48px;color:red"></i> -->
+
+        <div *ngIf="isLoader" class="loader"></div>
     </form>
 </div>
 </div>

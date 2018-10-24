@@ -64,7 +64,7 @@ export class WorkoutRunnerComponent implements OnInit, DoCheck, OnDestroy {
     if (this.exerciseTrackingInterval) {
       clearInterval(this.exerciseTrackingInterval);
     }
-    this.tracker.endTracking(false);
+    // this.tracker.endTracking(false);
   }
 
   ngOnInit() {

@@ -15,6 +15,6 @@ import { RemoteValidatorDirective } from "./remote-validator.directive";
     MyAudioDirective,
     RemoteValidatorDirective
   ],
-  exports: [OrderByPipe, SecondsToTimePipe, SearchPipe, MyAudioDirective]
+  exports: [OrderByPipe, SecondsToTimePipe, SearchPipe, MyAudioDirective, RemoteValidatorDirective]
 })
 export class SharedModule {}
