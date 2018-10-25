@@ -12,10 +12,8 @@ import { NG_ASYNC_VALIDATORS, FormControl } from "@angular/forms";
   ]
 })
 export class RemoteValidatorDirective {
-  @Input()
-  abeRemoteValidator: string;
-  @Input()
-  validateFunction: (value: string) => Promise<boolean>;
+  @Input() appRemoteValidator: string;
+  @Input() validateFunction: (value: string) => Promise<boolean>;
 
   validate(control: FormControl): { [key: string]: any } {
     const value: string = control.value;
@@ -24,7 +22,7 @@ export class RemoteValidatorDirective {
         return null;
       } else {
         const error: any = {};
-        error[this.abeRemoteValidator] = true;
+        error[this.appRemoteValidator] = true;
         return error;
       }
     });

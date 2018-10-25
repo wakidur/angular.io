@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription } from "rxjs";
 
 import { WorkoutPlan, ExercisePlan } from "../../core/model";
+import { WorkoutService } from "../../core/workout.service";
 import { WorkoutBuilderService } from "../builder-services/workout-builder.service";
 
 @Component({
@@ -9,16 +11,20 @@ import { WorkoutBuilderService } from "../builder-services/workout-builder.servi
   templateUrl: "./workout.component.html"
 })
 export class WorkoutComponent implements OnInit, OnDestroy {
+  // 7minworkout
+  queryParamsSub: Subscription;
   public error: any;
   public workout: WorkoutPlan;
   public sub: any;
   public submitted = false;
   public removeTouched = false;
+  private workoutName: string;
 
   constructor(
     public route: ActivatedRoute,
     public router: Router,
-    public workoutBuilderService: WorkoutBuilderService
+    public workoutBuilderService: WorkoutBuilderService,
+    public workoutService: WorkoutService
   ) {}
 
   durations = [
@@ -48,6 +54,9 @@ export class WorkoutComponent implements OnInit, OnDestroy {
     this.sub = this.route.data.subscribe((data: { workout: WorkoutPlan }) => {
       this.workout = data.workout;
     });
+    this.queryParamsSub = this.route.params.subscribe(
+      params => (this.workoutName = params["id"])
+    );
   }
 
   addExercise(exercisePlan: ExercisePlan) {
@@ -83,5 +92,23 @@ export class WorkoutComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.queryParamsSub.unsubscribe();
+  }
+
+  validateWorkoutName = (name: string): Promise<boolean> => {
+    if (this.workoutName === name) {
+      return Promise.resolve(true);
+    }
+    return this.workoutService
+      .getWorkout(name)
+      .toPromise()
+      .then(
+        (workout: WorkoutPlan) => {
+          return !workout;
+        },
+        error => {
+          return true;
+        }
+      );
   }
 }
