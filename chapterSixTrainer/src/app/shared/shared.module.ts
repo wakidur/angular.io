@@ -5,6 +5,7 @@ import { SearchPipe } from "./search.pipe";
 import { MyAudioDirective } from "./my-audio.directive";
 import { SecondsToTimePipe } from "./seconds-to-time.pipe";
 import { RemoteValidatorDirective } from "./remote-validator.directive";
+import { BusyIndicatorDirective } from "./busy-indicator.directive";
 
 @NgModule({
   imports: [CommonModule],
@@ -13,8 +14,16 @@ import { RemoteValidatorDirective } from "./remote-validator.directive";
     SecondsToTimePipe,
     SearchPipe,
     MyAudioDirective,
-    RemoteValidatorDirective
+    RemoteValidatorDirective,
+    BusyIndicatorDirective
   ],
-  exports: [OrderByPipe, SecondsToTimePipe, SearchPipe, MyAudioDirective, RemoteValidatorDirective]
+  exports: [
+    OrderByPipe,
+    SecondsToTimePipe,
+    SearchPipe,
+    MyAudioDirective,
+    RemoteValidatorDirective,
+    BusyIndicatorDirective
+  ]
 })
 export class SharedModule {}

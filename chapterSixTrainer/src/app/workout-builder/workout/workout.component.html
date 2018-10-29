@@ -60,7 +60,9 @@
             [(ngModel)]="workout.name"
             appRemoteValidator="workoutname"
             [validateFunction]="validateWorkoutName"
-            [ngModelOptions]="{updateOn: 'blur'}"  required>
+            [ngModelOptions]="{updateOn: 'blur'}"
+            appBusyIndicator
+            required>
             <div *ngIf="name.touched || submitted">
               <label *ngIf="name.control.hasError('required')" class="alert alert-danger validation-message">Name is
                 required</label>
