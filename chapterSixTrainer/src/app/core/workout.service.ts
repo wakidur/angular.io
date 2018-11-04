@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable ,  throwError as _throw ,  of ,  forkJoin } from "rxjs";
+import { Observable, throwError as _throw, of, forkJoin } from "rxjs";
 import { map, catchError } from "rxjs/operators";
+
 import { Exercise, ExercisePlan, WorkoutPlan } from "./model";
 import { CoreModule } from "./core.module";
 
@@ -12,13 +13,13 @@ export class WorkoutService {
   workouts: Array<WorkoutPlan> = [];
   exercises: Array<Exercise> = [];
   workout: WorkoutPlan;
-  collectionsUrl =
-    "https://api.mlab.com/api/1/databases/training/collections";
+  collectionsUrl = "https://api.mlab.com/api/1/databases/training/collections";
   apiKey = "TRZfI48FK_XQeAyB5EE5-7z3d8wFgcgV";
   params = "?apiKey=" + this.apiKey;
 
   constructor(public http: HttpClient) {}
 
+  // Exercises
   getExercises(): Observable<Exercise[]> {
     return this.http
       .get<Exercise[]>(this.collectionsUrl + "/exercises" + this.params)
@@ -63,6 +64,8 @@ export class WorkoutService {
     }
   }
 
+  // Workouts
+
   getWorkouts(): Observable<WorkoutPlan[]> {
     return this.http
       .get<WorkoutPlan[]>(this.collectionsUrl + "/workouts" + this.params)
@@ -90,9 +93,12 @@ export class WorkoutService {
 
   getWorkout(workoutName: string): Observable<WorkoutPlan> {
     return forkJoin(
-      this.http.get( this.collectionsUrl + "/exercises" + this.params ),
-      this.http.get( this.collectionsUrl + "/workouts/" + workoutName + this.params )
-    ).pipe( map((data: any) => {
+      this.http.get(this.collectionsUrl + "/exercises" + this.params),
+      this.http.get(
+        this.collectionsUrl + "/workouts/" + workoutName + this.params
+      )
+    ).pipe(
+      map((data: any) => {
         const allExercises = data[0];
         const workout = new WorkoutPlan(
           data[1].name,

@@ -4,13 +4,15 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
 import { WorkoutRunnerModule } from "./workout-runner/workout-runner.module";
+
+import { AppComponent } from "./app.component";
 import { StartComponent } from "./start/start.component";
 import { FinishComponent } from "./finish/finish.component";
-import { CoreModule } from "./core/core.module";
 import { WorkoutHistoryComponent } from "./workout-history/workout-history.component";
+
 import { SharedModule } from "./shared/shared.module";
+import { CoreModule } from "./core/core.module";
 
 @NgModule({
   declarations: [

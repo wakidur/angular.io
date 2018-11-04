@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-8">
     <h1 class="text-center">Ready for a Workout?</h1>
     <br />
     <div class="image-container row">
@@ -23,12 +23,27 @@
   <div class="col-sm-4">
     <h2>Workouts</h2>
     <form #f="ngForm" name="formWorkout" class="row">
-        <div class="form-group">
+        <!-- <div class="form-group w-100">
             <input type="text"
               class="form-control"
               name="search"
               placeholder="Search for Workout"
+              (ngModelChange)="inputFieldChange($event)"
               [(ngModel)]="searchTerm"/>
+        </div> -->
+        <div class="input-group  w-100">
+
+          <input type="text"
+              class="form-control"
+              name="search"
+              placeholder="Search for Workout"
+              (ngModelChange)="inputFieldChange($event)"
+              [(ngModel)]="searchTerm"/>
+              <div *ngIf="isInputValue" class="input-group-prepend">
+                <div class="input-group-btn" (click)="clearInput()">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+              </div>
         </div>
         <div *ngIf="workoutList && workoutList.length > 0">
             <div
