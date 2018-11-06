@@ -1,3 +1,6 @@
-<p>
-  ajaz-button works!
-</p>
+<button [attr.disabled]="busy" class="btn btn-primary">
+  <span [hidden]="!busy">
+    <i class="ico-md-cloud-upload spin"></i>
+  </span>
+  <span>Save</span>
+</button>

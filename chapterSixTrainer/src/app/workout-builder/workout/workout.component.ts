@@ -71,7 +71,8 @@ export class WorkoutComponent implements OnInit, OnDestroy {
     this.removeTouched = true;
     this.workoutBuilderService.removeExercise(exercisePlan);
   }
-
+/*
+/* 6.1
   save(formWorkout: any) {
     this.submitted = true;
     if (!formWorkout.valid) {
@@ -84,7 +85,19 @@ export class WorkoutComponent implements OnInit, OnDestroy {
         err => console.error(err)
       );
   }
-
+  */
+  save(formWorkout: any): Promise<Object | WorkoutPlan> {
+    this.submitted = true;
+    if (!formWorkout.valid) {
+      return;
+    }
+    const savePromise = this.workoutBuilderService.save().toPromise();
+    savePromise.then(
+      (result) => { this.router.navigate(["/builder/workouts"]); },
+      (error) => { console.error( error );
+      });
+      return savePromise;
+  }
   cancel(formWorkout: any) {
     this.submitted = false;
     formWorkout.cancel();
