@@ -6,6 +6,7 @@ import { MyAudioDirective } from "./my-audio.directive";
 import { SecondsToTimePipe } from "./seconds-to-time.pipe";
 import { RemoteValidatorDirective } from "./remote-validator.directive";
 import { BusyIndicatorDirective } from "./busy-indicator.directive";
+import { AjazButtonComponent } from './ajaz-button/ajaz-button.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -15,7 +16,8 @@ import { BusyIndicatorDirective } from "./busy-indicator.directive";
     SearchPipe,
     MyAudioDirective,
     RemoteValidatorDirective,
-    BusyIndicatorDirective
+    BusyIndicatorDirective,
+    AjazButtonComponent
   ],
   exports: [
     OrderByPipe,
