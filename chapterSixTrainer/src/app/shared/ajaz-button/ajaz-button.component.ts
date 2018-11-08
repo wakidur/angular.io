@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from "@angular/core";
+import { Component, OnInit, Input, HostListener, ContentChild, ElementRef } from "@angular/core";
 import { createHostBinding } from "@angular/compiler/src/core";
 
 @Component({
@@ -10,6 +10,9 @@ export class AjazButtonComponent implements OnInit {
   busy: boolean = null;
   @Input() execute: any;
   @Input() parameter: any;
+
+  @ContentChild("spinner") spinner: ElementRef;
+  @ContentChild("text") text: ElementRef;
 
   constructor() {}
 
