@@ -104,7 +104,10 @@
           </div>
           <div class="row">
             <button type="submit" class="btn btn-warning">Save</button>
-            <app-ajaz-button [execute]="save" [parameter]="f"></app-ajaz-button>
+            <app-ajaz-button [execute]="save" [parameter]="f">
+              <i class="ico-md-cloud-upload spin" data-animator></i>
+              <span data-animator="">Save</span>
+            </app-ajaz-button>
           </div>
         </div>
       </form>

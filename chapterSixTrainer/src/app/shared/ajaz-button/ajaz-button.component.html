@@ -1,6 +1,6 @@
 <button [attr.disabled]="busy" class="btn btn-primary">
   <span [hidden]="!busy">
-    <i class="ico-md-cloud-upload spin"></i>
+    <ng-content select="[data-animator]"></ng-content>
   </span>
-  <span>Save</span>
+  <ng-content select="[data-animator]"></ng-content >
 </button>
