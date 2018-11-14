@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { IconCamera, IconHeart, IconGithub, IconHome, IconFileText, IconHelpCircle } from "angular-feather";
 
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -12,6 +13,14 @@ import { HeroesComponent } from "./heroes/heroes.component";
 import { HeroSearchComponent } from "./hero-search/hero-search.component";
 import { MessagesComponent } from "./messages/messages.component";
 
+const icons = [
+  IconCamera,
+  IconHeart,
+  IconGithub,
+  IconHome,
+  IconFileText,
+  IconHelpCircle
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +31,8 @@ import { MessagesComponent } from "./messages/messages.component";
     HeroSearchComponent,
     MessagesComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, icons],
+  exports: [icons],
   providers: [],
   bootstrap: [AppComponent]
 })
