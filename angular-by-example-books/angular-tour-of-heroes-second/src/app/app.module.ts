@@ -13,6 +13,8 @@ import { HeroesComponent } from "./heroes/heroes.component";
 import { HeroSearchComponent } from "./hero-search/hero-search.component";
 import { MessagesComponent } from "./messages/messages.component";
 
+import { CoreModule } from "./core/core.module";
+
 const icons = [
   IconCamera,
   IconHeart,
@@ -31,7 +33,7 @@ const icons = [
     HeroSearchComponent,
     MessagesComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, icons],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, icons, CoreModule],
   exports: [icons],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,11 +7,23 @@ import { HeroDetailComponent } from "./hero-detail/hero-detail.component";
 import { GuessthenumberComponent } from "./guessthenumber/guessthenumber.component";
 
 const routes: Routes = [
-  { path: "dashboard", component: DashboardComponent },
-  { path: "heroes", component: HeroesComponent },
-  { path: "detail/:id", component: HeroDetailComponent },
-  { path: "guessthenumber", component: GuessthenumberComponent },
-  { path: "", redirectTo: "/dashboard", pathMatch: "full" },
+  {
+    path: "dashboard",
+    component: DashboardComponent,
+    data: { title: "Dashboard" }
+  },
+  { path: "heroes", component: HeroesComponent, data: { title: "Dashboard" } },
+  {
+    path: "detail/:id",
+    component: HeroDetailComponent,
+    data: { title: "Hero Detail" }
+  },
+  {
+    path: "guessthenumber",
+    component: GuessthenumberComponent,
+    data: { title: "Guess the number" }
+  },
+  { path: "", redirectTo: "/dashboard", pathMatch: "full" }
 ];
 
 @NgModule({
