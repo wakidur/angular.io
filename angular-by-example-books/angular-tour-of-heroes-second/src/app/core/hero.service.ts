@@ -51,6 +51,21 @@ export class HeroService {
   }
 
   /**
+   * addHero
+   * POST: Add a new hero to the server
+   */
+  public addHero(hero: HeroModel): Observable<HeroModel> {
+    return this.httpClient
+      .post<HeroModel>(this.heroesUrl, hero, httpOptions)
+      .pipe(
+        tap((hero: HeroModel) => {
+          this.log(`added hero w/ id=${hero.id}`);
+        }),
+        catchError(this.handleError<HeroModel>("addHero"))
+      );
+  }
+
+  /**
    * Handle Http operation that failed.
    * Let the app continue.
    * @param operation - name of the operation that failed

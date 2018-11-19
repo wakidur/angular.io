@@ -8,13 +8,16 @@ export class MessageService {
   constructor() {}
 
   /**
-   * add
+   * Add message
+   * add()
+   * @param - message
    */
   public add(message: string) {
     this.messages.push(message);
   }
 
   /**
+   * clear message
    * clear
    */
   public clear() {

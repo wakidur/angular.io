@@ -1,3 +1,5 @@
-<p>
-  messages works!
-</p>
+<div *ngIf="allMessage.length">
+  <h2>Messages</h2>
+  <button class="clear" (click)="clearMessage()">Clear</button>
+  <div *ngFor="let message of allMessage"> {{message}}</div>
+</div>
