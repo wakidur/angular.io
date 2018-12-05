@@ -12,7 +12,11 @@ const routes: Routes = [
     component: DashboardComponent,
     data: { title: "Dashboard" }
   },
-  { path: "heroes", component: HeroesComponent, data: { title: "Heroes" } },
+  {
+    path: "heroes",
+    component: HeroesComponent,
+    data: { title: "Heroes" }
+  },
   {
     path: "detail/:id",
     component: HeroDetailComponent,
@@ -23,7 +27,11 @@ const routes: Routes = [
     component: GuessthenumberComponent,
     data: { title: "Guess the number" }
   },
-  { path: "", redirectTo: "/dashboard", pathMatch: "full" }
+  {
+    path: "",
+    redirectTo: "/dashboard",
+    pathMatch: "full"
+  }
 ];
 
 @NgModule({

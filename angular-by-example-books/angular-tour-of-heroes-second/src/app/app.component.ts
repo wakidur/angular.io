@@ -1,10 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+// Title Service
 import { Title } from "@angular/platform-browser";
 import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 
-import {
-  pipe
-} from "rxjs";
+import { pipe } from "rxjs";
 import { map, filter, mergeMap } from "rxjs/operators";
 
 @Component({
@@ -13,13 +12,22 @@ import { map, filter, mergeMap } from "rxjs/operators";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  title = "angular-tour-of-heroes-second";
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title
   ) {}
   ngOnInit() {
+    this.titleService.setTitle("My awesom app");
+    // step - 1
+    /*
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        console.log(`NavigationEnd: , ${event}`);
+      }
+    });
+*/
+    // step - 2
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
@@ -33,6 +41,9 @@ export class AppComponent implements OnInit {
         filter(route => route.outlet === "primary"),
         mergeMap(route => route.data)
       )
-      .subscribe(event => this.titleService.setTitle(event["title"]));
+      .subscribe(event => {
+        console.log(`NavigationEnd: , ${event["title"]}`);
+        this.titleService.setTitle(event["title"]);
+      });
   }
 }

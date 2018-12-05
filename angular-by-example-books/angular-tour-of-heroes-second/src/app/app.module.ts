@@ -33,7 +33,12 @@ const icons = [
     HeroSearchComponent,
     MessagesComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, icons, CoreModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    icons,
+    CoreModule],
   exports: [icons],
   providers: [],
   bootstrap: [AppComponent]
