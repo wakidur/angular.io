@@ -1,15 +1,15 @@
 # exercise
-exercise/node_modules/
-exercise/package-lock.json
+personalTrainerVersion-01/exercise/node_modules/
+personalTrainerVersion-01/exercise/package-lock.json
 # guessthenumber
-guessthenumber/node_modules/
-guessthenumber/package-lock.json
+personalTrainerVersion-01/guessthenumber/node_modules/
+personalTrainerVersion-01/guessthenumber/package-lock.json
 # personalTrainer
-/personalTrainer/node_modules/
-/personalTrainer/package-lock.json
+personalTrainerVersion-01/personalTrainer/node_modules/
+personalTrainerVersion-01/personalTrainer/package-lock.json
 # personalTrainer
-PersonalTrainer/node_modules/
-PersonalTrainer/package-lock.json
+personalTrainerVersion-01/PersonalTrainer/node_modules/
+personalTrainerVersion-01/PersonalTrainer/package-lock.json
 
 
 
