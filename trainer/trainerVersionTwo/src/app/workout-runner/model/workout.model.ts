@@ -4,6 +4,14 @@ export class User {
   password: string;
 }
 
+export class WorkoutPlanIns {
+  public name: string;
+  public title: string;
+  public restBetweenExercise: number;
+  public exercises?: Array<string>;
+  public description?: string;
+}
+
 export class WorkoutPlan {
   constructor(
     public name: string,
@@ -20,7 +28,11 @@ export class WorkoutPlan {
     const totalDuration = this.exercises
       .map(e => e.duration)
       .reduce((previous, current) => previous + current);
-    return (this.restBetweenExercise ? this.restBetweenExercise : 0) * (this.exercises.length - 1) + totalDuration;
+    return (
+      (this.restBetweenExercise ? this.restBetweenExercise : 0) *
+        (this.exercises.length - 1) +
+      totalDuration
+    );
   }
 }
 
