@@ -1,16 +1,4 @@
-export class User {
-  fullName: string;
-  email: string;
-  password: string;
-}
 
-export class WorkoutPlanIns {
-  public name: string;
-  public title: string;
-  public restBetweenExercise: number;
-  public exercises?: Array<string>;
-  public description?: string;
-}
 
 export class WorkoutPlan {
   constructor(
@@ -50,4 +38,21 @@ export class Exercise {
     public procedure?: string,
     public videos?: Array<string>
   ) {}
+}
+
+
+// class member
+
+export class User {
+  fullName: string;
+  email: string;
+  password: string;
+}
+
+export class WorkoutPlanIns {
+  public name: string;
+  public title: string;
+  public restBetweenExercise: number;
+  public exercises?: Array<string>;
+  public description?: string;
 }
