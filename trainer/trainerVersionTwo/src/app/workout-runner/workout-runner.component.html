@@ -1,2 +1,57 @@
 <h3> Workout </h3>
-<pre>Current Exercise: {{WorkoutPlanIns | json}}</pre>
+<!-- <pre>Current Exercise: {{ workoutPlan | json}}</pre> -->
+<hr>
+<pre>Workout Time Remaining: {{workoutTimeRemaining }} : {{workoutTimeRemainingDecrige}}</pre>
+<hr>
+<pre>Time Left: {{currentExercise.duration-exerciseRunningDuration}}</pre>
+<!-- <hr>
+<pre>Current Exercise: {{currentExercise | json}}</pre> -->
+<hr>
+<pre> Workout Complete: {{workoutComplete}}</pre>
+<div class="row">
+
+  <div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
+    <div class="card">
+      <div class="card-header">
+        {{currentExercise.exercise.title}}
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{currentExercise.exercise.description}}</p>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
+
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Time Remaining: {{currentExercise.duration - exerciseRunningDuration}}</h5>
+
+      </div>
+      <img class="card-img-top" [src]="'/assets/images/' + currentExercise.exercise.image" alt="Card image cap">
+      <div class="card-body">
+        <div class="progress ">
+          <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="exerciseRunningDuration" aria-valuemin="0"
+            [attr.aria-valuemax]="currentExercise.duration" [ngStyle]="{'width':(exerciseRunningDuration/currentExercise.duration) * 100 + '%'}">
+            {{(exerciseRunningDuration/currentExercise.duration) * 100}}%
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
+
+    <div class="card">
+      <img class="card-img-top" src="../../assets/images/JumpingJacks.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+          content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+
+  </div>
+</div>
