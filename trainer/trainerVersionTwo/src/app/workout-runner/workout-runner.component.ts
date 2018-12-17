@@ -34,6 +34,7 @@ export class WorkoutRunnerComponent implements OnInit {
     );
     this.start();
     this.workoutTimeRemainingDecrige = this.workoutPlan.totalWorkoutDuration();
+    this.timeReduction();
   }
 
   private start() {
@@ -64,13 +65,7 @@ export class WorkoutRunnerComponent implements OnInit {
       }
     }, 1000);
 
-    const timeSlot = setInterval(() => {
-      if (this.workoutTimeRemainingDecrige === 0) {
-        clearInterval(timeSlot);
-      } else {
-        this.workoutTimeRemainingDecrige--;
-      }
-    }, 1000);
+
   }
 
   private getNextExercise(): ExercisePlan {
@@ -310,5 +305,16 @@ export class WorkoutRunnerComponent implements OnInit {
       )
     );
     return workout;
+  }
+
+  public timeReduction() {
+    const timeSlot = setInterval(() => {
+      if (this.workoutTimeRemainingDecrige === 0) {
+        console.log(this.workoutTimeRemainingDecrige);
+        clearInterval(timeSlot);
+      } else {
+        this.workoutTimeRemainingDecrige--;
+      }
+    }, 1000);
   }
 }

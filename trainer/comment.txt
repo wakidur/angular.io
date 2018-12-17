@@ -7,3 +7,4 @@ ng new trainerVersionTwo
 ng generate module workout-runner --module app.module.ts
 ng generate component workout-runner -is 
 ng serve --open
+ng generate componentexercise-description -is
