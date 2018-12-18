@@ -23,7 +23,7 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
     console.log("ngOnChanges");
-    this.safeVideoUrls = this.videos
+    this.safeVideoUrls  = this.videos
       ? this.videos.map(v =>
           this.sanitizer.bypassSecurityTrustResourceUrl(
             this.youtubeUrlPrefix + v

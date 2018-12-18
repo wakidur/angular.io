@@ -1,13 +1,7 @@
 // framework
 import { Component, OnInit } from "@angular/core";
 // application dependencies
-import {
-  WorkoutPlan,
-  WorkoutPlanIns,
-  ExercisePlan,
-  Exercise
-} from "./model/workout.model";
-
+import { WorkoutPlan, ExercisePlan, Exercise } from "./model/workout.model";
 
 @Component({
   selector: "app-workout-runner",
@@ -23,7 +17,8 @@ export class WorkoutRunnerComponent implements OnInit {
   currentExercise: ExercisePlan;
   exerciseRunningDuration: number;
   workoutComplete: string;
-  workoutTimeRemainingDecrige: number;
+  exerciseTrackingInterval: number;
+  workoutPaused: boolean;
   constructor() {}
 
   ngOnInit() {
@@ -33,8 +28,6 @@ export class WorkoutRunnerComponent implements OnInit {
       this.workoutPlan.restBetweenExercise
     );
     this.start();
-    this.workoutTimeRemainingDecrige = this.workoutPlan.totalWorkoutDuration();
-    this.timeReduction();
   }
 
   private start() {
@@ -43,29 +36,53 @@ export class WorkoutRunnerComponent implements OnInit {
     this.startExercise(this.workoutPlan.exercises[this.currentExerciseIndex]);
   }
 
+  /**
+   * pauseResumeToggle
+   */
+  public pauseResumeToggle() {
+    if (this.workoutPaused) {
+      this.resume();
+    } else {
+      this.pause();
+    }
+  }
+
+  /**
+   * onKeyPressed
+   */
+  public onKeyPressed(event: KeyboardEvent) {
+    if (event.which === 80 || event.which === 112) {
+      this.pauseResumeToggle();
+    }
+  }
+
   private startExercise(exercisePlan: ExercisePlan) {
     this.currentExercise = exercisePlan;
     this.exerciseRunningDuration = 0;
-    const intervalId = setInterval(() => {
+    this.startExerciseTimeTracking();
+  }
+
+  private startExerciseTimeTracking() {
+    this.exerciseTrackingInterval = window.setInterval(() => {
       if (this.exerciseRunningDuration >= this.currentExercise.duration) {
-        clearInterval(intervalId);
+        clearInterval(this.exerciseTrackingInterval);
         const next: ExercisePlan = this.getNextExercise();
         if (next) {
-          // During exercise transitioning, we increment currentExerciseIndex only if the next exercise is not a rest exercise.
+          // During exercise transitioning,
+          // we increment currentExerciseIndex only if the next exercise is not a rest exercise.
           if (next !== this.restExercise) {
             this.currentExerciseIndex++;
           }
           this.startExercise(next);
         } else {
-          console.log("Workout complete!");
+          console.log(`Workout complete!`);
           this.workoutComplete = "Workout complete!";
         }
-      } else {
-        this.exerciseRunningDuration++;
+        return;
       }
+      ++this.exerciseRunningDuration;
+      --this.workoutTimeRemaining;
     }, 1000);
-
-
   }
 
   private getNextExercise(): ExercisePlan {
@@ -307,14 +324,21 @@ export class WorkoutRunnerComponent implements OnInit {
     return workout;
   }
 
-  public timeReduction() {
-    const timeSlot = setInterval(() => {
-      if (this.workoutTimeRemainingDecrige === 0) {
-        console.log(this.workoutTimeRemainingDecrige);
-        clearInterval(timeSlot);
-      } else {
-        this.workoutTimeRemainingDecrige--;
-      }
-    }, 1000);
+  /**
+   * pause
+   */
+  private pause() {
+    clearInterval(this.exerciseTrackingInterval);
+    this.workoutPaused = true;
   }
+
+  /**
+   * resume
+   */
+  private resume() {
+    this.startExerciseTimeTracking();
+    this.workoutPaused = false;
+  }
+
+
 }

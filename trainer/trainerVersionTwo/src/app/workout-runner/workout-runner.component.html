@@ -1,59 +1,64 @@
-<h3> Workout </h3>
-<!-- <pre>Current Exercise: {{ workoutPlan | json}}</pre> -->
-<hr>
-<pre>Workout Time Remaining: {{workoutTimeRemaining }} : {{workoutTimeRemainingDecrige}}</pre>
-<hr>
-<!-- <pre>Time Reuction: {{ timeReduction() }}</pre> -->
-<hr>
-<pre > Time Left: {{currentExercise.duration-exerciseRunningDuration}}</pre>
-<!-- <hr>
-<pre>Current Exercise: {{currentExercise | json}}</pre> -->
-<hr>
-<pre> Workout Complete: {{workoutComplete}}</pre>
-<div class="row">
-
-  <div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
-    <app-exercise-description
-      [description]="currentExercise.exercise.description"
-      [steps]="currentExercise.exercise.procedure"
-      ></app-exercise-description>
+<div class="card">
+  <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h6>Wrokout plan name: <strong>{{workoutPlan.title}}</strong> </h6>
+        <h6>Workout Remaining - <strong>{{workoutTimeRemaining | secondsToTime}}</strong> </h6>
+        <h6>Total exercises: <strong>{{workoutPlan.exercises.length}}</strong> </h6>
+      </div>
 
   </div>
-  <div class="col-sm-4 col-md-4 col-xl-4 col-lg-4" id="exercise-plne">
+  <div class="card-body">
+      <div class="row">
 
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">{{currentExercise.exercise.title}}</h5>
-      </div>
-      <!-- property binding :  [src]= "" -->
-      <img class="card-img-top" [src]="'/assets/images/' + currentExercise.exercise.image" alt="Card image cap">
-      <div class="card-body">
-        <h4> Workout Remaining - {{workoutTimeRemaining | secondsToTime}}</h4>
-        <div class="row">
-            <h4 class="col-sm-6 text-left">Time Remaining:
-              <strong>{{currentExercise.duration-exerciseRunningDuration}}</strong>
-            </h4>
-            <h4 class="col-sm-6 text-right" *ngIf="currentExercise.exercise.name=='rest'">Next up:
-              <strong>{{workoutPlan.exercises[currentExerciseIndex + 1].exercise.title}}</strong>
-            </h4>
+          <div class="col-sm-4 col-md-3 col-xl-3 col-lg-3">
+            <app-exercise-description [description]="currentExercise.exercise.description" [steps]="currentExercise.exercise.procedure"></app-exercise-description>
+
           </div>
-        <div class="progress ">
-            <!-- attribute binding : [attr.aria-valuenow]= "" -->
-            <!-- directive : [ngStyle]= "" -->
-          <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="exerciseRunningDuration" aria-valuemin="0"
-            [attr.aria-valuemax]="currentExercise.duration" [ngStyle]="{'width':(exerciseRunningDuration/currentExercise.duration) * 100 + '%'}">
-            {{(exerciseRunningDuration/currentExercise.duration) * 100}}%
+          <div class="col-sm-4 col-md-6 col-xl-6 col-lg-6" id="exercise-plne">
+
+            <div class="card">
+              <div class="card-header">
+                <h6>Current exercise name: <strong>{{currentExercise.exercise.title}}</strong> </h6>
+              </div>
+
+              <!-- property binding :  [src]= "" -->
+
+              <div class="card-body">
+                <div id="pause-overlay"
+                (click)="pauseResumeToggle()"
+                (window:keyup)="onKeyPressed($event)">
+                  <i class="pause absolute-center"
+                  [ngClass]="{'ion-md-pause' : !workoutPaused,
+                  'ion-md-play' : workoutPaused}"></i></div>
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <h4 class="text-left">Time Remaining:
+                      <strong>{{currentExercise.duration-exerciseRunningDuration}}</strong>
+                    </h4>
+                  </div>
+                  <div class="col-sm-6">
+                    <h4 class="text-right" *ngIf="currentExercise.exercise.name=='rest'">Next up:
+                      <strong>{{workoutPlan.exercises[currentExerciseIndex + 1].exercise.title}}</strong>
+                    </h4>
+                  </div>
+                </div>
+                <div class="progress ">
+                  <!-- attribute binding : [attr.aria-valuenow]= "" -->
+                  <!-- directive : [ngStyle]= "" -->
+                  <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="exerciseRunningDuration" aria-valuemin="0"
+                    [attr.aria-valuemax]="currentExercise.duration" [ngStyle]="{'width':(exerciseRunningDuration/currentExercise.duration) * 100 + '%'}">
+                    {{(exerciseRunningDuration/currentExercise.duration) * 100}}%
+                  </div>
+                </div>
+              </div>
+              <img class=" card-img-bottom" [src]="'/assets/images/' + currentExercise.exercise.image" alt="Card image cap">
+            </div>
+
+          </div>
+          <div class="col-sm-4 col-md-3 col-xl-3 col-lg-3">
+            <app-video-player [videos]="currentExercise.exercise.videos"></app-video-player>
           </div>
         </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
-    <app-video-player
-      [videos]="currentExercise.exercise.videos"
-    ></app-video-player>
-
-
   </div>
 </div>
+

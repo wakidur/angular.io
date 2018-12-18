@@ -1,16 +1,14 @@
 <div class="card">
-  <div class="card-header">
-    <h5 class="card-title">Videos</h5>
-
-  </div>
+  <div class="card-header"> Videos</div>
   <div class="card-body">
     <div *ngFor="let video of safeVideoUrls">
       <iframe
         width="198"
         height="132"
-     [src]="video"
-     allowfullscreen
-      frameborder="0"></iframe>
+        [src]="video"
+        allowfullscreen
+        frameborder="0">
+      </iframe>
     </div>
   </div>
 </div>
