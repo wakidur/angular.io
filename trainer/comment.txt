@@ -1,5 +1,7 @@
 trainerVersionOne
 trainerVersionTwo
+trainerVersionThree
+
 
 (The -is flag is used to stop generation of a separate CSS file for the component)
 
@@ -7,4 +9,9 @@ ng new trainerVersionTwo
 ng generate module workout-runner --module app.module.ts
 ng generate component workout-runner -is 
 ng serve --open
-ng generate componentexercise-description -is
+
+ng generate component exercise-description -is
+ng generate component video-player -is
+
+ng generate pipe seconds-to-time
+
