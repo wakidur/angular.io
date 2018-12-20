@@ -1,6 +1,6 @@
 // framework
 import { Component, OnInit } from "@angular/core";
-// application dependencies
+// application dependencies model
 import { WorkoutPlan, ExercisePlan, Exercise } from "./model/workout.model";
 
 @Component({
@@ -30,6 +30,9 @@ export class WorkoutRunnerComponent implements OnInit {
     this.start();
   }
 
+  /**
+   * start
+   */
   private start() {
     this.workoutTimeRemaining = this.workoutPlan.totalWorkoutDuration();
     this.currentExerciseIndex = 0;
@@ -37,31 +40,17 @@ export class WorkoutRunnerComponent implements OnInit {
   }
 
   /**
-   * pauseResumeToggle
+   * startExercise
    */
-  public pauseResumeToggle() {
-    if (this.workoutPaused) {
-      this.resume();
-    } else {
-      this.pause();
-    }
-  }
-
-  /**
-   * onKeyPressed
-   */
-  public onKeyPressed(event: KeyboardEvent) {
-    if (event.which === 80 || event.which === 112) {
-      this.pauseResumeToggle();
-    }
-  }
-
   private startExercise(exercisePlan: ExercisePlan) {
     this.currentExercise = exercisePlan;
     this.exerciseRunningDuration = 0;
     this.startExerciseTimeTracking();
   }
 
+  /**
+   * startExerciseTimeTracking
+   */
   private startExerciseTimeTracking() {
     this.exerciseTrackingInterval = window.setInterval(() => {
       if (this.exerciseRunningDuration >= this.currentExercise.duration) {
@@ -85,6 +74,9 @@ export class WorkoutRunnerComponent implements OnInit {
     }, 1000);
   }
 
+  /**
+   * getNextExercise
+   */
   private getNextExercise(): ExercisePlan {
     let nextExercise: ExercisePlan = null;
     if (this.currentExercise === this.restExercise) {
@@ -99,6 +91,9 @@ export class WorkoutRunnerComponent implements OnInit {
     return nextExercise;
   }
 
+  /**
+   * buildWorkout
+   */
   private buildWorkout(): WorkoutPlan {
     const workout = new WorkoutPlan("7MinWorkout", "7 Minute Workout", 1, []);
     workout.exercises.push(
@@ -325,6 +320,16 @@ export class WorkoutRunnerComponent implements OnInit {
   }
 
   /**
+   * pauseResumeToggle
+   */
+  public pauseResumeToggle() {
+    if (this.workoutPaused) {
+      this.resume();
+    } else {
+      this.pause();
+    }
+  }
+  /**
    * pause
    */
   private pause() {
@@ -339,6 +344,12 @@ export class WorkoutRunnerComponent implements OnInit {
     this.startExerciseTimeTracking();
     this.workoutPaused = false;
   }
-
-
+  /**
+   * onKeyPressed
+   */
+  public onKeyPressed(event: KeyboardEvent) {
+    if (event.which === 80 || event.which === 112) {
+      this.pauseResumeToggle();
+    }
+  }
 }

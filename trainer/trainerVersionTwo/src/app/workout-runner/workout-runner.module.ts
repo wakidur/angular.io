@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { WorkoutRunnerComponent } from "./workout-runner.component";
-import { ExerciseDescriptionComponent } from './exercise-description/exercise-description.component';
-import { VideoPlayerComponent } from './video-player/video-player.component';
-import { SecondsToTimePipe } from './shared/seconds-to-time.pipe';
+import { ExerciseDescriptionComponent } from "./exercise-description/exercise-description.component";
+import { VideoPlayerComponent } from "./video-player/video-player.component";
+import { SecondsToTimePipe } from "./shared/seconds-to-time.pipe";
 
 @NgModule({
   declarations: [
@@ -13,9 +13,7 @@ import { SecondsToTimePipe } from './shared/seconds-to-time.pipe';
     VideoPlayerComponent,
     SecondsToTimePipe
   ],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [
     // we export the component/directive/pipe that it becomes available to be used across modules.
     WorkoutRunnerComponent
