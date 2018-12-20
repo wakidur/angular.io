@@ -12,6 +12,9 @@ ng serve --open
 
 ng generate component exercise-description -is
 ng generate component video-player -is
+ng generate component start -is
+ng generate component finish -is
 
 ng generate pipe seconds-to-time
+
 
