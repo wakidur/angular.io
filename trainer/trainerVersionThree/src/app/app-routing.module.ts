@@ -25,8 +25,16 @@ const routes: Routes = [
   { path: "**", redirectTo: "/start" }
 ];
 
+/**
+ * The enableTracing: true property on the forRoot function parameter allows us to monitor
+ * the router events (such as NavigationStart, NavigationEnd,
+ * and NavigationCancel) that happen when navigation takes place and the
+ * correct route is resolved.
+ * The logs are visible in the browser's debugger console.
+ * Use it for debugging purposes only, remove it from production builds.
+ */
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true } )],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
