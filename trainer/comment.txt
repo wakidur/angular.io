@@ -8,12 +8,15 @@ trainerVersionThree
 ng new trainerVersionTwo
 ng generate module workout-runner --module app.module.ts
 ng generate component workout-runner -is 
+ng generate component dashboard -is
+ng generate component start -is
+ng generate component finish -is 
+
 ng serve --open
 
 ng generate component exercise-description -is
 ng generate component video-player -is
-ng generate component start -is
-ng generate component finish -is
+
 
 ng generate pipe seconds-to-time
 
