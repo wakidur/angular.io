@@ -1,7 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
+// AppRoutingModule
 import { AppRoutingModule } from "./app-routing.module";
+// AppComponent
 import { AppComponent } from "./app.component";
 import { WorkoutRunnerModule } from "./workout-runner/workout-runner.module";
 import { StartComponent } from "./start/start.component";

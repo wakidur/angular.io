@@ -32,10 +32,30 @@ const routes: Routes = [
  * correct route is resolved.
  * The logs are visible in the browser's debugger console.
  * Use it for debugging purposes only, remove it from production builds.
+ *
+ * To change it to hash-based routing, the route configuration for the top-level routes should be augmented
+ * with an extra useHash:true property in the RouterModule.forRoot function (second parameter).
+ *
+ * Notice the / prefix in the preceding route path. / is used to specify an absolute path.
+ * The Angular router also supports relative paths, which are useful when working with child routes.
+ * We will explore the concept of child routes in the next few chapters.
+ * <a ... href="/workout">
+ *
+ * Avoid hardcoding route links
+ * While you could have directly used <a href="/workout">,
+ * prefer routerLink to avoid hardcoding routes
+ *
+ * it supports ....
+ * child routes
+ * async routes
+ * lifecycle hooks
+ * secondary routes
+ * some other advanced scenarios
+
  */
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { enableTracing: true })
+    RouterModule.forRoot(routes, { enableTracing: true, useHash: true })
   ],
   exports: [RouterModule]
 })
