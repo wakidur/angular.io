@@ -21,8 +21,8 @@ export class WorkoutRunnerComponent implements OnInit {
 
   ngOnInit() {
     this.workoutPlan = this.buildWorkout();
-    this.restExercise = new ExercisePlan(
-      new Exercise("rest", "Relax!", "Relax a bit", "rest.png"),
+    this.restExercise = new ExercisePlan(1,
+      new Exercise(1, "rest", "Relax!", "Relax a bit", "rest.png"),
       this.workoutPlan.restBetweenExercise
     );
     this.start();
@@ -72,10 +72,11 @@ export class WorkoutRunnerComponent implements OnInit {
   }
 
   private buildWorkout(): WorkoutPlan {
-    const workout = new WorkoutPlan("7MinWorkout", "7 Minute Workout", 1, []);
+    const workout = new WorkoutPlan(1, "7MinWorkout", "7 Minute Workout", 1, []);
     workout.exercises.push(
-      new ExercisePlan(
+      new ExercisePlan(1,
         new Exercise(
+          1,
           "jumpingJacks",
           "Jumping Jacks",
           "A jumping jack or star jump, also called side-straddle hop is a physical jumping exercise.",
@@ -94,8 +95,9 @@ export class WorkoutRunnerComponent implements OnInit {
     );
 
     workout.exercises.push(
-      new ExercisePlan(
+      new ExercisePlan(2,
         new Exercise(
+          2,
           "wallSit",
           "Wall Sit",
           "A wall sit, also known as a Roman Chair, is an exercise done to strengthen the quadriceps muscles.",
@@ -110,8 +112,9 @@ export class WorkoutRunnerComponent implements OnInit {
     );
 
     workout.exercises.push(
-      new ExercisePlan(
+      new ExercisePlan(3,
         new Exercise(
+          3,
           "pushUp",
           "Push up",
           "A push-up is a common exercise performed in a prone position by raising and lowering the body using the arms",
@@ -134,7 +137,9 @@ export class WorkoutRunnerComponent implements OnInit {
 
     workout.exercises.push(
       new ExercisePlan(
+        4,
         new Exercise(
+          4,
           "crunches",
           "Abdominal Crunches",
           "The basic crunch is a abdominal exercise in a strength-training program.",
@@ -154,7 +159,9 @@ export class WorkoutRunnerComponent implements OnInit {
 
     workout.exercises.push(
       new ExercisePlan(
+        5,
         new Exercise(
+          5,
           "stepUpOntoChair",
           "Step Up Onto Chair",
           "Step exercises are ideal for building muscle in your lower body.",
@@ -172,7 +179,9 @@ export class WorkoutRunnerComponent implements OnInit {
 
     workout.exercises.push(
       new ExercisePlan(
+        6,
         new Exercise(
+          6,
           "squat",
           "Squat",
           "The squat is a compound, full body exercise that trains primarily the muscles of the thighs, hips, buttocks and quads.",
@@ -192,7 +201,9 @@ export class WorkoutRunnerComponent implements OnInit {
 
     workout.exercises.push(
       new ExercisePlan(
+        7,
         new Exercise(
+          7,
           "tricepdips",
           "Tricep Dips On Chair",
           "A body weight exercise that targets triceps.",
@@ -210,7 +221,9 @@ export class WorkoutRunnerComponent implements OnInit {
 
     workout.exercises.push(
       new ExercisePlan(
+        8,
         new Exercise(
+          8,
           "plank",
           "Plank",
           `The plank (also called a front hold, hover, or abdominal bridge) is an isometric core strength exercise that
@@ -229,7 +242,9 @@ export class WorkoutRunnerComponent implements OnInit {
 
     workout.exercises.push(
       new ExercisePlan(
+        9,
         new Exercise(
+          9,
           "highKnees",
           "High Knees",
           "A form exercise that develops strength and endurance of the hip flexors and quads and stretches the hip extensors.",
@@ -245,7 +260,9 @@ export class WorkoutRunnerComponent implements OnInit {
 
     workout.exercises.push(
       new ExercisePlan(
+        10,
         new Exercise(
+          10,
           "lunges",
           "Lunges",
           `Lunges are a good exercise for strengthening, sculpting and building several muscles/muscle groups,
@@ -262,7 +279,9 @@ export class WorkoutRunnerComponent implements OnInit {
 
     workout.exercises.push(
       new ExercisePlan(
+        11,
         new Exercise(
+          11,
           "pushupNRotate",
           "Pushup And Rotate",
           "A variation of pushup that requires you to rotate.",
@@ -278,7 +297,9 @@ export class WorkoutRunnerComponent implements OnInit {
 
     workout.exercises.push(
       new ExercisePlan(
+        12,
         new Exercise(
+          12,
           "sidePlank",
           "Side Plank",
           "A variation to Plank done using one hand only.",

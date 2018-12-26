@@ -7,10 +7,16 @@ trainerVersionThree
 
 ng new trainerVersionTwo
 ng generate module workout-runner --module app.module.ts
+ng g m core --module app.module.ts
+ng g m shared --module app.module.ts
+
+
 ng generate component workout-runner -is 
 ng generate component dashboard -is
 ng generate component start -is
 ng generate component finish -is 
+
+ng g c workout-history -is
 
 ng serve --open
 

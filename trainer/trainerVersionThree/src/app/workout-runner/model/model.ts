@@ -1,5 +1,6 @@
 export class WorkoutPlan {
   constructor(
+    public id: number,
     public name: string,
     public title: string,
     public restBetweenExercise: number,
@@ -25,11 +26,12 @@ export class WorkoutPlan {
 }
 
 export class ExercisePlan {
-  constructor(public exercise: Exercise, public duration: number) {}
+  constructor(public id: number, public exercise: Exercise, public duration: number) {}
 }
 
 export class Exercise {
   constructor(
+    public id: number,
     public name: string,
     public title: string,
     public description: string,

@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
 
 import { WorkoutRunnerComponent } from "./workout-runner.component";
 import { ExerciseDescriptionComponent } from "./exercise-description/exercise-description.component";
@@ -14,7 +15,8 @@ import { SecondsToTimePipe } from "./shared/seconds-to-time.pipe";
     SecondsToTimePipe
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     WorkoutRunnerComponent
