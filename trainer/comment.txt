@@ -7,8 +7,8 @@ trainerVersionThree
 
 ng new trainerVersionTwo
 ng generate module workout-runner --module app.module.ts
-ng g m core --module app.module.ts
-ng g m shared --module app.module.ts
+ng g m core --module app
+ng g m shared --module app
 
 
 ng generate component workout-runner -is 
@@ -25,5 +25,7 @@ ng generate component video-player -is
 
 
 ng generate pipe seconds-to-time
+
+ng g  workout-history-tracker
 
 
