@@ -55,6 +55,14 @@ const routes: Routes = [
  * some other advanced scenarios
 
  */
+
+ /**
+  * we register the Router service by importing the RouterModule into AppRoutingModule
+  */
+ /**
+  * The AppRoutingModule is a module that exports multiple routes together
+  * with all the Angular-router-related services (technically it re-exports RouterModule).
+  */
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { enableTracing: true, useHash: true })

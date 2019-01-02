@@ -17,6 +17,10 @@ export class WorkoutRunnerComponent implements OnInit {
   exerciseTrackingInterval: number;
   workoutPaused: boolean;
 
+  /**
+   * we register the Router service by importing the RouterModule into AppRoutingModule
+   * @param router
+   */
   constructor(private router: Router) {}
 
   ngOnInit() {

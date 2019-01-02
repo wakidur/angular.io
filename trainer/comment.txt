@@ -26,6 +26,6 @@ ng generate component video-player -is
 
 ng generate pipe seconds-to-time
 
-ng g  workout-history-tracker
+ng g s workout-history-tracker
 
 
