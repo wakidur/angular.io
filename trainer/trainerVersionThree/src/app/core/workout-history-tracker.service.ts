@@ -15,7 +15,7 @@ import { CoreModule } from "./core.module";
 })
 export class WorkoutHistoryTrackerService {
   // class members
-  private maxHistoryItems  = 20; // tracking last 20 exercise
+  private maxHistoryItems = 20; // tracking last 20 exercise
   private currentWorkoutLog: WorkoutLogEntry = null;
   private workoutHistory: Array<WorkoutLogEntry> = [];
   private workoutTracked: boolean;
@@ -30,8 +30,8 @@ export class WorkoutHistoryTrackerService {
    * startTracking
    */
   public startTracking() {
-    this.workoutTracked  = true;
-    this.currentWorkoutLog  = new WorkoutLogEntry(new Date());
+    this.workoutTracked = true;
+    this.currentWorkoutLog = new WorkoutLogEntry(new Date());
     if (this.workoutHistory.length >= this.maxHistoryItems) {
       this.workoutHistory.shift();
     }
@@ -50,10 +50,19 @@ export class WorkoutHistoryTrackerService {
    * endTracking
    */
   public endTracking(completed: boolean) {
-    this.currentWorkoutLog.completed = completed;
-    this.currentWorkoutLog.endedOn = new Date();
-    // this.currentWorkoutLog = null;
-    this.workoutTracked = false;
+    if (this.currentWorkoutLog.completed === true) {
+      this.currentWorkoutLog.completed = true;
+      this.currentWorkoutLog.endedOn = this.currentWorkoutLog.endedOn;
+    } else if (completed) {
+      this.currentWorkoutLog.completed = completed;
+      this.currentWorkoutLog.endedOn = new Date();
+      this.workoutTracked = false;
+    } else {
+      this.currentWorkoutLog.completed = completed;
+      this.currentWorkoutLog.endedOn = new Date();
+      this.currentWorkoutLog = null;
+      this.workoutTracked = false;
+    }
   }
 
   /**

@@ -127,7 +127,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
                             Your feet should land shoulder width or wider as your hands meet above your head with arms slightly bent`,
           ["dmYwZH_BNd0", "BABOdJ-2Z6o", "c4DAnQ6DtF8"]
         ),
-        3
+        2
       )
     );
 
@@ -145,7 +145,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
           Then, keeping your back against the wall, lower your hips until your knees form right angles.`,
           ["y-wV4Venusw", "MMV3v4ap4ro"]
         ),
-        3
+        2
       )
     );
 
@@ -170,7 +170,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
             "OicNTT2xzMI"
           ]
         ),
-        3
+        2
       )
     );
 
@@ -192,7 +192,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
           Hold for a moment at the top of the movement and then lower slowly back down.`,
           ["Xyd_fa5zoEU", "MKmrqcoCZ-M"]
         ),
-        3
+        2
       )
     );
 
@@ -212,7 +212,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
           Step back with the leading foot and bring the trailing foot down to finish one step-up.`,
           ["aajhW7DD1EA"]
         ),
-        3
+        2
       )
     );
 
@@ -234,7 +234,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
               Keep your body tight, and push through your heels to bring yourself back to the starting position.`,
           ["QKKZ9AGYTi4", "UXJrBgI2RxA"]
         ),
-        3
+        2
       )
     );
 
@@ -254,7 +254,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
           Steadily lower yourself. When your elbows form 90 degrees angles, push yourself back up to starting position.`,
           ["tKjcgfu44sI", "jox1rb5krQI"]
         ),
-        3
+        2
       )
     );
 
@@ -275,7 +275,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
           Hold this position.`,
           ["pSHjTRCQxIw", "TvxNkmjdhMM"]
         ),
-        3
+        2
       )
     );
 
@@ -293,7 +293,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
           Do inplace jog with your knees lifting as much as possible towards your chest.`,
           ["OAJ_J3EZkdY", "8opcQdC-V-U"]
         ),
-        3
+        2
       )
     );
 
@@ -312,7 +312,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
               Do inplace jog with your knees lifting as much as possible towards your chest.`,
           ["Z2n58m2i4jg"]
         ),
-        3
+        2
       )
     );
 
@@ -330,7 +330,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
           Return to the starting position, lower yourself, then push up and rotate till your left hand points toward the ceiling.`,
           ["qHQ_E-f5278"]
         ),
-        3
+        2
       )
     );
 
@@ -350,7 +350,7 @@ export class WorkoutRunnerComponent implements OnInit, OnDestroy  {
           Keep your hips square and your neck in line with your spine. Hold the position.`,
           ["wqzrb67Dwf8", "_rdfjFSFKMY"]
         ),
-        3
+        2
       )
     );
 
