@@ -11,21 +11,24 @@
   </div>
   <div class="row">
     <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
-      <h2>Filter Workouts</h2>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="searchFilter" id="searchFilter1" (change)="completed = null" value="">
-        <label class="form-check-label" for="searchFilter1">All</label>
+      <div class="d-flex justify-content-between">
+        <h2>Filter Workouts</h2>
+        <div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="searchFilter" id="searchFilter1" (change)="completed = null"
+              value="">
+            <label class="form-check-label" for="searchFilter1">All</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="searchFilter" id="inlineRadio2" value="true" (change)="completed = $event.target.value=='true'">
+            <label class="form-check-label" for="inlineRadio2">Completed</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="searchFilter" id="inlineRadio3" value="false" (change)="completed = $event.target.value=='true'">
+            <label class="form-check-label" for="inlineRadio3">Incomplete</label>
+          </div>
+        </div>
       </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="searchFilter" id="inlineRadio2" value="true" (change)="completed = $event.target.value=='true'">
-        <label class="form-check-label" for="inlineRadio2">Completed</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="searchFilter" id="inlineRadio3" value="false"
-        (change)="completed = $event.target.value=='true'">
-        <label class="form-check-label" for="inlineRadio3">Incomplete</label>
-      </div>
-
     </div>
   </div>
   <div class="row ">
