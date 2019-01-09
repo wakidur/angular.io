@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 // app dependencies
 import { ExercisePlan } from "../workout-runner/model/model";
 import { WorkoutLogEntry } from "./model/workoutLogEntryModel";
+// Local Storage Service
 import { LocalStorageService } from "./local-storage.service";
 import { CoreModule } from "./core.module";
 
@@ -21,6 +22,7 @@ export class WorkoutHistoryTrackerService {
   private workoutHistory: Array<WorkoutLogEntry> = [];
   private workoutTracked: boolean;
   private storageKey = "workouts";
+
   constructor(private storage: LocalStorageService) {
     console.log("WorkoutHistoryTrackerService instance created.");
 

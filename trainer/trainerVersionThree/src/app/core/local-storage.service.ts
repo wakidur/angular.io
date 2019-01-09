@@ -10,7 +10,7 @@ export class LocalStorageService {
 
   /**
    *  getItem
-   */
+  */
   public getItem<T>(key: string): T {
     if (localStorage[key]) {
       return <T>JSON.parse(localStorage[key]);

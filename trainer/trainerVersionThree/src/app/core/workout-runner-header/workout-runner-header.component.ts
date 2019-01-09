@@ -15,8 +15,14 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((e: NavigationEnd) => {
-        this.showHistoryLink = !e.url.startsWith("/workout");
-        this.showWorkoutLink = e.url.startsWith("/workout");
+        if (e.url.startsWith("/workout")) {
+          this.showHistoryLink = !e.url.startsWith("/workout");
+          this.showWorkoutLink = !e.url.startsWith("/workout");
+        } else if (e.url.startsWith("/history")) {
+          this.showHistoryLink = !e.url.startsWith("/history");
+          this.showWorkoutLink = !e.url.startsWith("/workout");
+        } else {
+        }
       });
   }
   ngOnInit() {}

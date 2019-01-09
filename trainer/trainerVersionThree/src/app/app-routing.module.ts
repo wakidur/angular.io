@@ -21,12 +21,12 @@ import { WorkoutHistoryComponent } from "./workout-history/workout-history.compo
  * causing the app to navigate to the start page (defined in the redirectTo property).
  */
 const routes: Routes = [
-  { path: "start", component: StartComponent },
-  { path: "workout", component: WorkoutRunnerComponent },
-  { path: "finish", component: FinishComponent },
-  { path: "dashboard", component: DashboardComponent },
-  { path: "history", component: WorkoutHistoryComponent },
-  { path: "**", redirectTo: "/start" }
+  { path: "start", component: StartComponent, data: { title: "Start" } },
+  { path: "workout", component: WorkoutRunnerComponent, data: { title: "Workout" } },
+  { path: "finish", component: FinishComponent, data: { title: "Finish" }  },
+  { path: "dashboard", component: DashboardComponent, data: { title: "Dashboard" }  },
+  { path: "history", component: WorkoutHistoryComponent, data: { title: "History" }  },
+  { path: "**", redirectTo: "/start", pathMatch: "full" }
 ];
 
 /**

@@ -1,3 +1,61 @@
+.image-container {
+  margin: 25px auto;
+  width: 540px;
+  height: 360px;
+  cursor: pointer;
+}
+
+.video-image {
+  height: 165px;
+}
+
+.fade.in {
+  opacity: 1;
+}
+
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+
+.modal-backdrop .fade .in {
+  opacity: 0.5 !important;
+}
+
+.modal-backdrop.fade {
+  opacity: 0.5 !important;
+}
+
+#pause-overlay {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 10;
+}
+
+#pause-overlay:hover {
+  opacity: .8;
+}
+
+#pause-overlay .pause {
+  font-size: 120pt;
+  width: 140px;
+  height: 140px;
+  color: #4eaded;
+}
+
+.absolute-center {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
 /* Admin Basic */
 .fixed-sidebar-left {
   position: fixed;
@@ -126,7 +184,7 @@
   background: rgba(33, 33, 33, 0.05);
 }
 
-.fixed-sidebar-left .side-nav >li > .collapse > ul > li.nav-item a.nav-link {
+.fixed-sidebar-left .side-nav>li>.collapse>ul>li.nav-item a.nav-link {
   padding: 7px 15px 7px 51px;
   display: block;
   color: #878787;
