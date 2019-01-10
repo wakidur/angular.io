@@ -1,5 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { FormsModule }   from '@angular/forms';
 
 // AppRoutingModule
 import { AppRoutingModule } from "./app-routing.module";
@@ -12,6 +13,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 import { WorkoutHistoryComponent } from "./workout-history/workout-history.component";
+import { WorkoutHistoryDialogComponent } from "./workout-history/workout-history-dialog/workout-history-dialog.component";
 
 @NgModule({
   declarations: [
@@ -19,16 +21,21 @@ import { WorkoutHistoryComponent } from "./workout-history/workout-history.compo
     StartComponent,
     FinishComponent,
     DashboardComponent,
-    WorkoutHistoryComponent
+    WorkoutHistoryComponent,
+    WorkoutHistoryDialogComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     WorkoutRunnerModule,
     CoreModule,
     SharedModule
   ],
   providers: [],
+  entryComponents: [
+    WorkoutHistoryDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

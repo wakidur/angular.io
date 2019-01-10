@@ -7,3 +7,12 @@ export class WorkoutLogEntry  {
     public endedOn?: Date
   ) {}
 }
+
+
+export class WorkoutLogEntryForm  {
+    public startedOn: Date;
+    public completed: boolean ;
+    public exercisesDone: number ;
+    public lastExercise?: string;
+    public endedOn?: Date;
+}

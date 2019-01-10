@@ -31,5 +31,7 @@ export class VideoDialogContext extends BSModalContext {
     this.size = "lg";
     this.isBlocking = true;
     this.dialogClass = "modal-dialog";
+    this.keyboard = 27;
+    this.message = "Hello world";
   }
 }

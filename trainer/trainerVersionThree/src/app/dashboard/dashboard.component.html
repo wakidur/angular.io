@@ -4,14 +4,14 @@
   <div class="la-anim-1"></div>
 </div>
 <!--/Preloader-->
-<div class="wrapper theme-1-active pimary-color-red ">
+<div class="wrapper theme-1-active pimary-color-red " [ngClass]="{'slide-nav-toggle': leftSlideNavtoggle}">
   <!-- Top Menu Items -->
   <nav class="navbar fixed-top navbar-light bg-light navbar-expand-lg ">
     <a class="navbar-brand" href="#">
-      <img src="/assets/images/logo.png" width="21" height="22" class="d-inline-block align-top" alt="">
-      Bootstrap
+      <img src="/assets/images/logo.png" width="21" height="22" class="d-inline-block align-top mt-1 mr-2" alt="">
+       <span class="brand-text"> Bootstrap </span>
     </a>
-    <button class="btn btn-success ml-auto bg-transparent border-0 btn-link">
+    <button class="btn btn-success ml-auto bg-transparent border-0 btn-link" (click)="toggleLeftSlideNav()">
       <i class="fa fa-bars"></i>
     </button>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -76,8 +76,8 @@
             </div>
           </div>
         </a>
-        <div class="collapse" id="collapseDashboard">
-          <ul class="nav flex-column collapse-level-1">
+         <div class="collapse" id="collapseDashboard">
+          <ul class="nav flex-column  collapse-level-1">
             <li class="nav-item">
               <a class="nav-link" href="#">Active</a>
             </li>
@@ -91,7 +91,7 @@
               <a class="nav-link " href="#">Disabled</a>
             </li>
           </ul>
-        </div>
+         </div>
 
       </li>
       <li class="nav-item">
@@ -110,7 +110,7 @@
           </div>
         </a>
         <div class="collapse" id="collapseECommerce">
-          <ul class="nav flex-column">
+          <ul class="nav flex-column collapse-level-1">
             <li class="nav-item">
               <a class="nav-link active" href="#">Active</a>
             </li>
@@ -144,7 +144,7 @@
 
         </a>
         <div class="collapse" id="collapseApps">
-          <ul class="nav flex-column">
+          <ul class="nav flex-column collapse-level-1">
             <li class="nav-item">
               <a class="nav-link active" href="#">Active</a>
             </li>
@@ -177,7 +177,7 @@
           </div>
         </a>
         <div class="collapse" id="collapseWidgets">
-          <ul class="nav flex-column ">
+          <ul class="nav flex-column collapse-level-1">
             <li class="nav-item">
               <a class="nav-link active" href="#">Active</a>
             </li>
@@ -210,7 +210,7 @@
           </div>
         </a>
         <div class="collapse" id="collapseUIElements">
-          <ul class="nav flex-column">
+          <ul class="nav flex-column collapse-level-1">
             <li class="nav-item">
               <a class="nav-link active" href="#">Active</a>
             </li>
