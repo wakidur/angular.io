@@ -1,4 +1,4 @@
-export class WorkoutLogEntry  {
+export class WorkoutLogEntry {
   constructor(
     public startedOn: Date,
     public completed: boolean = false,
@@ -8,11 +8,10 @@ export class WorkoutLogEntry  {
   ) {}
 }
 
-
-export class WorkoutLogEntryForm  {
-    public startedOn: Date;
-    public completed: boolean ;
-    public exercisesDone: number ;
-    public lastExercise?: string;
-    public endedOn?: Date;
+export class WorkoutLogEntryForm {
+  public startedOn: Date;
+  public completed: boolean;
+  public exercisesDone: number;
+  public lastExercise?: string;
+  public endedOn?: Date;
 }

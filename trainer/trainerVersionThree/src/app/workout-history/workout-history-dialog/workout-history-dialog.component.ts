@@ -17,7 +17,7 @@ export class WorkoutHistoryDialogComponent implements OnInit {
   historyItem: Array<WorkoutLogEntry> = [];
   historyItemDeleteValue: WorkoutLogEntry;
   historyItemUpdateValue: WorkoutLogEntry;
-  modelUpdate = new  WorkoutLogEntryForm;
+  modelUpdate = new WorkoutLogEntryForm;
 
 
   constructor(
