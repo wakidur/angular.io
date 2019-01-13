@@ -3,18 +3,22 @@ import { CommonModule } from "@angular/common";
 
 import { OrderByPipe } from "./order-by.pipe";
 import { SearchPipe } from "./search.pipe";
+import { MyAudioDirective } from "./my-audio.directive";
+import { WorkoutAudioDirective } from "./workout-audio.directive";
 
 @NgModule({
   declarations: [
     OrderByPipe,
-    SearchPipe
+    SearchPipe,
+    MyAudioDirective,
+    WorkoutAudioDirective
   ],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [
     OrderByPipe,
-    SearchPipe
-  ]
+    SearchPipe,
+    MyAudioDirective,
+    WorkoutAudioDirective
+    ]
 })
 export class SharedModule {}

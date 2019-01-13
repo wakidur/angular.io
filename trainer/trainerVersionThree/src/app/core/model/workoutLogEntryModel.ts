@@ -8,6 +8,7 @@ export class WorkoutLogEntry {
   ) {}
 }
 
+
 export class WorkoutLogEntryForm {
   public startedOn: Date;
   public completed: boolean;
