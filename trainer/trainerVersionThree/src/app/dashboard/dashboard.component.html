@@ -4,12 +4,12 @@
   <div class="la-anim-1"></div>
 </div>
 <!--/Preloader-->
-<div class="wrapper theme-1-active pimary-color-red " [ngClass]="{'slide-nav-toggle': leftSlideNavtoggle}">
+<div class="wrapper theme-1-active pimary-color-red " [ngClass]="{'slide-nav-toggle': leftSlideNavtoggle, 'open-right-sidebar': rightSlideNavtoggle}">
   <!-- Top Menu Items -->
-  <nav class="navbar fixed-top navbar-light bg-light navbar-expand-lg ">
+  <nav class="navbar fixed-top navbar-dark bg-dark navbar-expand-lg ">
     <a class="navbar-brand" href="#">
       <img src="/assets/images/logo.png" width="21" height="22" class="d-inline-block align-top mt-1 mr-2" alt="">
-       <span class="brand-text"> Bootstrap </span>
+      <span class="brand-text"> Bootstrap </span>
     </a>
     <button class="btn btn-success ml-auto bg-transparent border-0 btn-link" (click)="toggleLeftSlideNav()">
       <i class="fa fa-bars"></i>
@@ -20,23 +20,49 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="form-inline my-2 my-lg-0 mx-2">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+          <a class="nav-link" href="#">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-th" aria-hidden="true"></i></a>
+          <a class="nav-link" href="#">Settings</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
-            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item ">
+          <a class="nav-link"  (click)="toggleRightSlideNav()">
+            <i class="fa fa-cog" aria-hidden="true"></i>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="navbarApps" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-th" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarApps">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="navbarSatting" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarSatting">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="navbarNotification" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i class="fa fa-bell" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotification">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
@@ -44,12 +70,12 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-bell" aria-hidden="true"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-user" aria-hidden="true"></i></a>
+          <a class="nav-link" href="javascript:void(0);" tabindex="-1" aria-disabled="true">
+            <i class="fa fa-user" aria-hidden="true"></i>
+          </a>
         </li>
       </ul>
+
     </div>
   </nav>
   <!-- /Top Menu Items -->
@@ -62,21 +88,21 @@
         <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#collapseDashboard" role="button" aria-expanded="false"
+        <a class="nav-link active" data-toggle="collapse" href="#collapseDashboard" role="button" aria-expanded="false"
           aria-controls="collapseDashboard">
           <div class="d-flex justify-content-between">
-            <div class="left-icon-name">
+            <div class="left-icon">
               <!-- <i class="zmdi zmdi-landscape mr-20"></i> -->
               <i class="fa fa-tachometer mr-4" aria-hidden="true"></i>
               <span class="right-nav-text">Dashboard</span>
             </div>
-            <div class="right-icon-name">
+            <div class="right-icon">
               <i class="fa fa-caret-down" aria-hidden="true"></i>
               <!-- <i class="fa fa-caret-up" aria-hidden="true"></i> -->
             </div>
           </div>
         </a>
-         <div class="collapse" id="collapseDashboard">
+        <div class="collapse" id="collapseDashboard">
           <ul class="nav flex-column  collapse-level-1">
             <li class="nav-item">
               <a class="nav-link" href="#">Active</a>
@@ -91,7 +117,7 @@
               <a class="nav-link " href="#">Disabled</a>
             </li>
           </ul>
-         </div>
+        </div>
 
       </li>
       <li class="nav-item">
@@ -248,7 +274,49 @@
   <!-- /Left Sidebar Menu -->
 
   <!-- Right Sidebar Menu -->
-  <div class="fixed-sidebar-right"></div>
+  <div class="fixed-sidebar-right">
+    <div class="right-sidebar">
+        <div class="tab-struct custom-tab-1">
+            <ul class="nav nav-tabs" id="right_sidebar_tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="chat_tab_btn" data-toggle="tab" href="#chat_tab" role="tab" aria-controls="chat" aria-selected="true">chat</a>
+
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="messages_tab_btn" data-toggle="tab" href="#messages_tab" role="tab" aria-controls="messages" aria-selected="false">messages</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="todo_tab_btn" data-toggle="tab" href="#todo_tab" role="tab" aria-controls="todo" aria-selected="false">todo</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="right_sidebar_content">
+                <div class="tab-pane fade show active"  id="chat_tab" role="tabpanel" aria-labelledby="chat_tab_btn">
+                    chat
+                </div>
+                <div class="tab-pane fade" id="messages_tab" role="tabpanel" aria-labelledby="messages_tab_btn">
+                    messages
+                </div>
+                <div class="tab-pane fade" id="todo_tab" role="tabpanel" aria-labelledby="todo_tab_btn">
+                    todo
+                </div>
+              </div>
+        </div>
+    </div>
+      <ul class="nav nav-tabs right-sidebar">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+  </div>
   <!-- /Right Sidebar Menu -->
 
   <!-- Right Setting Menu -->

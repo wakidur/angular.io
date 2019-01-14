@@ -7,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class DashboardComponent implements OnInit {
   leftSlideNavtoggle = false;
+  rightSlideNavtoggle = false;
   constructor() {}
 
   ngOnInit() {}
@@ -16,5 +17,12 @@ export class DashboardComponent implements OnInit {
    */
   public toggleLeftSlideNav() {
     this.leftSlideNavtoggle = !this.leftSlideNavtoggle;
+  }
+
+  /**
+   * toggleRightSlideNav
+   */
+  public toggleRightSlideNav() {
+    this.rightSlideNavtoggle = !this.rightSlideNavtoggle;
   }
 }
