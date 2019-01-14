@@ -18,7 +18,7 @@ import { Directive, ElementRef } from "@angular/core";
   exportAs: "MyAudio"
 })
 export class MyAudioDirective {
-  private audioPlayer: HTMLAudioElement;
+  public audioPlayer: HTMLAudioElement;
   constructor(public element: ElementRef) {
     this.audioPlayer = element.nativeElement;
   }

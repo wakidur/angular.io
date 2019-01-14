@@ -2,7 +2,7 @@
 import { Injectable } from "@angular/core";
 
 // app dependencies
-import { ExercisePlan } from "../workout-runner/model/model";
+import { ExercisePlan } from "./model/workoutModel";
 import { WorkoutLogEntry } from "./model/workoutLogEntryModel";
 // Local Storage Service
 import { LocalStorageService } from "./local-storage.service";
