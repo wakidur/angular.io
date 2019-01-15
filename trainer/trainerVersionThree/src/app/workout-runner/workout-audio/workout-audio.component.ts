@@ -12,6 +12,19 @@ import {
   styles: []
 })
 export class WorkoutAudioComponent implements OnInit {
+  /**
+   * The @ViewChild decorator instructs the Angular DI framework to search
+   * for some specific child component/directive/element in the component tree and inject it into the parent.
+   * Angular injects the directive (MyAudioDirective) into the WorkoutAudioComponent property: ticks.
+   * The search is done based on the selector passed to the @ViewChild decorator.
+   * @ViewChild('ticks') private ticks: MyAudioDirective;
+   * The selector parameter on ViewChild can be a string value,
+   * in which case Angular searches for a matching template variable
+   *
+   * it can be a type
+   * This is valid and should inject an instance of MyAudioDirective
+   * @ViewChild(MyAudioDirective) private ticks: MyAudioDirective
+   */
   @ViewChild("ticks")  private ticks: MyAudioDirective;
   @ViewChild("nextUp") private nextUp: MyAudioDirective;
   @ViewChild("nextUpExercise") private nextUpExercise: MyAudioDirective;

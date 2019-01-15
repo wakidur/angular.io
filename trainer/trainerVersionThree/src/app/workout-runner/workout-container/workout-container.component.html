@@ -1,16 +1,7 @@
-<!-- <app-workout-runner (exercisePaused)="wa.stop()"
-                (exerciseResumed)="wa.resume()"
-                (exerciseProgress)="wa.onExerciseProgress($event)"
-                (exerciseChanged)="wa.onExerciseChanged($event)"
-                (workoutComplete)="wa.stop()"
-                (workoutStarted)="wa.resume()">
-</app-workout-runner>
-<app-workout-audio #wa></app-workout-audio> -->
 
 <div class="container">
   <app-workout-runner-header></app-workout-runner-header>
   <main role="main">
-
     <div class="row pt-4">
       <div id="description-panel" class="col-sm-3">
         <app-exercise-description [description]="currentExercise.exercise.description" [steps]="currentExercise.exercise.procedure"></app-exercise-description>

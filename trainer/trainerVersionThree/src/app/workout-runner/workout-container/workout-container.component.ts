@@ -34,6 +34,9 @@ export class WorkoutContainerComponent implements OnInit, OnDestroy {
   exerciseTrackingInterval: number;
   workoutPaused: boolean;
 
+  /**
+   * Exposing WorkoutRunnerComponent events
+   */
   @Output() exercisePaused: EventEmitter<number> = new EventEmitter<number>();
   @Output() exerciseResumed: EventEmitter<number> = new EventEmitter<number>();
   @Output() exerciseProgress: EventEmitter<ExerciseProgressEvent> = new EventEmitter<ExerciseProgressEvent>();
@@ -71,6 +74,9 @@ export class WorkoutContainerComponent implements OnInit, OnDestroy {
     this.workoutTimeRemaining = this.workoutPlan.totalWorkoutDuration();
     this.currentExerciseIndex = 0;
     this.startExercise(this.workoutPlan.exercises[this.currentExerciseIndex]);
+
+    // We use the emit function of  EventEmitter
+    // to raise a workoutStarted event with the current workout plan as an argument.
     this.workoutStarted.emit(this.workoutPlan);
   }
 
@@ -95,11 +101,11 @@ export class WorkoutContainerComponent implements OnInit, OnDestroy {
             this.currentExerciseIndex++;
           }
           this.startExercise(next);
-          this.exerciseChanged.emit(
-            new ExerciseChangedEvent(next, this.getNextExercise())
-          );
+          // raise events for expose
+          this.exerciseChanged.emit( new ExerciseChangedEvent(next, this.getNextExercise()) );
         } else {
           this.tracker.endTracking(true);
+          // raise events for expose
           this.workoutComplete.emit(this.workoutPlan);
           this.router.navigate(["/finish"]);
         }
@@ -107,6 +113,7 @@ export class WorkoutContainerComponent implements OnInit, OnDestroy {
       }
       ++this.exerciseRunningDuration;
       --this.workoutTimeRemaining;
+      // raise events for expose
       this.exerciseProgress.emit(
         new ExerciseProgressEvent(
           this.currentExercise,

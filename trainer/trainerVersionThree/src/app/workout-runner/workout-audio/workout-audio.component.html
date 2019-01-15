@@ -1,3 +1,10 @@
+<!--
+
+  * Angular injects the directive (MyAudioDirective) into the WorkoutAudioComponent property: ticks.
+  * The search is done based on the selector passed to the @ViewChild decorator.
+  * @ViewChild('ticks') private ticks: MyAudioDirective;
+ -->
+
 <audio  #ticks="MyAudio"  loop src="/assets/audio/tick10s.mp3"></audio>
 <audio #nextUp="MyAudio" src="/assets/audio/nextup.mp3"></audio>
 <audio #nextUpExercise="MyAudio" [src]="'/assets/audio/' + ( nextupSound ||'jumpingjacks.wav')"></audio>
