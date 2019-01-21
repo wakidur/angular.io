@@ -17,6 +17,13 @@ ng generate component start -is
 ng generate component finish -is 
 ng g c video-dialog -is
 
+ng g c workout-builder -is
+ng g c exercise -is
+ng g c exercises -is
+ng g c workout -is
+ng g c workouts -is
+
+
 ng g c workout-history -is
 
 ng serve --open
@@ -34,6 +41,9 @@ ng g s local-storage
 ## ng generate directive 
 ng g d workout-audio
 ng g d my-audio
+
+#routing
+ng g m workout-builder --routing
 
 
 

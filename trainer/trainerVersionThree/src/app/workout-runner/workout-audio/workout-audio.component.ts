@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { MyAudioDirective } from "../../shared/my-audio.directive";
+import { WorkoutAudioDirective } from "../../shared/workout-audio.directive";
 import {
   ExerciseProgressEvent,
   ExerciseChangedEvent
@@ -25,11 +26,20 @@ export class WorkoutAudioComponent implements OnInit {
    * This is valid and should inject an instance of MyAudioDirective
    * @ViewChild(MyAudioDirective) private ticks: MyAudioDirective
    */
-  @ViewChild("ticks")  private ticks: MyAudioDirective;
+
+  // MyAudioDirective
+
+ /* @ViewChild("ticks")  private ticks: MyAudioDirective;
   @ViewChild("nextUp") private nextUp: MyAudioDirective;
   @ViewChild("nextUpExercise") private nextUpExercise: MyAudioDirective;
   @ViewChild("halfway") private halfway: MyAudioDirective;
   @ViewChild("aboutToComplete") private aboutToComplete: MyAudioDirective;
+*/
+  @ViewChild("ticks")  private ticks: WorkoutAudioDirective;
+  @ViewChild("nextUp") private nextUp: WorkoutAudioDirective;
+  @ViewChild("nextUpExercise") private nextUpExercise: WorkoutAudioDirective;
+  @ViewChild("halfway") private halfway: WorkoutAudioDirective;
+  @ViewChild("aboutToComplete") private aboutToComplete: WorkoutAudioDirective;
   public nextupSound: string;
 
   constructor() {}
@@ -43,6 +53,7 @@ export class WorkoutAudioComponent implements OnInit {
     this.aboutToComplete.stop();
     this.nextUpExercise.stop();
   }
+
   resume() {
     this.ticks.start();
     if (this.nextUp.currentTime > 0 && !this.nextUp.playbackComplete) {

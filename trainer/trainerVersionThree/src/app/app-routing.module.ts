@@ -6,10 +6,10 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { WorkoutRunnerComponent } from "./workout-runner/workout-runner.component";
-import { WorkoutContainerComponent } from "./workout-runner/workout-container/workout-container.component";
 import { StartComponent } from "./start/start.component";
 import { FinishComponent } from "./finish/finish.component";
 import { WorkoutHistoryComponent } from "./workout-history/workout-history.component";
+import { WorkoutBuilderComponent } from "./workout-builder/workout-builder.component";
 
 /**
  * Routes (use configurations)
@@ -24,10 +24,10 @@ import { WorkoutHistoryComponent } from "./workout-history/workout-history.compo
 const routes: Routes = [
   { path: "start", component: StartComponent, data: { title: "Start" } },
   { path: "workout", component: WorkoutRunnerComponent, data: { title: "Workout" } },
-  { path: "workout-container", component: WorkoutContainerComponent, data: { title: "Workout Container" } },
   { path: "finish", component: FinishComponent, data: { title: "Finish" }  },
   { path: "dashboard", component: DashboardComponent, data: { title: "Dashboard" }  },
   { path: "history", component: WorkoutHistoryComponent, data: { title: "History" }  },
+  { path: "builder", loadChildren: "./workout-builder/workout-builder.module#WorkoutBuilderModule" },
   { path: "**", redirectTo: "/start", pathMatch: "full" }
 ];
 

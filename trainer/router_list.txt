@@ -1,0 +1,15 @@
+Route
+
+/start
+/workout
+/finish
+/dashboard
+/history
+
+/builder
+/builder/workouts
+/builder/workout/new
+/builder/workout/:id
+/builder/exercises
+/builder/exercise/new
+/builder/exercise/:id

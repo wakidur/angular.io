@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from "@angular/forms";
 
 // AppRoutingModule
 import { AppRoutingModule } from "./app-routing.module";
@@ -14,6 +14,7 @@ import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 import { WorkoutHistoryComponent } from "./workout-history/workout-history.component";
 import { WorkoutHistoryDialogComponent } from "./workout-history/workout-history-dialog/workout-history-dialog.component";
+
 
 @NgModule({
   declarations: [
