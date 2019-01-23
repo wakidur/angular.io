@@ -20,6 +20,14 @@ import { WorkoutComponent } from "./workout/workout.component";
 import { ExercisesComponent } from "./exercises/exercises.component";
 import { ExerciseComponent } from "./exercise/exercise.component";
 
+/**
+ * Application Service List
+ *
+ * WorkoutBuilderService
+ */
+import { WorkoutResolverGuard } from "./workout/workout-resolver.guard";
+
+
 // Child Routes
 const routes: Routes = [
   {
@@ -39,11 +47,13 @@ const routes: Routes = [
       {
         path: "workout/new",
         component: WorkoutComponent,
+        resolve: { workout: WorkoutResolverGuard },
         data: {title: "Create new workout"}
       },
       {
         path: "workout/:id",
         component: WorkoutComponent,
+        resolve: { workout: WorkoutResolverGuard },
         data: {title: "Workout"}
       },
       {

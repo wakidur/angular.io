@@ -46,5 +46,8 @@ ng g d my-audio
 #routing
 ng g m workout-builder --routing
 
+// ng generate guard [name]     generates a guard
+workout.resolver
+
 
 

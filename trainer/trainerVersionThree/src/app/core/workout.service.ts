@@ -36,6 +36,18 @@ export class WorkoutService {
     return this.workouts;
   }
 
+  /**
+   * getWorkout
+   */
+  public getWorkout(name: string) {
+    for (const workout of this.workouts) {
+      if (workout.name === name) {
+        return workout;
+      }
+    }
+    return null;
+  }
+
   private setupInitialExercises() {
     this.exercises.push(
       new Exercise(
@@ -227,30 +239,44 @@ export class WorkoutService {
   private setupInitialWorkouts() {
     const exercises = this.getExercises();
     const workout = new WorkoutPlan("7MinWorkout", "7 Minute Workout", 10, []);
-
-    for (const i in exercises) {
-        // const element = exercises[key];
-        if (exercises.hasOwnProperty(i)) {
-          workout.exercises.push( new ExercisePlan( exercises[i], 30) );
-        }
+    // practice 22-01-2019
+    for (const exercise of this.exercises) {
+      workout.exercises.push(new ExercisePlan(exercise, 30));
     }
-  // for (let index = 0; index < exercises.length; index++) {
-  //   const element = exercises[index];
-  //   console.log(element);
-  //   workout.exercises.push(new ExercisePlan(exercises[index], 30));
-  // }
-    // workout.exercises.push(new ExercisePlan(exercises[0], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[1], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[2], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[3], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[4], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[5], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[6], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[7], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[8], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[9], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[10], 30));
-    // workout.exercises.push(new ExercisePlan(exercises[11], 30));
     this.workouts.push(workout);
+    /*
+      // practice 22-01-2019
+      for (const i in exercises) {
+        if (exercises.hasOwnProperty(i)) {
+          workout.exercises.push(new ExercisePlan(exercises[i], 30));
+        }
+      }
+    */
+
+    /*
+      // practice 22-01-2019
+      for (let index = 0; index < exercises.length; index++) {
+        const element = exercises[index];
+        console.log(element);
+        workout.exercises.push(new ExercisePlan(exercises[index], 30));
+      }
+    */
+
+    /*
+      // practice 22-01-2019
+      workout.exercises.push(new ExercisePlan(exercises[0], 30));
+      workout.exercises.push(new ExercisePlan(exercises[1], 30));
+      workout.exercises.push(new ExercisePlan(exercises[2], 30));
+      workout.exercises.push(new ExercisePlan(exercises[3], 30));
+      workout.exercises.push(new ExercisePlan(exercises[4], 30));
+      workout.exercises.push(new ExercisePlan(exercises[5], 30));
+      workout.exercises.push(new ExercisePlan(exercises[6], 30));
+      workout.exercises.push(new ExercisePlan(exercises[7], 30));
+      workout.exercises.push(new ExercisePlan(exercises[8], 30));
+      workout.exercises.push(new ExercisePlan(exercises[9], 30));
+      workout.exercises.push(new ExercisePlan(exercises[10], 30));
+      workout.exercises.push(new ExercisePlan(exercises[11], 30));
+    */
+
   }
 }
