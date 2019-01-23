@@ -1,6 +1,19 @@
+/**
+ * Frameworks dependency
+ */
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
+/**
+ * Application Component List
+ *
+ * WorkoutBuilderComponent
+ * WorkoutsComponent
+ * WorkoutComponent
+ * ExercisesComponent
+ * ExerciseComponent
+ *
+ */
 import { WorkoutBuilderComponent } from "./workout-builder.component";
 import { WorkoutsComponent } from "./workouts/workouts.component";
 import { WorkoutComponent } from "./workout/workout.component";

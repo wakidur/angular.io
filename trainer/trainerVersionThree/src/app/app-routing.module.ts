@@ -21,6 +21,12 @@ import { WorkoutBuilderComponent } from "./workout-builder/workout-builder.compo
  * Any navigation that does not match one of the first three routes matches the catch-all route,
  * causing the app to navigate to the start page (defined in the redirectTo property).
  */
+
+ /**
+  * loadChildren
+  * module file path + # + module name
+  *
+  */
 const routes: Routes = [
   { path: "start", component: StartComponent, data: { title: "Start" } },
   { path: "workout", component: WorkoutRunnerComponent, data: { title: "Workout" } },

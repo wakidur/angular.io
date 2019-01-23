@@ -34,9 +34,10 @@ ng generate component video-player -is
 ## ng generate pipe
 ng generate pipe seconds-to-time
 
-## ng generate s
+## ng generate service
 ng g s workout-history-tracker
 ng g s local-storage
+ng g s workout
 
 ## ng generate directive 
 ng g d workout-audio
