@@ -1,5 +1,10 @@
 /**
  * Frameworks dependency
+ *
+ * FormsModule
+ * This brings in all that we will need to implement our form including
+ * •	NgForm
+ * •	ngModel
  */
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
