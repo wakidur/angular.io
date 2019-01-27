@@ -31,6 +31,7 @@ export class WorkoutBuilderService {
       this.buildingWorkout = this.workoutService.getWorkout(name);
       this.newWorkout = false;
     } else {
+      const exerciseArray: ExercisePlan[] = [];
       this.buildingWorkout = new WorkoutPlan("", "", 30, []);
       this.newWorkout = true;
     }
@@ -79,4 +80,14 @@ export class WorkoutBuilderService {
     );
   }
 
+  /**
+   * save
+   */
+  public save() {
+    const workout = this.newWorkout
+      ? this.workoutService.addWorkout(this.buildingWorkout)
+      : this.workoutService.updateWorkout(this.buildingWorkout);
+    this.newWorkout = false;
+    return workout;
+  }
 }

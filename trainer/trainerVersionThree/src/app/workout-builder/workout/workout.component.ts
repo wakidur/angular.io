@@ -2,7 +2,7 @@
  * Frameworks dependency
  */
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute, ActivationEnd } from "@angular/router";
+import { ActivatedRoute, ActivationEnd, Router } from "@angular/router";
 
 /**
  * Application dependency
@@ -17,8 +17,11 @@ import { WorkoutBuilderService } from "../builder-services/workout-builder.servi
   styles: []
 })
 export class WorkoutComponent implements OnInit, OnDestroy {
-  workout: WorkoutPlan;
-  sub: any;
+  public workout: WorkoutPlan;
+  public sub: any;
+  public submitted = false;
+  public removeTouched = false;
+
   durations = [
     { title: "15 seconds", value: 15 },
     { title: "30 seconds", value: 30 },
@@ -44,6 +47,7 @@ export class WorkoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private workoutBuilderService: WorkoutBuilderService
   ) {}
 
@@ -72,6 +76,7 @@ export class WorkoutComponent implements OnInit, OnDestroy {
    * removeExercise
    */
   public removeExercise(exercisePlan: ExercisePlan) {
+    this.removeTouched = true;
     this.workoutBuilderService.removeExercise(exercisePlan);
   }
   /**
@@ -80,5 +85,18 @@ export class WorkoutComponent implements OnInit, OnDestroy {
   public save(formWorkout: any) {
     console.log("Submitted");
     console.log(this.workout);
+    this.submitted = true;
+    if (!formWorkout.valid) {
+      return;
+    }
+    this.workoutBuilderService.save();
+    this.router.navigate(["/builder/workouts"]);
+  }
+  /**
+   * cancel
+   */
+  public cancel(formWorkout: any) {
+    this.submitted = false;
+    formWorkout.cancel();
   }
 }

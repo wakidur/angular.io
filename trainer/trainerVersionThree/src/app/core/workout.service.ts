@@ -30,6 +30,57 @@ export class WorkoutService {
   }
 
   /**
+   * getExercise
+   */
+  public getExercise(exerciseName: string) {
+    for (const exercise of this.exercises) {
+      if (exercise.name === exerciseName) {
+        return exercise;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * updateExercise
+   */
+  public updateExercise(exercise: Exercise) {
+    for (let index = 0; index < this.exercises.length; index++) {
+      if (this.exercises[index].name === exercise.name) {
+        this.exercises[index] = exercise;
+      } else {
+        return "Update value not found";
+      }
+    }
+    return exercise;
+  }
+
+  /**
+   * addExercise
+   */
+  public addExercise(exercise: Exercise) {
+    if (exercise.name) {
+      this.exercises.push(exercise);
+      return exercise;
+    }
+  }
+
+  /**
+   * deleteExercise
+   */
+  public deleteExercise(exerciseName: string) {
+    let exerciseIndex: number;
+    for (let index = 0; index < this.exercises.length; index++) {
+      if (this.exercises[index].name === exerciseName) {
+        exerciseIndex = index;
+      }
+    }
+    if (exerciseIndex >= 0) {
+      this.exercises.splice(exerciseIndex, 1);
+    }
+  }
+
+  /**
    * getWorkouts
    */
   public getWorkouts() {
@@ -47,6 +98,28 @@ export class WorkoutService {
     }
     return null;
   }
+
+  /**
+   * addWorkout
+   */
+  public addWorkout(workout: WorkoutPlan) {
+    if (workout.name) {
+      this.workouts.push(workout);
+      return workout;
+    }
+  }
+  /**
+   * updateWorkout
+   */
+  public updateWorkout(workout: WorkoutPlan) {
+    for (let index = 0; index < this.workouts.length; index++) {
+      if (this.workouts[index].name === workout.name) {
+        this.workouts[index] = workout;
+        break;
+      }
+    }
+  }
+
 
   private setupInitialExercises() {
     this.exercises.push(
