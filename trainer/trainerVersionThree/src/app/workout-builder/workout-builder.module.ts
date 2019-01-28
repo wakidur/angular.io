@@ -8,7 +8,7 @@
  */
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 /**
  * Application dependency Module
@@ -47,7 +47,10 @@ import { TopNavMainComponent } from "./navigation/top-nav-main/top-nav-main.comp
  * WorkoutBuilderService
  */
 import { WorkoutBuilderService } from "./builder-services/workout-builder.service";
+import { ExerciseBuilderService } from "./builder-services/exercise-builder.service";
 import { WorkoutResolverGuard } from "./workout/workout-resolver.guard";
+import { ExerciseResolverGuard } from "./exercise/exercise-resolver.guard";
+
 
 @NgModule({
   declarations: [
@@ -63,12 +66,15 @@ import { WorkoutResolverGuard } from "./workout/workout-resolver.guard";
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     WorkoutBuilderRoutingModule
   ],
   providers: [
     WorkoutBuilderService,
-    WorkoutResolverGuard
+    ExerciseBuilderService,
+    WorkoutResolverGuard,
+    ExerciseResolverGuard
   ]
 })
 export class WorkoutBuilderModule {}

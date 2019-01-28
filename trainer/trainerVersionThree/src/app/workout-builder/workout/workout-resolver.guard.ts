@@ -41,7 +41,7 @@ export class WorkoutResolverGuard implements CanActivate, Resolve<WorkoutPlan> {
   }
 
 
-  resolve(  route: ActivatedRouteSnapshot,  state: RouterStateSnapshot ): WorkoutPlan {
+  resolve(  route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): WorkoutPlan {
     let workoutName = route.paramMap.get("id");
 
     if (!workoutName) {
@@ -49,9 +49,11 @@ export class WorkoutResolverGuard implements CanActivate, Resolve<WorkoutPlan> {
     }
 
     this.workout = this.workoutBuilderService.startBuilding(workoutName);
+
     if (this.workout) {
       return this.workout;
     } else {
+      // workoutName not found
       this.router.navigate(["/builder/workouts"]);
       return null;
     }

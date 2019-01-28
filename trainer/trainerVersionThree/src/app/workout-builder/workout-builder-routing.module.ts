@@ -26,7 +26,7 @@ import { ExerciseComponent } from "./exercise/exercise.component";
  * WorkoutBuilderService
  */
 import { WorkoutResolverGuard } from "./workout/workout-resolver.guard";
-
+import { ExerciseResolveGuard } from "./exercise/exercise-resolver.guard";
 
 // Child Routes
 const routes: Routes = [
@@ -64,11 +64,13 @@ const routes: Routes = [
       {
         path: "exercise/new",
         component: ExerciseComponent,
+        resolve: {exercise: ExerciseResolveGuard },
         data: {title: "Create new exercise"}
       },
       {
         path: "exercise/:id",
         component: ExerciseComponent,
+        resolve: {exercise: ExerciseResolveGuard },
         data: {title: "Exercise"}
       },
     ]
