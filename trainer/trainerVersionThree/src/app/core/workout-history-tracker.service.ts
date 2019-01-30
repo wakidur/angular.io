@@ -1,12 +1,19 @@
-// framework dependencies
+/**
+ * Frameworks dependency
+ */
 import { Injectable } from "@angular/core";
 
-// app dependencies
+/**
+ * App dependency
+ */
+import { CoreModule } from "./core.module";
 import { ExercisePlan } from "./model/workoutModel";
 import { WorkoutLogEntry } from "./model/workoutLogEntryModel";
-// Local Storage Service
+
+/**
+ * Local Storage Service
+ */
 import { LocalStorageService } from "./local-storage.service";
-import { CoreModule } from "./core.module";
 
 /**
  * registered WorkoutHistoryTrackerService with Angular's DI framework using the Injectable decorator
@@ -25,10 +32,8 @@ export class WorkoutHistoryTrackerService {
 
   constructor(private storage: LocalStorageService) {
     console.log("WorkoutHistoryTrackerService instance created.");
-
-    this.workoutHistory =
-      (storage.getItem<Array<WorkoutLogEntry>>(this.storageKey) || [])
-      .map((item: WorkoutLogEntry) => {
+    // Get workout history data from localStorage
+    this.workoutHistory = (storage.getItem<Array<WorkoutLogEntry>>(this.storageKey) || []).map((item: WorkoutLogEntry) => {
         item.startedOn = new Date(item.startedOn.toString());
         item.endedOn = item.endedOn == null ? null : new Date(item.endedOn.toString());
         return item;

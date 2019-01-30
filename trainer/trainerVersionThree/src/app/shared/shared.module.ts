@@ -6,6 +6,7 @@ import { SearchPipe } from "./search.pipe";
 import { MyAudioDirective } from "./my-audio.directive";
 import { WorkoutAudioDirective } from "./workout-audio.directive";
 import { SecondsToTimePipe } from "./seconds-to-time.pipe";
+import { AlphabetNumbersValidatorDirective } from "./alphabet-numbers-validator.directive";
 
 @NgModule({
   declarations: [
@@ -13,16 +14,16 @@ import { SecondsToTimePipe } from "./seconds-to-time.pipe";
     SearchPipe,
     MyAudioDirective,
     WorkoutAudioDirective,
-    SecondsToTimePipe
+    SecondsToTimePipe,
+    AlphabetNumbersValidatorDirective
   ],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [
     OrderByPipe,
     SearchPipe,
     MyAudioDirective,
     WorkoutAudioDirective,
+    AlphabetNumbersValidatorDirective,
     SecondsToTimePipe
   ]
 })

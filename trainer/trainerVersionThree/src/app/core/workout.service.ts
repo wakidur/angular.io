@@ -41,7 +41,18 @@ export class WorkoutService {
     return null;
   }
 
+
+
   /**
+   * addExercise
+   */
+  public addExercise(exercise: Exercise) {
+    if (exercise.name) {
+      this.exercises.push(exercise);
+      return exercise;
+    }
+  }
+    /**
    * updateExercise
    */
   public updateExercise(exercise: Exercise) {
@@ -54,17 +65,6 @@ export class WorkoutService {
     }
     return exercise;
   }
-
-  /**
-   * addExercise
-   */
-  public addExercise(exercise: Exercise) {
-    if (exercise.name) {
-      this.exercises.push(exercise);
-      return exercise;
-    }
-  }
-
   /**
    * deleteExercise
    */

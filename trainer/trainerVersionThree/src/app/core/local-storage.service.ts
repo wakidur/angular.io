@@ -1,5 +1,7 @@
+/**
+ * Frameworks dependency
+ */
 import { Injectable } from "@angular/core";
-
 import { CoreModule } from "./core.module";
 
 @Injectable({

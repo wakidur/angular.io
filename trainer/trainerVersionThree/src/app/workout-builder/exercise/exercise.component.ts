@@ -16,7 +16,7 @@ import {
  */
 import { Exercise } from "../../core/model/workoutModel";
 import { ExerciseBuilderService } from "../builder-services/exercise-builder.service";
-import { throwIfEmpty } from "rxjs/operators";
+import { AlphaNumericValidator, AlphaNumericValidatorCustome } from "../../shared/alphanumeric-validator";
 // import {  } from "module";
 
 @Component({
@@ -49,9 +49,12 @@ export class ExerciseComponent implements OnInit, OnDestroy {
 
   private buildExerciseForm() {
     this.exerciseForm = this.formBuilder.group({
-      name: [ this.exercise.name,  { updateOn: "blur", Validators: [Validators.required] } ],
+      name: [ this.exercise.name,  {
+        updateOn: "blur",
+        Validators: [Validators.required, AlphaNumericValidator.invalidAlphaNumeric] } ],
       title: [this.exercise.title, Validators.required],
       description: [this.exercise.description, Validators.required],
+      image: [this.exercise.image, Validators.required],
       nameSound: [this.exercise.nameSound],
       procedure: [this.exercise.procedure],
       videos: this.addVideoArray()
@@ -86,6 +89,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
       return;
     }
     this.mapFormValues(formExercise);
+    console.log(formExercise.value);
     this.exerciseBuilderService.saveExercise();
     this.router.navigate(["/builder/exercises"]);
   }
