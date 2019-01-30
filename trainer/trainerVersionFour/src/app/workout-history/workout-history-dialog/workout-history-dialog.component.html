@@ -1,0 +1,88 @@
+<div class="content">
+  <div class="modal-header">
+    <h5 class="modal-title">Workout History modal</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ok()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <!-- all history data -->
+      <div *ngIf="historyItem" class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Started</th>
+                <th>Ended</th>
+                <th scope="col">Last Exercise</th>
+                <th scope="col">Exercises Done</th>
+                <th scope="col">Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let historyitem of historyItem; let i=index">
+                <th scope="row">{{i+1}}</th>
+
+                <td>{{historyitem.startedOn | date:'short' }}</td>
+                <td>{{historyitem.endedOn | date: 'short'}}</td>
+                <td>{{historyitem.lastExercise}}</td>
+                <td>{{historyitem.exercisesDone}}</td>
+                <td>{{historyitem.completed ? "Yes" : "No"}}</td>
+
+              </tr>
+              <tr *ngIf="historyItem.length == 0" class="warning">
+                <td colspan="6">No Workout History Found.</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+
+      <!-- history delete -->
+      <pre *ngIf="historyItemDeleteValue">
+          {{historyItemDeleteValue|json}}
+      </pre>
+
+      <!-- history update -->
+      <pre *ngIf="historyItemUpdateValue">
+          <!-- {{historyItemUpdateValue|json}} -->
+      </pre>
+      <form *ngIf="historyItemUpdateValue" (ngSubmit)="onSubmit()" #historyForm="ngForm">
+
+          {{modelUpdate | json}}
+          <div class="form-group">
+            <label for="startedOn">started On</label>
+            <input
+            type="date"
+            class="form-control"
+            id="startedOn"
+            required
+            required
+           [(ngModel)]="modelUpdate.startedOn"
+           name="startedOn"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="lastExercise">last Exercise</label>
+            <input
+            type="text"
+            class="form-control"
+            id="lastExercise"
+            type="text"
+            class="form-control"
+            id="lastExercise"
+            required
+           [(ngModel)]="modelUpdate.lastExercise"
+           name="lastExercise"
+            >
+            TODO: remove this: {{modelUpdate.lastExercise}}
+          </div>
+          <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
+        </form>
+  </div>
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="ok()">Close</button>
+    <button type="button" class="btn btn-primary" >Save changes</button>
+  </div>
+</div>

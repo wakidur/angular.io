@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-2 d-none d-md-block bg-light sidebar">
+    <app-left-nav-main></app-left-nav-main>
+  </div>
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
+    <h1 class="">Workouts</h1>
+    <div class="row">
+      <div class="col-sm-6 col-md-6">
+
+
+
+
+            <div class="list-group">
+                <a style="cursor: pointer;" *ngFor="let workout of workoutList" class="list-group-item list-group-item-action" (click)="onSelect(workout)" >
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Workout name: {{workout.name}}</h5>
+                    <small> <span class="ion-md-time"></span> Duration: {{(workout.totalWorkoutDuration? workout.totalWorkoutDuration(): 0)|secondsToTime}}</small>
+                  </div>
+                  <p class="mb-1">
+                      Workout title:  {{workout.title}}
+                  </p>
+                  <small>
+                      <span class="ion-md-list"></span>
+                      Exercise Count  - {{workout.exercises.length}}
+                  </small>
+                </a>
+            </div>
+
+            <!-- <div class="list-group">
+                <a *ngFor="let workout of workoutList" class="list-group-item list-group-item-action" [routerLink]="[workout.name]" routerLinkActive="action" >
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Workout name: {{workout.name}}</h5>
+                    <small>Duration: {{(workout.totalWorkoutDuration? workout.totalWorkoutDuration(): 0)|secondsToTime}}</small>
+                  </div>
+                  <p class="mb-1">
+                      Workout title:  {{workout.title}}
+                  </p>
+                  <small>
+                      <span class="ion-md-list"></span>
+                      Exercise Count  - {{workout.exercises.length}}
+                  </small>
+                </a>
+            </div> -->
+      </div>
+    </div>
+
+
+  </main>
+</div>
+

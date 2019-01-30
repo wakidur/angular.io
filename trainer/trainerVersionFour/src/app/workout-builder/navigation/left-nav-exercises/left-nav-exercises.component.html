@@ -1,0 +1,15 @@
+<nav class="">
+  <div class="sidebar-sticky">
+    <h3>Exercises</h3>
+    <div class="list-group" >
+      <button
+      *ngFor="let item of exerciseList|orderBy: 'title'"
+       type="button"
+       class="list-group-item list-group-item-action"
+       (click)="addExercise(item)"  >
+        {{item.title}}
+        <span class="ion-ios-arrow-forward pull-right"></span>
+      </button>
+    </div>
+  </div>
+</nav>
