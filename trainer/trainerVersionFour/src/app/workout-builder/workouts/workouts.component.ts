@@ -10,7 +10,6 @@ import { Router } from "@angular/router";
 import { WorkoutPlan } from "../../core/model/workoutModel";
 import { WorkoutService } from "../../core/workout.service";
 
-
 @Component({
   selector: "app-workouts",
   templateUrl: "./workouts.component.html",
@@ -19,13 +18,16 @@ import { WorkoutService } from "../../core/workout.service";
 export class WorkoutsComponent implements OnInit {
   // Class member variable
   workoutList: Array<WorkoutPlan> = [];
-  constructor(
-    public router: Router,
-    public workoutService: WorkoutService
-  ) {}
+  constructor(public router: Router, public workoutService: WorkoutService) {}
 
   ngOnInit() {
-    this.workoutList = this.workoutService.getWorkouts();
+    // this.workoutList = this.workoutService.getWorkouts();
+    this.workoutService
+      .getWorkouts()
+      .subscribe(
+        workouts => (this.workoutList = workouts),
+        (err: any) => console.error
+      );
   }
 
   /**

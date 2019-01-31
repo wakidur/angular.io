@@ -2,9 +2,9 @@
  * Frameworks dependency
  */
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Observable, of, throwError } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 /**
  * Application dependency
  */
@@ -26,8 +26,8 @@ export class WorkoutService {
   private contactsUrlPort = "http://localhost:3000";
 
   constructor(public httpClient: HttpClient) {
-    this.setupInitialExercises();
-    this.setupInitialWorkouts();
+    // this.setupInitialExercises();
+    // this.setupInitialWorkouts();
   }
 
   static handleErrorStatuc(error: Response) {
@@ -35,26 +35,47 @@ export class WorkoutService {
     return Observable.throw(error || "Server error");
   }
 
-  private handleError(error: any) {
-    const errMsg = error.message ? error.message : error.status  ? `${error.status} - ${error.statusText}` : "Server error";
+  private handleErrors(error: any) {
+    const errMsg = error.message
+      ? error.message
+      : error.status
+      ? `${error.status} - ${error.statusText}`
+      : "Server error";
     console.error(errMsg); // log to console instead
   }
 
+  private handleError<T>(operation = "operation", result?: T) {
+    return (error: HttpErrorResponse): Observable<T> => {
+      if (error.status === 404) {
+        console.log("HTTP 404 Not found error");
+        return of(result as T);
+      } else {
+        console.error(error);
+        return throwError("An error occurred:", error.error.message);
+      }
+    };
+  }
 
   /**
    * getExercises
    */
   public getExercises() {
-    return this.httpClient.get<Exercise[]>(this.contactsUrlPort + this.contactsUrlApi + "/exercise/create")
-    .pipe(catchError(WorkoutService.handleErrorStatuc));
+    return this.httpClient
+      .get<Exercise[]>(
+        this.contactsUrlPort + this.contactsUrlApi + "/exercise/create"
+      )
+      .pipe(catchError(WorkoutService.handleErrorStatuc));
   }
 
   /**
    * getExercise
    */
   public getExercise(exerciseName: string) {
-    return this.httpClient.get(this.contactsUrlPort + this.contactsUrlApi + "/exercise/" + exerciseName )
-            .pipe(catchError(WorkoutService.handleErrorStatuc));
+    return this.httpClient
+      .get(
+        this.contactsUrlPort + this.contactsUrlApi + "/exercise/" + exerciseName
+      )
+      .pipe(catchError(WorkoutService.handleErrorStatuc));
   }
 
   /**
@@ -98,19 +119,44 @@ export class WorkoutService {
    * getWorkouts
    */
   public getWorkouts() {
-    return this.workouts;
+    return this.httpClient
+      .get<WorkoutPlan[]>(
+        this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/create"
+      )
+      .pipe(
+        map((workouts: Array<any>) => {
+          const result: Array<WorkoutPlan> = [];
+          if (workouts) {
+            workouts.forEach(workout => {
+              result.push(
+                new WorkoutPlan(
+                  workout.name,
+                  workout.title,
+                  workout.restBetweenExercise,
+                  workout.exercises,
+                  workout.description
+                )
+              );
+            });
+          }
+          return result;
+        }),
+        catchError(this.handleError<WorkoutPlan[]>("getWorkouts", []))
+      );
   }
 
   /**
    * getWorkout
    */
   public getWorkout(name: string) {
-    for (const workout of this.workouts) {
-      if (workout.name === name) {
-        return workout;
-      }
-    }
-    return null;
+    return this.httpClient
+      .get<WorkoutPlan>(
+        this.contactsUrlPort +
+          this.contactsUrlApi +
+          "/workoutplan/create" +
+          name
+      )
+      .pipe(catchError(WorkoutService.handleErrorStatuc));
   }
 
   /**

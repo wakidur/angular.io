@@ -30,7 +30,7 @@ export class ExercisesComponent implements OnInit {
    * onSelect
    */
   public onSelect(exercise: Exercise) {
-    this.router.navigate(["./builder/exercise", exercise.name]);
+     this.router.navigate(["./builder/exercise", exercise.name]);
   }
 
   /**

@@ -7,9 +7,6 @@
     <div class="row">
       <div class="col-sm-6 col-md-6">
 
-
-
-
             <div class="list-group">
                 <a style="cursor: pointer;" *ngFor="let workout of workoutList" class="list-group-item list-group-item-action" (click)="onSelect(workout)" >
                   <div class="d-flex w-100 justify-content-between">
@@ -25,6 +22,23 @@
                   </small>
                 </a>
             </div>
+            <pre>{{workoutList|json}}</pre>
+            <!-- <ul>
+              <li *ngFor="let item of workoutList">
+                name : {{item.name}}
+                description : {{item.description}}
+                description : {{item.title}}
+                restBetweenExercise : {{item.restBetweenExercise}}
+                <br>
+                <br>
+                totalWorkoutDuration:  {{item.totalWorkoutDuration}}
+                <ul>
+                  <li *ngFor="let items of item.exercises">
+                    {{items.duration}}
+                  </li>
+                </ul>
+              </li>
+            </ul> -->
 
             <!-- <div class="list-group">
                 <a *ngFor="let workout of workoutList" class="list-group-item list-group-item-action" [routerLink]="[workout.name]" routerLinkActive="action" >

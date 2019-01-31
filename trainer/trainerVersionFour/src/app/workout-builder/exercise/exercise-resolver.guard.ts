@@ -8,7 +8,8 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 
 /**
  * Application dependency
@@ -21,29 +22,36 @@ export class ExerciseResolverGuard implements Resolve<Exercise> {
   public exercise: Exercise;
 
   constructor(
-    private router: Router,
-    private exerciseBuilderService: ExerciseBuilderService
+    public exerciseBuilderService: ExerciseBuilderService,
+    public router: Router
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Exercise {
-    let exerciseName = route.paramMap.get("id");
-    const stateName = state.url;
-    if (stateName) {
-      console.log(stateName);
-    } else {
-      console.log(stateName);
-    }
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<Exercise> {
+    const exerciseName = route.paramMap.get("id");
 
     if (!exerciseName) {
-      exerciseName = "";
-    }
-    this.exercise = this.exerciseBuilderService.startBuilding(exerciseName);
-
-    if (this.exercise) {
-      return this.exercise;
+      return this.exerciseBuilderService.startBuildingNew();
     } else {
-      this.router.navigate(["/builder/exercises"]);
-      return null;
+      return this.exerciseBuilderService
+        .startBuildingExisting(exerciseName)
+        .pipe(
+          map(exercise => {
+            if (exercise) {
+              return exercise;
+            } else {
+              this.router.navigate(["/builder/exercises"]);
+              return null;
+            }
+          }),
+          catchError(error => {
+            console.log("An error occurred!");
+            this.router.navigate(["/builder/exercises"]);
+            return of(null);
+          })
+        );
     }
   }
 }

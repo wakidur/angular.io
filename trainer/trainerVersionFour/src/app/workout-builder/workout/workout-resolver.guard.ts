@@ -9,7 +9,8 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
+import { map, catchError } from "rxjs/operators";
 
 /**
  * Application dependency
@@ -40,24 +41,30 @@ export class WorkoutResolverGuard implements CanActivate, Resolve<WorkoutPlan> {
     return true;
   }
 
-
-  resolve(  route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): WorkoutPlan {
-    let workoutName = route.paramMap.get("id");
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<WorkoutPlan> {
+    const workoutName = route.paramMap.get("id");
 
     if (!workoutName) {
-      workoutName = "";
-    }
-
-    this.workout = this.workoutBuilderService.startBuilding(workoutName);
-
-    if (this.workout) {
-      return this.workout;
+      return this.workoutBuilderService.startBuildingNew();
     } else {
-      // workoutName not found
-      this.router.navigate(["/builder/workouts"]);
-      return null;
+      return this.workoutBuilderService.startBuildingExisting(workoutName).pipe(
+        map(workout => {
+          if (workout) {
+            this.workoutBuilderService.buildingWorkout = workout;
+            return workout;
+          } else {
+            this.router.navigate(["/builder/workouts"]);
+          }
+        }),
+        catchError(error => {
+          console.log("An error occurred!");
+          this.router.navigate(["/builder/workouts"]);
+          return of(null);
+        })
+      );
     }
   }
-
-
 }

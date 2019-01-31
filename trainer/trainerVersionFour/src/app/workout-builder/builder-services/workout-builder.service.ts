@@ -17,7 +17,8 @@ import { WorkoutService } from "../../core/workout.service";
 @Injectable()
 export class WorkoutBuilderService {
   // class member variable
-  buildingWorkout: WorkoutPlan;
+  // buildingWorkout: WorkoutPlan;
+  buildingWorkout: any;
   newWorkout: boolean;
   firstExercise = true;
 
@@ -36,6 +37,24 @@ export class WorkoutBuilderService {
       this.newWorkout = true;
     }
     return this.buildingWorkout;
+  }
+
+  /**
+   * startBuildingNew
+   */
+  public startBuildingNew() {
+    const exerciseArray: ExercisePlan[] = [];
+    this.buildingWorkout = new WorkoutPlan("", "", 30, exerciseArray);
+    this.newWorkout = true;
+    return this.buildingWorkout;
+  }
+
+  /**
+   * startBuildingNew
+   */
+  public startBuildingExisting(name: string) {
+    this.newWorkout = false;
+    return this.workoutService.getWorkout(name);
   }
 
   /**

@@ -11,22 +11,21 @@ import { WorkoutService } from "../../core/workout.service";
 
 @Injectable()
 export class ExerciseBuilderService {
-  public buildingExercise: Exercise;
+  public buildingExercise: any;
   public newExercise: boolean;
   constructor(private workoutService: WorkoutService) {}
 
   /**
    * startBuilding
    */
-  public startBuilding(name: string) {
-    if (name) {
-      this.buildingExercise = this.workoutService.getExercise(name);
-      this.newExercise = false;
-    } else {
-      this.buildingExercise = new Exercise("", "", "", "");
-      this.newExercise = true;
-    }
+  public startBuildingNew() {
+    this.buildingExercise = new Exercise("", "", "", "");
+    this.newExercise = true;
     return this.buildingExercise;
+  }
+  public startBuildingExisting(name: string) {
+    this.newExercise = false;
+    return this.workoutService.getExercise(name);
   }
 
   /**

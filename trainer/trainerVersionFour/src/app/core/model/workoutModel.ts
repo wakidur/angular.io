@@ -12,8 +12,7 @@ export class WorkoutPlan {
       return 0;
     }
 
-    const total = this.exercises
-      .map(e => e.duration)
+    const total = this.exercises.map(e => e.duration)
       .reduce((previous, current) => previous + current);
 
     return (
