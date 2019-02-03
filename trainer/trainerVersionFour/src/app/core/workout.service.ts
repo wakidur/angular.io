@@ -163,21 +163,55 @@ export class WorkoutService {
    * addWorkout
    */
   public addWorkout(workout: WorkoutPlan) {
-    if (workout.name) {
-      this.workouts.push(workout);
-      return workout;
-    }
+    const workoutExercises: any = [];
+    workout.exercises.forEach((exercisePlan: any) => {
+      workoutExercises.push({
+        name: exercisePlan.exercise.name,
+        exercise: exercisePlan.exercise._id,
+        duration: exercisePlan.duration
+      });
+    });
+
+    const body = {
+      _id: workout.name,
+      exercises: workoutExercises,
+      name: workout.name,
+      title: workout.title,
+      description: workout.description,
+      restBetweenExercise: workout.restBetweenExercise
+    };
+
+    return this.httpClient
+      .post(this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/create", body)
+      .pipe(catchError(this.handleError<WorkoutPlan>()));
   }
   /**
    * updateWorkout
    */
   public updateWorkout(workout: WorkoutPlan) {
-    for (let index = 0; index < this.workouts.length; index++) {
-      if (this.workouts[index].name === workout.name) {
-        this.workouts[index] = workout;
-        break;
-      }
-    }
+    const workoutExercises: any = [];
+    workout.exercises.forEach((exercisePlan: any) => {
+      workoutExercises.push({
+        name: exercisePlan.exercise.name,
+        duration: exercisePlan.duration
+      });
+    });
+
+    const body = {
+      _id: workout.name,
+      exercises: workoutExercises,
+      name: workout.name,
+      title: workout.title,
+      description: workout.description,
+      restBetweenExercise: workout.restBetweenExercise
+    };
+
+    return this.httpClient
+      .put(
+        this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/create",
+        body
+      )
+      .pipe(catchError(this.handleError<WorkoutPlan>()));
   }
 
   private setupInitialExercises() {

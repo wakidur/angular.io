@@ -3,6 +3,7 @@
  */
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, ActivationEnd, Router } from "@angular/router";
+import { Subscription } from "rxjs";
 
 /**
  * Application dependency
@@ -17,10 +18,19 @@ import { WorkoutBuilderService } from "../builder-services/workout-builder.servi
   styles: []
 })
 export class WorkoutComponent implements OnInit, OnDestroy {
+  queryParamsSub: Subscription;
+  public error: any;
   public workout: WorkoutPlan;
   public sub: any;
   public submitted = false;
   public removeTouched = false;
+  private workoutName: string;
+
+  constructor(
+    public route: ActivatedRoute,
+    public router: Router,
+    public workoutBuilderService: WorkoutBuilderService
+  ) {}
 
   durations = [
     { title: "15 seconds", value: 15 },
@@ -45,58 +55,51 @@ export class WorkoutComponent implements OnInit, OnDestroy {
     { title: "5 minutes", value: 300 }
   ];
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private workoutBuilderService: WorkoutBuilderService
-  ) {}
-
   ngOnInit() {
+    this.queryParamsSub = this.route.params.subscribe(
+      params => (this.workoutName = params["id"])
+    );
     this.sub = this.route.data.subscribe((data: { workout: WorkoutPlan }) => {
       this.workout = data.workout;
     });
   }
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
 
-  /**
-   * addExercise
-   */
-  public addExercise(exercisePlan: ExercisePlan) {
+  addExercise(exercisePlan: ExercisePlan) {
     this.workoutBuilderService.addExercise(exercisePlan);
   }
-  /**
-   * moveExerciseTo
-   */
-  public moveExerciseTo(exercisePlan: ExercisePlan, location: any) {
+
+  moveExerciseTo(exercisePlan: ExercisePlan, location: any) {
     this.workoutBuilderService.moveExerciseTo(exercisePlan, location);
   }
-  /**
-   * removeExercise
-   */
-  public removeExercise(exercisePlan: ExercisePlan) {
+
+  removeExercise(exercisePlan: ExercisePlan) {
     this.removeTouched = true;
     this.workoutBuilderService.removeExercise(exercisePlan);
   }
-  /**
-   * save
-   */
-  public save(formWorkout: any) {
-    console.log("Submitted");
-    console.log(this.workout);
+
+  save(formWorkout: any): Promise<Object | WorkoutPlan> {
     this.submitted = true;
     if (!formWorkout.valid) {
       return;
     }
-    this.workoutBuilderService.save();
-    this.router.navigate(["/builder/workouts"]);
+    const savePromise = this.workoutBuilderService.save().toPromise();
+    savePromise.then(
+      result => {
+        this.router.navigate(["/builder/workouts"]);
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    return savePromise;
   }
-  /**
-   * cancel
-   */
-  public cancel(formWorkout: any) {
+
+  cancel(formWorkout: any) {
     this.submitted = false;
     formWorkout.cancel();
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

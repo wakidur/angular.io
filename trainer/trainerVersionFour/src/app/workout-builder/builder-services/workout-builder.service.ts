@@ -102,7 +102,7 @@ export class WorkoutBuilderService {
   /**
    * save
    */
-  public save() {
+  save() {
     const workout = this.newWorkout
       ? this.workoutService.addWorkout(this.buildingWorkout)
       : this.workoutService.updateWorkout(this.buildingWorkout);
