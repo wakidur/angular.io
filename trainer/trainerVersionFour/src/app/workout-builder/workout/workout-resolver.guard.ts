@@ -2,13 +2,7 @@
  * Frameworks dependency
  */
 import { Injectable } from "@angular/core";
-import {
-  Router,
-  Resolve,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from "@angular/router";
+import { Router, Resolve, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 
@@ -29,6 +23,7 @@ import { WorkoutBuilderService } from "../builder-services/workout-builder.servi
 @Injectable()
 export class WorkoutResolverGuard implements CanActivate, Resolve<WorkoutPlan> {
   workout: WorkoutPlan;
+
   constructor(
     public router: Router,
     public workoutBuilderService: WorkoutBuilderService
@@ -41,16 +36,14 @@ export class WorkoutResolverGuard implements CanActivate, Resolve<WorkoutPlan> {
     return true;
   }
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<WorkoutPlan> {
+  resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<WorkoutPlan> {
     const workoutName = route.paramMap.get("id");
 
     if (!workoutName) {
       return this.workoutBuilderService.startBuildingNew();
     } else {
-      return this.workoutBuilderService.startBuildingExisting(workoutName).pipe(
+      return this.workoutBuilderService.startBuildingExisting(workoutName)
+      .pipe(
         map(workout => {
           if (workout) {
             this.workoutBuilderService.buildingWorkout = workout;

@@ -3,7 +3,7 @@
  */
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, ActivationEnd, Router } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
 
 /**
  * Application dependency
@@ -11,7 +11,7 @@ import { Subscription } from "rxjs";
  */
 import { WorkoutPlan, ExercisePlan } from "../../core/model/workoutModel";
 import { WorkoutBuilderService } from "../builder-services/workout-builder.service";
-
+import { WorkoutService } from "../../core/workout.service";
 @Component({
   selector: "app-workout",
   templateUrl: "./workout.component.html",
@@ -29,7 +29,8 @@ export class WorkoutComponent implements OnInit, OnDestroy {
   constructor(
     public route: ActivatedRoute,
     public router: Router,
-    public workoutBuilderService: WorkoutBuilderService
+    public workoutBuilderService: WorkoutBuilderService,
+    public workoutService: WorkoutService
   ) {}
 
   durations = [
@@ -77,21 +78,41 @@ export class WorkoutComponent implements OnInit, OnDestroy {
     this.workoutBuilderService.removeExercise(exercisePlan);
   }
 
-  save(formWorkout: any): Promise<Object | WorkoutPlan> {
+  // save(formWorkout: any): Promise<Object | WorkoutPlan> {
+  //   this.submitted = true;
+  //   if (!formWorkout.valid) {
+  //     return;
+  //   }
+  //   const savePromise = this.workoutBuilderService.save().toPromise();
+  //   savePromise.then(
+  //     result => {
+  //       this.router.navigate(["/builder/workouts"]);
+  //     },
+  //     error => {
+  //       console.error(error);
+  //     }
+  //   );
+  //   return savePromise;
+  // }
+
+  save(formWorkout: any): Observable<Object | WorkoutPlan> {
     this.submitted = true;
     if (!formWorkout.valid) {
       return;
     }
-    const savePromise = this.workoutBuilderService.save().toPromise();
-    savePromise.then(
-      result => {
+    this.workoutBuilderService.save().subscribe(
+      success => {
+        console.log(success);
         this.router.navigate(["/builder/workouts"]);
       },
-      error => {
-        console.error(error);
-      }
+      err => console.error(err)
     );
-    return savePromise;
+  }
+
+  deleteWorkout(name: string) {
+    this.workoutService.deleteWorkout(name).subscribe(
+      success => console.log(success),
+      (err) => console.error(err));
   }
 
   cancel(formWorkout: any) {

@@ -3,7 +3,7 @@
  */
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, of, throwError } from "rxjs";
+import { Observable, of, throwError, forkJoin } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 /**
  * Application dependency
@@ -148,15 +148,54 @@ export class WorkoutService {
   /**
    * getWorkout
    */
-  public getWorkout(name: string) {
+  public getWorkoutByName(workoutName: string) {
     return this.httpClient
       .get<WorkoutPlan>(
-        this.contactsUrlPort +
-          this.contactsUrlApi +
-          "/workoutplan/create" +
-          name
+        this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/" + name
       )
       .pipe(catchError(WorkoutService.handleErrorStatuc));
+  }
+
+  /**
+   * getWorkoutByForkJoin
+   */
+  public getWorkoutByForkJoin(workoutName: string): Observable<WorkoutPlan> {
+    /**
+     * Observable and its forkJoin operator to return two Observable objects
+     * one that retrieves the Workout
+     * another that retrieves a list of all the Exercises
+     */
+    return forkJoin(
+      this.httpClient.get(
+        this.contactsUrlPort + this.contactsUrlApi + "/exercise/create"
+      ),
+      this.httpClient.get(
+        this.contactsUrlPort +
+          this.contactsUrlApi +
+          "/workoutplan/" +
+          workoutName
+      )
+    ).pipe(
+      map((data: any) => {
+        const allExercise = data[0];
+        const workout = new WorkoutPlan(
+          data[1].name,
+          data[1].title,
+          data[1].restBetweenExercise,
+          data[1].exercises,
+          data[1].description
+        );
+        workout.exercises.forEach((exercisePlan: any) => {
+          exercisePlan.exercise = allExercise.find(
+            (item: any) => item.name === exercisePlan.name
+          );
+        });
+        return workout;
+      }),
+      catchError(
+        this.handleError<WorkoutPlan>(`getWorkout Id = ${workoutName}`)
+      )
+    );
   }
 
   /**
@@ -182,13 +221,16 @@ export class WorkoutService {
     };
 
     return this.httpClient
-      .post(this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/create", body)
+      .post(
+        this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/create",
+        body
+      )
       .pipe(catchError(this.handleError<WorkoutPlan>()));
   }
   /**
    * updateWorkout
    */
-  public updateWorkout(workout: WorkoutPlan) {
+  public updateWorkout(workout: any) {
     const workoutExercises: any = [];
     workout.exercises.forEach((exercisePlan: any) => {
       workoutExercises.push({
@@ -198,7 +240,7 @@ export class WorkoutService {
     });
 
     const body = {
-      _id: workout.name,
+      _id: workout._id,
       exercises: workoutExercises,
       name: workout.name,
       title: workout.title,
@@ -207,11 +249,17 @@ export class WorkoutService {
     };
 
     return this.httpClient
-      .put(
-        this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/create",
-        body
-      )
+      .put(this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/", body)
       .pipe(catchError(this.handleError<WorkoutPlan>()));
+  }
+
+  /**
+   * deleteWorkout
+   */
+  public deleteWorkout(workoutName: string) {
+    return this.httpClient.delete(
+      this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/" + workoutName
+    ).pipe(catchError(this.handleError<WorkoutPlan>()));
   }
 
   private setupInitialExercises() {

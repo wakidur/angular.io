@@ -29,11 +29,11 @@ export class WorkoutBuilderService {
    */
   public startBuilding(name: string) {
     if (name) {
-      this.buildingWorkout = this.workoutService.getWorkout(name);
+      this.buildingWorkout = this.workoutService.getWorkoutByName(name);
       this.newWorkout = false;
     } else {
       const exerciseArray: ExercisePlan[] = [];
-      this.buildingWorkout = new WorkoutPlan("", "", 30, []);
+      this.buildingWorkout = new WorkoutPlan("", "", 30, exerciseArray);
       this.newWorkout = true;
     }
     return this.buildingWorkout;
@@ -54,7 +54,7 @@ export class WorkoutBuilderService {
    */
   public startBuildingExisting(name: string) {
     this.newWorkout = false;
-    return this.workoutService.getWorkout(name);
+    return this.workoutService.getWorkoutByForkJoin(name);
   }
 
   /**
@@ -108,5 +108,11 @@ export class WorkoutBuilderService {
       : this.workoutService.updateWorkout(this.buildingWorkout);
     this.newWorkout = false;
     return workout;
+  }
+
+  deleteWorkout(name: string) {
+    this.workoutService
+      .deleteWorkout(name)
+      .subscribe(success => console.log(success), err => console.error(err));
   }
 }
