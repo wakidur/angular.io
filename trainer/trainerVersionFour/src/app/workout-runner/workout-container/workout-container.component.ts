@@ -1,15 +1,21 @@
-// Framework Dependencies
+/**
+ * Frameworks dependency
+ */
 import {
   Component,
   OnInit,
   OnDestroy,
   Output,
   EventEmitter,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Input,
+  DoCheck
 } from "@angular/core";
 import { Router } from "@angular/router";
 
-// apps dependencies
+/**
+ * Application dependency
+ */
 import {
   WorkoutPlan,
   ExercisePlan,
@@ -18,13 +24,16 @@ import {
   ExerciseChangedEvent
 } from "../../core/model/workoutModel";
 import { WorkoutHistoryTrackerService } from "../../core/workout-history-tracker.service";
+import { WorkoutService } from "../../core/workout.service";
+import { routerNgProbeToken } from "@angular/router/src/router_module";
+import { throwIfEmpty } from "rxjs/operators";
 
 @Component({
   selector: "app-workout-container",
   templateUrl: "./workout-container.component.html",
   styles: []
 })
-export class WorkoutContainerComponent implements OnInit, OnDestroy {
+export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
   workoutPlan: WorkoutPlan;
   workoutTimeRemaining: number;
   restExercise: ExercisePlan;
@@ -33,16 +42,30 @@ export class WorkoutContainerComponent implements OnInit, OnDestroy {
   exerciseRunningDuration: number;
   exerciseTrackingInterval: number;
   workoutPaused: boolean;
+  dataLoaded = false;
+  dataNotFound = false;
 
+  /**
+   * Input() workotName
+   dat*/
+  @Input() public workoutName: string;
   /**
    * Exposing WorkoutRunnerComponent events
    */
   @Output() exercisePaused: EventEmitter<number> = new EventEmitter<number>();
   @Output() exerciseResumed: EventEmitter<number> = new EventEmitter<number>();
-  @Output() exerciseProgress: EventEmitter<ExerciseProgressEvent> = new EventEmitter<ExerciseProgressEvent>();
-  @Output() exerciseChanged: EventEmitter<ExerciseChangedEvent> = new EventEmitter<ExerciseChangedEvent>();
-  @Output() workoutStarted: EventEmitter<WorkoutPlan> = new EventEmitter<WorkoutPlan>();
-  @Output() workoutComplete: EventEmitter<WorkoutPlan> = new EventEmitter<WorkoutPlan>();
+  @Output() exerciseProgress: EventEmitter<
+    ExerciseProgressEvent
+  > = new EventEmitter<ExerciseProgressEvent>();
+  @Output() exerciseChanged: EventEmitter<
+    ExerciseChangedEvent
+  > = new EventEmitter<ExerciseChangedEvent>();
+  @Output() workoutStarted: EventEmitter<WorkoutPlan> = new EventEmitter<
+    WorkoutPlan
+  >();
+  @Output() workoutComplete: EventEmitter<WorkoutPlan> = new EventEmitter<
+    WorkoutPlan
+  >();
   /**
    * we register the Router service by importing the RouterModule into AppRoutingModule
    * @ param router
@@ -50,7 +73,8 @@ export class WorkoutContainerComponent implements OnInit, OnDestroy {
    */
   constructor(
     private router: Router,
-    private tracker: WorkoutHistoryTrackerService
+    private tracker: WorkoutHistoryTrackerService,
+    private workoutService: WorkoutService
   ) {}
 
   ngOnDestroy() {
@@ -60,15 +84,32 @@ export class WorkoutContainerComponent implements OnInit, OnDestroy {
     this.tracker.endTracking(false);
   }
   ngOnInit() {
-    this.workoutPlan = this.buildWorkout();
-    this.restExercise = new ExercisePlan(
-      new Exercise("rest", "Relax!", "Relax a bit", "rest.png"),
-      this.workoutPlan.restBetweenExercise
+    this.getWorkout(this.workoutName);
+  }
+  ngDoCheck(): any {
+    if (!this.dataLoaded) {
+      this.start();
+    }
+  }
+
+  private getWorkout(name: string) {
+    this.workoutService.getWorkoutByForkJoin(name).subscribe(
+      (data: WorkoutPlan) => {
+        if (data) {
+          this.workoutPlan = data;
+        } else {
+          this.dataNotFound = true;
+        }
+      },
+      (err: any) => {
+        console.error(err);
+      }
     );
-    this.start();
   }
 
   private start() {
+    /*
+    * 4.0
     // start Workout History Tracker Service
     this.tracker.startTracking();
     this.workoutTimeRemaining = this.workoutPlan.totalWorkoutDuration();
@@ -78,6 +119,19 @@ export class WorkoutContainerComponent implements OnInit, OnDestroy {
     // We use the emit function of  EventEmitter
     // to raise a workoutStarted event with the current workout plan as an argument.
     this.workoutStarted.emit(this.workoutPlan);
+  */
+    if (this.workoutPlan) {
+      this.dataLoaded = true;
+      this.restExercise = new ExercisePlan(
+        new Exercise("rest", "Relax!", "Relax a bit", "rest.png"),
+        this.workoutPlan.restBetweenExercise
+      );
+      this.tracker.startTracking();
+      this.workoutTimeRemaining = this.workoutPlan.totalWorkoutDuration();
+      this.currentExerciseIndex = 0;
+      this.startExercise(this.workoutPlan.exercises[this.currentExerciseIndex]);
+      this.workoutStarted.emit(this.workoutPlan);
+    }
   }
 
   private startExercise(exercisePlan: ExercisePlan) {
@@ -102,7 +156,9 @@ export class WorkoutContainerComponent implements OnInit, OnDestroy {
           }
           this.startExercise(next);
           // raise events for expose
-          this.exerciseChanged.emit( new ExerciseChangedEvent(next, this.getNextExercise()) );
+          this.exerciseChanged.emit(
+            new ExerciseChangedEvent(next, this.getNextExercise())
+          );
         } else {
           this.tracker.endTracking(true);
           // raise events for expose

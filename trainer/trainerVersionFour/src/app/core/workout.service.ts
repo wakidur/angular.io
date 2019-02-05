@@ -3,6 +3,7 @@
  */
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Http, Response } from "@angular/http";
 import { Observable, of, throwError, forkJoin } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 /**
@@ -59,12 +60,44 @@ export class WorkoutService {
   /**
    * getExercises
    */
-  public getExercises() {
+  public getExercises(): Promise<Exercise[]> {
     return this.httpClient
       .get<Exercise[]>(
         this.contactsUrlPort + this.contactsUrlApi + "/exercise/create"
       )
-      .pipe(catchError(WorkoutService.handleErrorStatuc));
+      .toPromise()
+      .then(res => res)
+      .catch(err => {
+        return Promise.reject(this.handleError("GetExercise", []));
+      });
+  }
+  public getExercisesByObservable() {
+    return this.httpClient
+      .get<Exercise[]>(
+        this.contactsUrlPort + this.contactsUrlApi + "/exercise/create"
+      )
+      .pipe(catchError(this.handleError("getExercise", [])));
+  }
+  // get("/api/contacts")
+  public getExercisesByPromisess(): Promise<Exercise[]> {
+    return this.httpClient
+      .get(this.contactsUrlPort + this.contactsUrlApi + "/exercise/create")
+      .toPromise()
+      .then(response => response as Exercise[])
+      .catch(err => {
+        return Promise.reject(this.handleError("GetExercise", []));
+      });
+  }
+  public getExercisesByPromises(): Promise<Exercise[]> {
+    return this.httpClient
+      .get<Exercise[]>(
+        this.contactsUrlPort + this.contactsUrlApi + "/exercise/create"
+      )
+      .toPromise()
+      .then(res => res)
+      .catch(err => {
+        return Promise.reject(this.handleError("GetExercise", []));
+      });
   }
 
   /**
@@ -257,9 +290,14 @@ export class WorkoutService {
    * deleteWorkout
    */
   public deleteWorkout(workoutName: string) {
-    return this.httpClient.delete(
-      this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/" + workoutName
-    ).pipe(catchError(this.handleError<WorkoutPlan>()));
+    return this.httpClient
+      .delete(
+        this.contactsUrlPort +
+          this.contactsUrlApi +
+          "/workoutplan/" +
+          workoutName
+      )
+      .pipe(catchError(this.handleError<WorkoutPlan>()));
   }
 
   private setupInitialExercises() {

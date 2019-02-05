@@ -33,11 +33,14 @@ export class WorkoutHistoryTrackerService {
   constructor(private storage: LocalStorageService) {
     console.log("WorkoutHistoryTrackerService instance created.");
     // Get workout history data from localStorage
-    this.workoutHistory = (storage.getItem<Array<WorkoutLogEntry>>(this.storageKey) || []).map((item: WorkoutLogEntry) => {
-        item.startedOn = new Date(item.startedOn.toString());
-        item.endedOn = item.endedOn == null ? null : new Date(item.endedOn.toString());
-        return item;
-      });
+    this.workoutHistory = (
+      storage.getItem<Array<WorkoutLogEntry>>(this.storageKey) || []
+    ).map((item: WorkoutLogEntry) => {
+      item.startedOn = new Date(item.startedOn.toString());
+      item.endedOn =
+        item.endedOn == null ? null : new Date(item.endedOn.toString());
+      return item;
+    });
   }
 
   // The get tracking() method defines a getter property for workoutTracked in TypeScript.
@@ -86,6 +89,11 @@ export class WorkoutHistoryTrackerService {
       this.workoutTracked = false;
       this.storage.setItem(this.storageKey, this.workoutHistory);
     }
+    // this.currentWorkoutLog.completed = completed;
+    // this.currentWorkoutLog.endedOn = new Date();
+    // this.currentWorkoutLog = null;
+    // this.workoutTracked = false;
+    // this.storage.setItem(this.storageKey, this.workoutHistory);
   }
 
   /**

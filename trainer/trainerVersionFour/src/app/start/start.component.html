@@ -1,7 +1,7 @@
 <app-workout-runner-header></app-workout-runner-header>
 <div class="container-fluid">
   <div class="jumbotron row">
-    <div class="col-sm-6 mx-auto">
+    <div class="col-sm-6">
       <h1 class="text-center">Ready for a Workout?</h1>
       <div class="image-container row">
         <img src="/assets/images/start.png" class="img-fluid" />
@@ -17,6 +17,40 @@
         <!-- <a class="btn btn-primary btn-lg btn-block" routerLink="/dashboard" role="button">dashboard <span class="ion-md-play"></span></a>
         <a class="btn btn-primary btn-lg btn-block" routerLink="/finish" role="button">finish <span class="ion-md-play"></span></a> -->
       </p>
+    </div>
+    <div class="col-sm-6">
+      <h2>Workouts</h2>
+      <form #f="ngForm" name="formWorkout" class="">
+        <div class="form-group">
+          <label for="search">Search Exercise</label>
+          <input type="text" class="form-control" name="search" placeholder="Search for Workout" [(ngModel)]="searchTerm" />
+        </div>
+        <div class="form-group">
+          <!-- <div *ngIf="workoutList && workoutList.length > 0">
+            <div *ngFor="let workout of workoutList|search:'title': searchTerm|orderBy:'title'" class="workout tile"
+              (click)="onSelect(workout)">
+              <div class="title">{{workout.title}}</div>
+              <div class="stats">
+                <span class="duration" title="Duration"><span class="ion-md-time"></span> -
+                  {{(workout.totalWorkoutDuration? workout.totalWorkoutDuration(): 0)|secondsToTime}}</span>
+                <span class="float-right" title="Exercise Count"><span class="ion-md-list"></span> -
+                  {{workout.exercises.length}}</span>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </form>
+      <div class="list-group" *ngIf="workoutList && workoutList.length > 0">
+          <a  (click)="onSelect(workout)" class="list-group-item list-group-item-action"
+          *ngFor="let workout of workoutList|search:'title': searchTerm|orderBy:'title'">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{workout.title}}</h5>
+              <small class="text-muted">{{(workout.totalWorkoutDuration? workout.totalWorkoutDuration(): 0)|secondsToTime}}</small>
+            </div>
+            <p class="mb-1">{{workout.description}}</p>
+            <small class="text-muted">Exercises {{workout.exercises.length}}</small>
+          </a>
+        </div>
     </div>
   </div>
 </div>

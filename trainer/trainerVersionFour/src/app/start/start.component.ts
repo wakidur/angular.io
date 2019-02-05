@@ -1,12 +1,47 @@
-import { Component, OnInit } from "@angular/core";
+/**
+ * Frameworks dependency
+*/
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router } from "@angular/router";
+
+/**
+ * Application dependency 
+ */
+import { WorkoutPlan } from "../core/model/workoutModel";
+import { WorkoutService } from "../core/workout.service";
 
 @Component({
   selector: "app-start",
   templateUrl: "./start.component.html",
   styles: []
 })
-export class StartComponent implements OnInit {
-  constructor() {}
+export class StartComponent implements OnInit, OnDestroy {
+  public workoutList: Array<WorkoutPlan> = [];
+  public notFound = false;
+  public searchTerm: string;
+  private subscription: any;
 
-  ngOnInit() {}
+  constructor(
+    private router: Router,
+    private workoutService: WorkoutService,
+  ) {}
+
+
+  ngOnInit() {
+    this.subscription = this.workoutService.getWorkouts().subscribe(
+      workoutList => this.workoutList = workoutList,
+      (err: any) => console.error(err)
+    );
+  }
+
+  /**
+   * onSelect
+   */
+  public onSelect(workout: WorkoutPlan) {
+    this.router.navigate(["/workout", workout.name]);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

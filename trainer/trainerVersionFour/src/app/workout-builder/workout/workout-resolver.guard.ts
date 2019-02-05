@@ -49,7 +49,8 @@ export class WorkoutResolverGuard implements CanActivate, Resolve<WorkoutPlan> {
             this.workoutBuilderService.buildingWorkout = workout;
             return workout;
           } else {
-            this.router.navigate(["/builder/workouts"]);
+            this.router.navigate(["/builder/workouts/workout-not-found"]);
+            return null;
           }
         }),
         catchError(error => {

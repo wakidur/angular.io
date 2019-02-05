@@ -45,6 +45,11 @@ const routes: Routes = [
         data: { title: "Workouts" }
       },
       {
+        path: "workouts/workout-not-found",
+        component: WorkoutsComponent,
+        data: { title: "Workout not found" }
+      },
+      {
         path: "workout/new",
         component: WorkoutComponent,
         resolve: { workout: WorkoutResolverGuard },

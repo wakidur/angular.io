@@ -30,6 +30,7 @@ import { WorkoutBuilderComponent } from "./workout-builder/workout-builder.compo
 const routes: Routes = [
   { path: "start", component: StartComponent, data: { title: "Start" } },
   { path: "workout", component: WorkoutRunnerComponent, data: { title: "Workout" } },
+  { path: "workout/:id", component: WorkoutRunnerComponent, data: { title: "Workout" } },
   { path: "finish", component: FinishComponent, data: { title: "Finish" }  },
   { path: "dashboard", component: DashboardComponent, data: { title: "Dashboard" }  },
   { path: "history", component: WorkoutHistoryComponent, data: { title: "History" }  },

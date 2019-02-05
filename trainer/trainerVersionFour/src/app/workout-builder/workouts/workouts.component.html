@@ -6,7 +6,7 @@
     <h1 class="">Workouts</h1>
     <div class="row">
       <div class="col-sm-6 col-md-6">
-
+            <div *ngIf="notFound" class=" alert alert-danger">Could not load the specific workout!</div>
             <div class="list-group">
                 <a style="cursor: pointer;" *ngFor="let workout of workoutList" class="list-group-item list-group-item-action" (click)="onSelect(workout)" >
                   <div class="d-flex w-100 justify-content-between">

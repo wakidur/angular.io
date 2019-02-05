@@ -18,12 +18,30 @@ import { WorkoutService } from "../../core/workout.service";
 })
 export class ExercisesComponent implements OnInit {
   // Class members variable
-  exerciseList: Array<Exercise> = [];
+  public exerciseList: Array<Exercise> = [];
+  public errorMessage: any;
   constructor(private router: Router, private workoutService: WorkoutService) {}
 
   ngOnInit() {
     // this.exerciseList = this.workoutService.getExercises();
-    this.workoutService.getExercises().subscribe( exercise => this.exerciseList = exercise, (err: any) => console.error);
+    /**
+     * Using Observable
+     */
+    /**
+     this.workoutService.getExercises()
+      .subscribe(
+        exercise => this.exerciseList = exercise,
+        (err: any) => console.error
+        );
+    */
+   /**
+    * promise
+    */
+   this.workoutService.getExercises().then(
+     exerciseList => this.exerciseList = exerciseList,
+     error => this.errorMessage = <any>error
+   );
+
   }
 
   /**

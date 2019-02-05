@@ -3,7 +3,7 @@
     <h3>Exercises</h3>
     <div class="list-group" >
       <button
-      *ngFor="let item of exerciseList|orderBy: 'title'"
+      *ngFor="let item of exerciseListObservable|async|orderBy: 'title'"
        type="button"
        class="list-group-item list-group-item-action"
        (click)="addExercise(item)"  >
