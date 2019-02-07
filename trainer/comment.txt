@@ -22,7 +22,7 @@ ng g c exercise -is
 ng g c exercises -is
 ng g c workout -is
 ng g c workouts -is
-
+ng g c ajax-button -is
 
 ng g c workout-history -is
 
@@ -44,6 +44,8 @@ ng g s exercise-builder
 ## ng generate directive 
 ng g d workout-audio
 ng g d my-audio
+ng g d remote-validator
+ng g d busy-indicator
 
 #routing
 ng g m workout-builder --routing

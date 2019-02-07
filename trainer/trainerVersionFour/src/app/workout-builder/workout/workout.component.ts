@@ -7,18 +7,18 @@ import { Subscription, Observable } from "rxjs";
 
 /**
  * Application dependency
- *
  */
 import { WorkoutPlan, ExercisePlan } from "../../core/model/workoutModel";
 import { WorkoutBuilderService } from "../builder-services/workout-builder.service";
 import { WorkoutService } from "../../core/workout.service";
+
 @Component({
   selector: "app-workout",
   templateUrl: "./workout.component.html",
   styles: []
 })
 export class WorkoutComponent implements OnInit, OnDestroy {
-  queryParamsSub: Subscription;
+  public queryParamsSub: Subscription;
   public error: any;
   public workout: WorkoutPlan;
   public sub: any;
@@ -95,7 +95,7 @@ export class WorkoutComponent implements OnInit, OnDestroy {
   //   return savePromise;
   // }
 
-  save(formWorkout: any): Observable<Object | WorkoutPlan> {
+  public saves(formWorkout: any): Observable<Object | WorkoutPlan> {
     this.submitted = true;
     if (!formWorkout.valid) {
       return;
@@ -109,10 +109,26 @@ export class WorkoutComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteWorkout(name: string) {
-    this.workoutService.deleteWorkout(name).subscribe(
-      success => console.log(success),
-      (err) => console.error(err));
+  public save = (formWorkout: any): Promise<Object | WorkoutPlan> => {
+    this.submitted = true;
+    if (!formWorkout.valid) {
+      return;
+    }
+    const savePromise = this.workoutBuilderService.save().toPromise();
+    savePromise
+      .then(result => {
+        this.router.navigate(["/builder/workouts"]);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+      return savePromise;
+  }
+
+  public deleteWorkout(name: string) {
+    this.workoutService
+      .deleteWorkout(name)
+      .subscribe(success => console.log(success), err => console.error(err));
   }
 
   cancel(formWorkout: any) {
@@ -122,5 +138,23 @@ export class WorkoutComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.queryParamsSub.unsubscribe();
   }
+
+  public validateWorkoutName = (name: string): Promise<boolean> => {
+    if (this.workoutName === name) {
+      return Promise.resolve(true);
+    }
+    return this.workoutService
+      .getWorkoutByForkJoin(name)
+      .toPromise()
+      .then(
+        (workout: WorkoutPlan) => {
+          return !workout;
+        },
+        error => {
+          return true;
+        }
+      );
+  };
 }

@@ -47,7 +47,7 @@ export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
 
   /**
    * Input() workotName
-   dat*/
+   */
   @Input() public workoutName: string;
   /**
    * Exposing WorkoutRunnerComponent events
@@ -70,6 +70,7 @@ export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
    * we register the Router service by importing the RouterModule into AppRoutingModule
    * @ param router
    * @ param tracker
+   * @ param workoutService
    */
   constructor(
     private router: Router,
@@ -85,6 +86,13 @@ export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
   }
   ngOnInit() {
     this.getWorkout(this.workoutName);
+
+    // this.workoutPlan = this.buildWorkout();
+    // this.restExercise = new ExercisePlan(
+    //   new Exercise("rest", "Relax!", "Relax a bit", "rest.png"),
+    //   this.workoutPlan.restBetweenExercise
+    // );
+    // this.start();
   }
   ngDoCheck(): any {
     if (!this.dataLoaded) {
@@ -109,7 +117,7 @@ export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
 
   private start() {
     /*
-    * 4.0
+     * 4.0
     // start Workout History Tracker Service
     this.tracker.startTracking();
     this.workoutTimeRemaining = this.workoutPlan.totalWorkoutDuration();
@@ -119,7 +127,8 @@ export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
     // We use the emit function of  EventEmitter
     // to raise a workoutStarted event with the current workout plan as an argument.
     this.workoutStarted.emit(this.workoutPlan);
-  */
+*/
+
     if (this.workoutPlan) {
       this.dataLoaded = true;
       this.restExercise = new ExercisePlan(

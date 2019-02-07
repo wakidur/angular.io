@@ -2,11 +2,16 @@
 <div class="container">
   <app-workout-runner-header></app-workout-runner-header>
   <main role="main">
+
+    
       <div *ngIf="dataNotFound" class=" alert alert-danger">Could not load the specific workout!</div>
 
     <div class="row pt-4" *ngIf="!dataNotFound">
       <div id="description-panel" class="col-sm-3">
-        <app-exercise-description [description]="currentExercise.exercise.description" [steps]="currentExercise.exercise.procedure"></app-exercise-description>
+        <app-exercise-description
+        [description]="currentExercise.exercise.description"
+        [steps]="currentExercise.exercise.procedure">
+      </app-exercise-description>
       </div>
       <div id="exercise-pane" class="col-sm-6">
         <div id="pause-overlay" (click)="pauseResumeToggle()" (window:keyup)="onKeyPressed($event)">

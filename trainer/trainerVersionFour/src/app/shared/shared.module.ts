@@ -1,12 +1,21 @@
+/**
+ * Frameworks dependency
+ */
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
+/**
+ * Application dependency
+ */
 import { OrderByPipe } from "./order-by.pipe";
 import { SearchPipe } from "./search.pipe";
 import { MyAudioDirective } from "./my-audio.directive";
 import { WorkoutAudioDirective } from "./workout-audio.directive";
 import { SecondsToTimePipe } from "./seconds-to-time.pipe";
 import { AlphabetNumbersValidatorDirective } from "./alphabet-numbers-validator.directive";
+import { RemoteValidatorDirective } from "./remote-validator.directive";
+import { BusyIndicatorDirective } from "./busy-indicator.directive";
+import { AjaxButtonComponent } from "./ajax-button/ajax-button.component";
 
 @NgModule({
   declarations: [
@@ -15,7 +24,10 @@ import { AlphabetNumbersValidatorDirective } from "./alphabet-numbers-validator.
     MyAudioDirective,
     WorkoutAudioDirective,
     SecondsToTimePipe,
-    AlphabetNumbersValidatorDirective
+    AlphabetNumbersValidatorDirective,
+    RemoteValidatorDirective,
+    BusyIndicatorDirective,
+    AjaxButtonComponent
   ],
   imports: [CommonModule],
   exports: [
@@ -24,7 +36,10 @@ import { AlphabetNumbersValidatorDirective } from "./alphabet-numbers-validator.
     MyAudioDirective,
     WorkoutAudioDirective,
     AlphabetNumbersValidatorDirective,
-    SecondsToTimePipe
+    SecondsToTimePipe,
+    RemoteValidatorDirective,
+    BusyIndicatorDirective,
+    AjaxButtonComponent
   ]
 })
 export class SharedModule {}
