@@ -14,6 +14,7 @@ import { overlayConfigFactory, Overlay } from "ngx-modialog";
 import { WorkoutLogEntry } from "../core/model/workoutLogEntryModel";
 // Wrokout history tracken service
 import { WorkoutHistoryTrackerService } from "../core/workout-history-tracker.service";
+import { WorkoutHistoryTrackerServerInteractionsService } from "../core/workout-history-tracker-server-interactions.service";
 
 @Component({
   selector: "app-workout-history",
@@ -22,11 +23,13 @@ import { WorkoutHistoryTrackerService } from "../core/workout-history-tracker.se
 })
 export class WorkoutHistoryComponent implements OnInit {
   historyitems: Array<WorkoutLogEntry> = [];
+  historyLogitems: Array<WorkoutLogEntry> = [];
 
   completed: boolean;
 
   constructor(
     private tracker: WorkoutHistoryTrackerService,
+    private trackerSI: WorkoutHistoryTrackerServerInteractionsService,
     private location: Location,
     private modal: Modal
   ) {}
@@ -34,6 +37,16 @@ export class WorkoutHistoryComponent implements OnInit {
   ngOnInit() {
     this.historyitems = this.tracker.getHistory();
     console.log(this.historyitems);
+
+    this.trackerSI.getHistoryByObservable().subscribe(
+      historyLogitem => {
+        if (historyLogitem) {
+          console.log("getHistoryByObservable " + historyLogitem);
+          this.historyLogitems = historyLogitem;
+        }
+      },
+      (err: any) => console.error
+    );
   }
 
   /**
@@ -59,7 +72,9 @@ export class WorkoutHistoryComponent implements OnInit {
   public historyItemDelete(deleteItem: WorkoutLogEntry) {
     this.modal.open(
       WorkoutHistoryDialogComponent,
-      overlayConfigFactory(new WorkoutHistoryDeleteItemDialogContext(deleteItem))
+      overlayConfigFactory(
+        new WorkoutHistoryDeleteItemDialogContext(deleteItem)
+      )
     );
   }
   /**
@@ -68,7 +83,7 @@ export class WorkoutHistoryComponent implements OnInit {
   public viewModal() {
     this.modal.open(
       WorkoutHistoryDialogComponent,
-      overlayConfigFactory(new WorkoutHistoryDialogContext(this.historyitems))
+      overlayConfigFactory(new WorkoutHistoryDialogContext(this.historyLogitems))
     );
   }
 }

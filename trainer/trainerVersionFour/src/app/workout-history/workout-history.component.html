@@ -43,7 +43,8 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Started</th>
-              <th>Ended</th>
+              <th scope="col">ID</th>
+              <th scope="col">Ended</th>
               <th scope="col">Last Exercise</th>
               <th scope="col">Exercises Done</th>
               <th scope="col">Completed</th>
@@ -52,9 +53,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let historyitem of historyitems|search:'completed':completed|orderBy: 'startedOn'; let i=index">
+            <tr *ngFor="let historyitem of historyLogitems|search:'completed':completed|orderBy: 'startedOn'; let i=index">
               <th scope="row">{{i+1}}</th>
 
+              <td>{{historyitem._id}}</td>
               <td>{{historyitem.startedOn | date:'short' }}</td>
               <td>{{historyitem.endedOn | date: 'short'}}</td>
               <td>{{historyitem.lastExercise}}</td>

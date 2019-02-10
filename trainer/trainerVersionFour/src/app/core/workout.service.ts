@@ -71,7 +71,7 @@ export class WorkoutService {
         return Promise.reject(this.handleError("GetExercise", []));
       });
   }
-  public getExercisesByObservable() {
+  public getExercisesByObservable(): Observable<Exercise[]> {
     return this.httpClient
       .get<Exercise[]>(
         this.contactsUrlPort + this.contactsUrlApi + "/exercise/create"
@@ -103,9 +103,9 @@ export class WorkoutService {
   /**
    * getExercise
    */
-  public getExercise(exerciseName: string) {
+  public getExercise(exerciseName: string): Observable<Exercise[]> {
     return this.httpClient
-      .get(
+      .get<Exercise[]>(
         this.contactsUrlPort + this.contactsUrlApi + "/exercise/" + exerciseName
       )
       .pipe(catchError(WorkoutService.handleErrorStatuc));

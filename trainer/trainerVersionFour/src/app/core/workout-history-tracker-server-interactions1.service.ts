@@ -2,6 +2,10 @@
  * Frameworks dependency
  */
 import { Injectable } from "@angular/core";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Http, Response } from "@angular/http";
+import { Observable, of, throwError, forkJoin } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 
 /**
  * App dependency
@@ -29,8 +33,14 @@ export class WorkoutHistoryTrackerService {
   private workoutHistory: Array<WorkoutLogEntry> = [];
   private workoutTracked: boolean;
   private storageKey = "workouts";
+  private contactsUrlApi = "/api";
+  private contactsUrlPort = "http://localhost:3000";
 
-  constructor(private storage: LocalStorageService) {
+
+
+  constructor(
+    private storage: LocalStorageService,
+    public httpClient: HttpClient) {
     console.log("WorkoutHistoryTrackerService instance created.");
     // Get workout history data from localStorage
     this.workoutHistory = (storage.getItem<Array<WorkoutLogEntry>>(this.storageKey) || []).map((item: WorkoutLogEntry) => {
