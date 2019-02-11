@@ -98,6 +98,67 @@ export class WorkoutHistoryTrackerServerInteractionsService {
       .pipe(catchError(this.handleError<WorkoutLogEntry>()));
   }
 
+  // The get tracking() method defines a getter property for workoutTracked in TypeScript.
+  get tracking(): boolean {
+    return this.workoutTracked;
+  }
+
+  /**
+   * startTracking
+   */
+  public startTracking() {
+    this.workoutTracked = true;
+    this.currentWorkoutLog = new WorkoutLogEntry(new Date());
+    if (this.workoutHistory.length >= this.maxHistoryItems) {
+      this.workoutHistory.shift();
+    }
+    this.workoutHistory.push(this.currentWorkoutLog);
+
+    return this.httpClient
+      .post(
+        this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/create",
+        this.workoutHistory
+      )
+      .pipe(map((success) => {
+        return success;
+      }), catchError(this.handleError<WorkoutLogEntry>()));
+  }
+
+  /**
+   * exerciseComplete
+   */
+  public exerciseComplete(exercise: ExercisePlan) {
+    this.currentWorkoutLog.lastExercise = exercise.exercise.title;
+    ++this.currentWorkoutLog.exercisesDone;
+    return this.httpClient
+      .put(this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/", this.workoutHistory)
+      .pipe(catchError(this.handleError<WorkoutLogEntry>()));
+  }
+
+  /**
+   * endTracking
+   */
+  public endTracking(completed: boolean) {
+    if (this.currentWorkoutLog.completed === true) {
+      this.currentWorkoutLog.completed = true;
+      this.currentWorkoutLog.endedOn = this.currentWorkoutLog.endedOn;
+    } else if (completed) {
+      this.currentWorkoutLog.completed = completed;
+      this.currentWorkoutLog.endedOn = new Date();
+      this.workoutTracked = false;
+      return this.httpClient
+      .put(this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/", this.workoutHistory)
+      .pipe(catchError(this.handleError<WorkoutLogEntry>()));
+    } else {
+      this.currentWorkoutLog.completed = completed;
+      this.currentWorkoutLog.endedOn = new Date();
+      this.currentWorkoutLog = null;
+      this.workoutTracked = false;
+      return this.httpClient
+      .put(this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/", this.workoutHistory)
+      .pipe(catchError(this.handleError<WorkoutLogEntry>()));
+    }
+  }
 
   private handleError<T>(operation = "operation", result?: T) {
     return (error: HttpErrorResponse): Observable<T> => {
