@@ -25,6 +25,7 @@ export class WorkoutHistoryTrackerServerInteractionsService {
   private storageKey = "workouts";
   private contactsUrlApi = "/api";
   private contactsUrlPort = "http://localhost:3000";
+  // public currentLog: WorkoutLogEntry = null;
 
   constructor(public httpClient: HttpClient) {}
 
@@ -58,7 +59,6 @@ export class WorkoutHistoryTrackerServerInteractionsService {
       );
   }
 
-
   /**
    * addWorkout
    */
@@ -68,7 +68,7 @@ export class WorkoutHistoryTrackerServerInteractionsService {
       endedOn: workoutLogEntry.endedOn,
       completed: workoutLogEntry.completed,
       exercisesDone: workoutLogEntry.exercisesDone,
-      lastExercise: workoutLogEntry.lastExercise,
+      lastExercise: workoutLogEntry.lastExercise
     };
 
     return this.httpClient
@@ -76,9 +76,12 @@ export class WorkoutHistoryTrackerServerInteractionsService {
         this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/create",
         body
       )
-      .pipe(map((success) => {
-        return success;
-      }), catchError(this.handleError<WorkoutLogEntry>()));
+      .pipe(
+        map(success => {
+          return success;
+        }),
+        catchError(this.handleError<WorkoutLogEntry>())
+      );
   }
   /**
    * updateWorkout
@@ -90,11 +93,14 @@ export class WorkoutHistoryTrackerServerInteractionsService {
       endedOn: workoutLogEntry.endedOn,
       completed: workoutLogEntry.completed,
       exercisesDone: workoutLogEntry.exercisesDone,
-      lastExercise: workoutLogEntry.lastExercise,
+      lastExercise: workoutLogEntry.lastExercise
     };
 
     return this.httpClient
-      .put(this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/", body)
+      .put(
+        this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/",
+        body
+      )
       .pipe(catchError(this.handleError<WorkoutLogEntry>()));
   }
 
@@ -106,39 +112,79 @@ export class WorkoutHistoryTrackerServerInteractionsService {
   /**
    * startTracking
    */
-  public startTracking() {
+  public startTracking(): Promise<Object | WorkoutLogEntry> {
     this.workoutTracked = true;
     this.currentWorkoutLog = new WorkoutLogEntry(new Date());
     if (this.workoutHistory.length >= this.maxHistoryItems) {
       this.workoutHistory.shift();
     }
     this.workoutHistory.push(this.currentWorkoutLog);
-
+    const postUrl =
+      this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/create";
+    const body = {
+      startedOn: this.currentWorkoutLog.startedOn,
+      endedOn: this.currentWorkoutLog.endedOn,
+      completed: this.currentWorkoutLog.completed,
+      exercisesDone: this.currentWorkoutLog.exercisesDone,
+      lastExercise: this.currentWorkoutLog.lastExercise
+    };
+    // return this.httpClient
+    //   .post(postUrl, body)
+    //   .pipe(map((success: WorkoutLogEntry) => {
+    //     this.currentLog = success;
+    //   }), catchError(this.handleError<WorkoutLogEntry>()));
     return this.httpClient
-      .post(
-        this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/create",
-        this.workoutHistory
-      )
-      .pipe(map((success) => {
-        return success;
-      }), catchError(this.handleError<WorkoutLogEntry>()));
+      .post<WorkoutLogEntry>(postUrl, body)
+      .toPromise()
+      .then(response => response as WorkoutLogEntry)
+      .catch(this.handleError<WorkoutLogEntry>());
   }
 
   /**
    * exerciseComplete
    */
-  public exerciseComplete(exercise: ExercisePlan) {
+  public exerciseComplete(
+    exercise: any,
+    currentLog
+  ): Promise<Object | WorkoutLogEntry> {
+    const putUrl =
+      this.contactsUrlPort +
+      this.contactsUrlApi +
+      "/workoutLogEntry/" +
+      currentLog._id;
     this.currentWorkoutLog.lastExercise = exercise.exercise.title;
     ++this.currentWorkoutLog.exercisesDone;
+    const body = {
+      startedOn: currentLog.startedOn,
+      endedOn: this.currentWorkoutLog.endedOn,
+      completed: currentLog.completed,
+      exercisesDone: this.currentWorkoutLog.exercisesDone,
+      lastExercise: this.currentWorkoutLog.lastExercise
+    };
+    // return this.httpClient.put(putUrl, body).pipe(
+    //   map(success => {
+    //     return success;
+    //   }),
+    //   catchError(this.handleError<WorkoutLogEntry>())
+    // );
+    // put("/api/contacts/:id")
+
     return this.httpClient
-      .put(this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/", this.workoutHistory)
-      .pipe(catchError(this.handleError<WorkoutLogEntry>()));
+      .put(putUrl, body)
+      .toPromise()
+      .then(response => response as WorkoutLogEntry)
+      .catch(this.handleError<WorkoutLogEntry>());
   }
 
   /**
    * endTracking
    */
-  public endTracking(completed: boolean) {
+  public endTracking(completed: boolean, currentLog) {
+    const putUrl =
+      this.contactsUrlPort +
+      this.contactsUrlApi +
+      "/workoutLogEntry/" +
+      currentLog._id;
     if (this.currentWorkoutLog.completed === true) {
       this.currentWorkoutLog.completed = true;
       this.currentWorkoutLog.endedOn = this.currentWorkoutLog.endedOn;
@@ -146,17 +192,38 @@ export class WorkoutHistoryTrackerServerInteractionsService {
       this.currentWorkoutLog.completed = completed;
       this.currentWorkoutLog.endedOn = new Date();
       this.workoutTracked = false;
+
+      const body = {
+        startedOn: currentLog.startedOn,
+        endedOn: this.currentWorkoutLog.endedOn,
+        completed: this.currentWorkoutLog.completed,
+        exercisesDone: this.currentWorkoutLog.exercisesDone,
+        lastExercise: this.currentWorkoutLog.lastExercise
+      };
       return this.httpClient
-      .put(this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/", this.workoutHistory)
-      .pipe(catchError(this.handleError<WorkoutLogEntry>()));
+      .put(putUrl, body)
+      .toPromise()
+      .then(response => response as WorkoutLogEntry)
+      .catch(this.handleError<WorkoutLogEntry>());
     } else {
       this.currentWorkoutLog.completed = completed;
       this.currentWorkoutLog.endedOn = new Date();
-      this.currentWorkoutLog = null;
       this.workoutTracked = false;
+      const body = {
+        startedOn: this.currentWorkoutLog.startedOn,
+        endedOn: this.currentWorkoutLog.endedOn,
+        completed: this.currentWorkoutLog.completed,
+        exercisesDone: this.currentWorkoutLog.exercisesDone,
+        lastExercise: this.currentWorkoutLog.lastExercise
+      };
       return this.httpClient
-      .put(this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/", this.workoutHistory)
-      .pipe(catchError(this.handleError<WorkoutLogEntry>()));
+      .put(putUrl, body)
+      .toPromise()
+      .then(response => {
+        this.currentWorkoutLog = null;
+        return response;
+      })
+      .catch(this.handleError<WorkoutLogEntry>());
     }
   }
 

@@ -23,7 +23,9 @@ import {
   ExerciseProgressEvent,
   ExerciseChangedEvent
 } from "../../core/model/workoutModel";
+import { WorkoutLogEntry } from "../../core/model/workoutLogEntryModel";
 import { WorkoutHistoryTrackerService } from "../../core/workout-history-tracker.service";
+import { WorkoutHistoryTrackerServerInteractionsService } from "../../core/workout-history-tracker-server-interactions.service";
 import { WorkoutService } from "../../core/workout.service";
 import { routerNgProbeToken } from "@angular/router/src/router_module";
 import { throwIfEmpty } from "rxjs/operators";
@@ -44,6 +46,7 @@ export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
   workoutPaused: boolean;
   dataLoaded = false;
   dataNotFound = false;
+  public currentLogEntry: WorkoutLogEntry = null;
 
   /**
    * Input() workotName
@@ -74,15 +77,16 @@ export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
    */
   constructor(
     private router: Router,
-    private tracker: WorkoutHistoryTrackerService,
-    private workoutService: WorkoutService
+    private trackers: WorkoutHistoryTrackerService,
+    private workoutService: WorkoutService,
+    private tracker: WorkoutHistoryTrackerServerInteractionsService
   ) {}
 
   ngOnDestroy() {
     if (this.exerciseTrackingInterval) {
       clearInterval(this.exerciseTrackingInterval);
     }
-    this.tracker.endTracking(false);
+    this.tracker.endTracking(false,  this.currentLogEntry);
   }
   ngOnInit() {
     this.getWorkout(this.workoutName);
@@ -135,7 +139,14 @@ export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
         new Exercise("rest", "Relax!", "Relax a bit", "rest.png"),
         this.workoutPlan.restBetweenExercise
       );
-      this.tracker.startTracking();
+      this.tracker
+        .startTracking()
+        .then((result: WorkoutLogEntry) => {
+          this.currentLogEntry = result;
+        })
+        .catch(err => {
+          console.error(err);
+        });
       this.workoutTimeRemaining = this.workoutPlan.totalWorkoutDuration();
       this.currentExerciseIndex = 0;
       this.startExercise(this.workoutPlan.exercises[this.currentExerciseIndex]);
@@ -155,7 +166,7 @@ export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
         clearInterval(this.exerciseTrackingInterval);
         if (this.currentExercise !== this.restExercise) {
           this.tracker.exerciseComplete(
-            this.workoutPlan.exercises[this.currentExerciseIndex]
+            this.workoutPlan.exercises[this.currentExerciseIndex],  this.currentLogEntry
           );
         }
         const next: ExercisePlan = this.getNextExercise();
@@ -169,7 +180,7 @@ export class WorkoutContainerComponent implements OnInit, DoCheck, OnDestroy {
             new ExerciseChangedEvent(next, this.getNextExercise())
           );
         } else {
-          this.tracker.endTracking(true);
+          this.tracker.endTracking(true,  this.currentLogEntry);
           // raise events for expose
           this.workoutComplete.emit(this.workoutPlan);
           this.router.navigate(["/finish"]);

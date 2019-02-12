@@ -6,9 +6,12 @@ trainerVersionThree
 (The -is flag is used to stop generation of a separate CSS file for the component)
 ## ng new
 ng new trainerVersionTwo
+
 ng generate module workout-runner --module app.module.ts
 ng g m core --module app
 ng g m shared --module app
+ng g m workout-builder
+ng g m user
 
 ## ng generate component
 ng generate component workout-runner -is 
@@ -23,6 +26,7 @@ ng g c exercises -is
 ng g c workout -is
 ng g c workouts -is
 ng g c ajax-button -is
+ng g c user -is
 
 ng g c workout-history -is
 
@@ -49,6 +53,7 @@ ng g d busy-indicator
 
 #routing
 ng g m workout-builder --routing
+ng g m user --routing
 
 // ng generate guard [name]     generates a guard
 ng g g workout-resolver
