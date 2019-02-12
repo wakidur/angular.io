@@ -35,6 +35,7 @@ const routes: Routes = [
   { path: "dashboard", component: DashboardComponent, data: { title: "Dashboard" }  },
   { path: "history", component: WorkoutHistoryComponent, data: { title: "History" }  },
   { path: "builder", loadChildren: "./workout-builder/workout-builder.module#WorkoutBuilderModule" },
+  { path: "user", loadChildren: "./user/user.module#UserModule" },
   { path: "**", redirectTo: "/start", pathMatch: "full" }
 ];
 

@@ -59,6 +59,9 @@ ng g m user --routing
 ng g g workout-resolver
 ng g g exercise-resolver
 
+## create a Model class
+ng g class user --type=model
+
 
 
 
