@@ -7,9 +7,7 @@ describe("WorkoutRunnerComponent", () => {
   let fixture: ComponentFixture<WorkoutRunnerComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [WorkoutRunnerComponent]
-    }).compileComponents();
+    TestBed.configureTestingModule({ declarations: [WorkoutRunnerComponent]}).compileComponents();
   }));
 
   beforeEach(() => {
