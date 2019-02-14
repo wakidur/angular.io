@@ -1,21 +1,47 @@
-<form class="form-signin">
-    <div class="form-group">
-        <label for="fullName">Full name</label>
-        <input type="text" name="fullname" class="form-control" id="fullName" aria-describedby="nameHelp" placeholder="Full name">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
+<form #signUpForm="ngForm" (ngSubmit)="onSubmit(signUpForm)" class="form-signin">
   <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <label for="fullname">Full name</label>
+    <input type="text" name="fullname" #fullNameLocalVar="ngModel" [(ngModel)]="selectedUser.fullname" class="form-control"
+      id="fullName" aria-describedby="full name" placeholder="Full name" required [ngClass]="{ 'is-invalid': (fullNameLocalVar.control.hasError('required') && (fullNameLocalVar.touched))}">
+    <div *ngIf="fullNameLocalVar.control.hasError('required') &&  (fullNameLocalVar.touched)" class="invalid-feedback">
+      This field is required.
+    </div>
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Enter email"
+      #emailLocalVar="ngModel" [(ngModel)]="selectedUser.email" name="email" required [pattern]="emailRegex" [ngClass]="{'is-invalid': (emailLocalVar.control.hasError('required') && (emailLocalVar.touched)) }">
+    <div *ngIf="emailLocalVar.control.hasError('required') &&  (emailLocalVar.touched)" class="invalid-feedback">
+      This field is required.
+    </div>
+    <div *ngIf="emailLocalVar.control.hasError('pattern') &&  (emailLocalVar.touched)" class="invalid-feedback">
+      Invalid email address.
+    </div>
   </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" name="password" class="form-control" id="password" placeholder="Password" #passwordLocalVar="ngModel"
+      [(ngModel)]="selectedUser.password" minlength="4" required [ngClass]="{ 'is-invalid': ( passwordLocalVar.control.hasError('required') && (passwordLocalVar.touched)) ||
+        (passwordLocalVar.control.hasError('minlength')  &&  (passwordLocalVar.touched))
+    }">
+    <div *ngIf="passwordLocalVar.control.hasError('required') && (passwordLocalVar.touched)" class="invalid-feedback">
+      Title is required.
+    </div>
+    <div *ngIf="passwordLocalVar.control.hasError('minlength')  &&  (passwordLocalVar.touched)" class="invalid-feedback">
+      Title should be between 5 and 20 characters long.
+    </div>
   </div>
+
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+
+<!-- Success message -->
+<div class="success" *ngIf="showSucessMessage">
+  Saved successfully
+</div>
+
+<!-- Error message -->
+<div class="alert" *ngIf="serverErrorMessages">
+  {{serverErrorMessages}}
+</div>

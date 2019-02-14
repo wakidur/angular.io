@@ -1,5 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="/start">7 Minute Workout</a>
+<nav class="navbar navbar-expand-lg workout-main-nav" style="background-color: #1b2060 !important">
+    <div class="container">
+  <a class="navbar-brand" routerLink="/start">
+    <img src="/assets/images/logo.png" width="21" height="22" class="d-inline-block align-middle" alt="">
+    <span class="align-middle"> 7 Minute Workout </span>
+
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -24,18 +29,34 @@
       <li class="nav-item" *ngIf="showBuilderLink"  routerLinkActive="active">
         <a class="nav-link" routerLink="/builder">Create a Workout</a>
       </li>
-
       <li class="nav-item dropdown" routerLinkActive="active">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle btn btn-outline-secondary p-1" href="#" id="lenguageService" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="icon ion-ios-globe"></i> EN
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="lenguageService">
+          <a class="dropdown-item" >Spanish</a>
+          <a class="dropdown-item" >French</a>
+        </div>
+      </li>
+      <li class="nav-item" *ngIf="showBuilderLink"  routerLinkActive="active">
+        <a class="nav-link" routerLink="/user/sign-in">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="showBuilderLink"  routerLinkActive="active">
+        <a class="nav-link btn btn-outline-secondary p-1" routerLink="/user/sign-up">Sign Up</a>
+      </li>
+      <li class="nav-item dropdown" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" href="#" id="userManageService" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           User
         </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userManageService">
           <a class="dropdown-item" routerLink="/user/user-profile">Profile</a>
           <a class="dropdown-item" routerLink="/user/sign-in">Sign In</a>
           <a class="dropdown-item" routerLink="/user/sign-up">Sing Up</a>
         </div>
       </li>
     </ul>
+  </div>
   </div>
 </nav>

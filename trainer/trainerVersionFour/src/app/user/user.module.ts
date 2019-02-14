@@ -3,6 +3,8 @@
  */
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
 /**
  * Application dependency Module
@@ -36,6 +38,9 @@ import { SignInComponent } from "./sign-in/sign-in.component";
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     UserRoutingModule,
     SharedModule
   ]

@@ -1,3 +1,13 @@
+/*
+** workout-main-nav
+*/
+.workout-main-nav .nav-link,
+.workout-main-nav .navbar-brand {
+  color: #fff;
+}
+
+
+
 .image-container {
   margin: 25px auto;
   width: 540px;
