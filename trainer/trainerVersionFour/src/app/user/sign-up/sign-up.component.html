@@ -1,47 +1,90 @@
-<form #signUpForm="ngForm" (ngSubmit)="onSubmit(signUpForm)" class="form-signin">
-  <div class="form-group">
-    <label for="fullname">Full name</label>
-    <input type="text" name="fullname" #fullNameLocalVar="ngModel" [(ngModel)]="selectedUser.fullname" class="form-control"
-      id="fullName" aria-describedby="full name" placeholder="Full name" required [ngClass]="{ 'is-invalid': (fullNameLocalVar.control.hasError('required') && (fullNameLocalVar.touched))}">
-    <div *ngIf="fullNameLocalVar.control.hasError('required') &&  (fullNameLocalVar.touched)" class="invalid-feedback">
-      This field is required.
+<!-- tob menu -->
+<header style="border-bottom: 1px solid #2d3073;">
+  <app-workout-runner-header></app-workout-runner-header>
+</header>
+<!-- tob menu -->
+
+<!-- main container  -->
+<main style="background-color: #1b1e63; height: calc(100vw);">
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <h5 class="text-white mt-5  mb-3">Create Account</h5>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <div class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-3 bg-white" style="height: calc(100vw -50px);">
+        <form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)" class="pt-4 pb-4 pl-2 pr-2">
+          <div class="form-group">
+            <label for="fullname">Full name</label>
+            <input type="text" name="fullname" id="fullName" class="form-control" aria-describedby="provide full user name "
+              placeholder="Full Name" #fullNameLocalVar="ngModel" [(ngModel)]="selectedUser.fullname" required
+              [ngClass]="{'is-invalid': (fullNameLocalVar.control.hasError('required') && (fullNameLocalVar.touched)) || ((signUpForm.submitted) && !fullNameLocalVar.valid), 'is-valid' : (fullNameLocalVar.valid)}">
+            <div *ngIf="(fullNameLocalVar.control.hasError('required') &&  (fullNameLocalVar.touched)) || ((signUpForm.submitted) && !fullNameLocalVar.valid)"
+              class="invalid-feedback">
+              This field is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" aria-describedby="Enter valid email address"
+              placeholder="Enter email" #emailLocalVar="ngModel" [(ngModel)]="selectedUser.email" [pattern]="emailRegex"
+              required [ngClass]="{'is-invalid': ((emailLocalVar.control.hasError('required')) && (emailLocalVar.touched)) || (emailLocalVar.control.hasError('pattern')) || (signUpForm.submitted && emailLocalVar.errors) , 'is-valid' : (!(emailLocalVar.control.hasError('pattern')) &&  (emailLocalVar.touched))}">
+            <div *ngIf="(emailLocalVar.control.hasError('required') &&  (emailLocalVar.touched)) || (signUpForm.submitted && emailLocalVar.errors)"
+              class="invalid-feedback">
+              This field is required.
+            </div>
+            <div *ngIf="(emailLocalVar.control.hasError('pattern') && (emailLocalVar.touched)) " class="invalid-feedback">
+              Invalid email address.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+              #passwordLocalVar="ngModel" [(ngModel)]="selectedUser.password" minlength="4" required [ngClass]="{ 'is-invalid':
+                  (passwordLocalVar.control.hasError('required') && (passwordLocalVar.touched)) ||
+                  (passwordLocalVar.control.hasError('minlength') && (passwordLocalVar.touched)) ||
+                  (signUpForm.submitted && !passwordLocalVar.valid), 'is-valid' : (!(passwordLocalVar.control.hasError('minlength')) &&  (passwordLocalVar.touched))
+              }">
+            <div *ngIf="((passwordLocalVar.control.hasError('required') && (passwordLocalVar.touched)) && !passwordLocalVar.control.hasError('minlength'))  || ((signUpForm.submitted && passwordLocalVar.errors) &&!passwordLocalVar.control.hasError('minlength'))"
+              class="invalid-feedback">
+              Title is required.
+            </div>
+            <div *ngIf="passwordLocalVar.control.hasError('minlength') && (passwordLocalVar.touched)" class="invalid-feedback">
+              Title should be between 5 and 20 characters long.
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-control custom-checkbox mb-3">
+              <input type="checkbox" class="custom-control-input" id="useOfTerms" name="termsOfUse" [(ngModel)]="termsOfUse"
+                [ngClass]="{'is-invalid': !termsOfUse}" required>
+              <label class="custom-control-label" for="useOfTerms">
+                Agree to terms and conditions {{termsOfUse}}
+              </label>
+              <div *ngIf="!termsOfUse" class="invalid-feedback">
+                You must agree before submitting.
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Success message -->
+    <div class="d-flex justify-content-center" *ngIf="showSucessMessage">
+      <div class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-3 bg-white">
+        <div class="alert alert-success" role="alert">
+          Saved successfully
+        </div>
+      </div>
+    </div>
+    <!-- Error message -->
+    <div class="d-flex justify-content-center" *ngIf="serverErrorMessages">
+      <div class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-3 bg-white">
+        <div class="alert alert-danger" role="alert">
+          {{serverErrorMessages}}
+        </div>
+      </div>
     </div>
   </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Enter email"
-      #emailLocalVar="ngModel" [(ngModel)]="selectedUser.email" name="email" required [pattern]="emailRegex" [ngClass]="{'is-invalid': (emailLocalVar.control.hasError('required') && (emailLocalVar.touched)) }">
-    <div *ngIf="emailLocalVar.control.hasError('required') &&  (emailLocalVar.touched)" class="invalid-feedback">
-      This field is required.
-    </div>
-    <div *ngIf="emailLocalVar.control.hasError('pattern') &&  (emailLocalVar.touched)" class="invalid-feedback">
-      Invalid email address.
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" name="password" class="form-control" id="password" placeholder="Password" #passwordLocalVar="ngModel"
-      [(ngModel)]="selectedUser.password" minlength="4" required [ngClass]="{ 'is-invalid': ( passwordLocalVar.control.hasError('required') && (passwordLocalVar.touched)) ||
-        (passwordLocalVar.control.hasError('minlength')  &&  (passwordLocalVar.touched))
-    }">
-    <div *ngIf="passwordLocalVar.control.hasError('required') && (passwordLocalVar.touched)" class="invalid-feedback">
-      Title is required.
-    </div>
-    <div *ngIf="passwordLocalVar.control.hasError('minlength')  &&  (passwordLocalVar.touched)" class="invalid-feedback">
-      Title should be between 5 and 20 characters long.
-    </div>
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-
-<!-- Success message -->
-<div class="success" *ngIf="showSucessMessage">
-  Saved successfully
-</div>
-
-<!-- Error message -->
-<div class="alert" *ngIf="serverErrorMessages">
-  {{serverErrorMessages}}
-</div>
+</main>

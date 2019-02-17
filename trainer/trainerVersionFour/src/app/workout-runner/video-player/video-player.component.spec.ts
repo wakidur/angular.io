@@ -1,16 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { VideoPlayerComponent } from './video-player.component';
+import { VideoPlayerComponent } from "./video-player.component";
+import { Modal } from "ngx-modialog/plugins/bootstrap";
+import { Overlay, OverlayRenderer } from "ngx-modialog";
 
-describe('VideoPlayerComponent', () => {
+describe("VideoPlayerComponent", () => {
   let component: VideoPlayerComponent;
   let fixture: ComponentFixture<VideoPlayerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VideoPlayerComponent ]
-    })
-    .compileComponents();
+      declarations: [VideoPlayerComponent],
+      providers: [Modal, Overlay, OverlayRenderer]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +21,7 @@ describe('VideoPlayerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
