@@ -1,32 +1,96 @@
-<!-- <form class="form-signin">
-  <img class="mb-4" src="assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-  <label for="inputEmail" class="sr-only">Email address</label>
-  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-  <label for="inputPassword" class="sr-only">Password</label>
-  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-  <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="remember-me"> Remember me
-    </label>
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
-</form> -->
+<!-- tob menu -->
+<header style="border-bottom: 1px solid #2d3073;">
+  <app-workout-runner-header></app-workout-runner-header>
+</header>
+<!-- tob menu -->
 
-<form  class="form-signin">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+
+
+<!-- main container  -->
+<main style="background-color: #1b1e63;height: calc(100vh - 60px);margin-top: 59px;">
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <h4 class="text-white mt-5  mb-3">User Login</h4>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-3 bg-white" >
+        <form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)" class="pt-4 pb-4 pl-2 pr-2">
+          <div class="form-group">
+            <label for="userEmail">Email address</label>
+            <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            aria-describedby="Enter valid email address"
+            placeholder="Enter email"
+            #emailLocalVar="ngModel"
+            [(ngModel)]="login.email"
+            [pattern]="emailRegex"
+            required
+            [ngClass]="{'is-invalid':
+            ((emailLocalVar.control.hasError('required')) && (emailLocalVar.touched)) ||
+            (emailLocalVar.control.hasError('pattern')) ||
+            (signInForm.submitted && !emailLocalVar.valid) , 'is-valid' : (!(emailLocalVar.control.hasError('pattern')) &&  (emailLocalVar.touched))}">
+            <div *ngIf="(emailLocalVar.control.hasError('required') &&  (emailLocalVar.touched)) || (signInForm.submitted && !emailLocalVar.valid)"
+              class="invalid-feedback">
+              This field is required.
+            </div>
+            <div *ngIf="(emailLocalVar.control.hasError('pattern') && (emailLocalVar.touched)) " class="invalid-feedback">
+              Invalid email address.
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label for="userPassword">Password</label>
+            <input
+            type="password"
+            name="password"
+            class="form-control"
+            id="password"
+            placeholder="Password"
+            #passwordLocalVar="ngModel"
+            [(ngModel)]="login.password"
+            minlength="4"
+            required
+            [ngClass]="{ 'is-invalid':
+                  (passwordLocalVar.control.hasError('required') && (passwordLocalVar.touched)) ||
+                  (passwordLocalVar.control.hasError('minlength') && (passwordLocalVar.touched)) ||
+                  (signInForm.submitted && !passwordLocalVar.valid), 'is-valid' : (!(passwordLocalVar.control.hasError('minlength')) &&  (passwordLocalVar.touched))
+              }">
+            <div *ngIf="((passwordLocalVar.control.hasError('required') && (passwordLocalVar.touched)) && !passwordLocalVar.control.hasError('minlength'))  || ((signInForm.submitted && passwordLocalVar.errors) && !passwordLocalVar.control.hasError('minlength'))"
+              class="invalid-feedback">
+              Title is required.
+            </div>
+            <div *ngIf="passwordLocalVar.control.hasError('minlength') && (passwordLocalVar.touched)" class="invalid-feedback">
+              Title should be between 5 and 20 characters long.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="d-flex justify-content-between ">
+              <div class="custom-control custom-checkbox mb-3">
+                <input
+                type="checkbox"
+                class="custom-control-input"
+                id="remember"
+                name="remember"
+                [(ngModel)]="rememberCheckBox"
+                >
+                <label class="custom-control-label" for="remember">Remember me {{rememberCheckBox}}</label>
+              </div>
+              <a [routerLink]="['/user/forget-passworkd']" routerLinkActive="active" class="btn-link text-muted mb-3">
+                Forget password?
+              </a>
+            </div>
+          </div>
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </form>
+
+        <p class="pl-2 pb-2 text-muted">
+          Don't have an account? <a [routerLink]="['/user/sign-up']" routerLinkActive="active" class="btn-link"> Register </a>
+        </p>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="custom-control custom-checkbox ">
-    <input type="checkbox" class="custom-control-input" id="customControlInline">
-    <label class="custom-control-label" for="customControlInline">Remember my preference</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</main>

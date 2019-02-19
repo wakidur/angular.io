@@ -6,14 +6,14 @@
 <!-- tob menu -->
 
 <!-- main container  -->
-<main style="background-color: #1b1e63;height: calc(100vh - 60px);">
+<main style="background-color: #1b1e63;height: calc(100vh - 60px); margin-top: 59px;">
   <div class="container">
     <div class="d-flex justify-content-center">
-      <h5 class="text-white mt-5  mb-3">Create Account</h5>
+      <h4 class="text-white mt-4  mb-3">Create Account</h4>
     </div>
 
     <div class="d-flex justify-content-center">
-      <div class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-3 bg-white" style="height: calc(100vw -50px);">
+      <div class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-3 bg-white">
         <form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)" class="pt-4 pb-4 pl-2 pr-2">
           <div class="form-group">
             <label for="fullname">Full name</label>
@@ -29,8 +29,8 @@
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" aria-describedby="Enter valid email address"
               placeholder="Enter email" #emailLocalVar="ngModel" [(ngModel)]="selectedUser.email" [pattern]="emailRegex"
-              required [ngClass]="{'is-invalid': ((emailLocalVar.control.hasError('required')) && (emailLocalVar.touched)) || (emailLocalVar.control.hasError('pattern')) || (signUpForm.submitted && emailLocalVar.errors) , 'is-valid' : (!(emailLocalVar.control.hasError('pattern')) &&  (emailLocalVar.touched))}">
-            <div *ngIf="(emailLocalVar.control.hasError('required') &&  (emailLocalVar.touched)) || (signUpForm.submitted && emailLocalVar.errors)"
+              required [ngClass]="{'is-invalid': ((emailLocalVar.control.hasError('required')) && (emailLocalVar.touched)) || (emailLocalVar.control.hasError('pattern')) || (signUpForm.submitted && !emailLocalVar.valid) , 'is-valid' : (!(emailLocalVar.control.hasError('pattern')) &&  (emailLocalVar.touched))}">
+            <div *ngIf="(emailLocalVar.control.hasError('required') &&  (emailLocalVar.touched)) || (signUpForm.submitted && !emailLocalVar.valid)"
               class="invalid-feedback">
               This field is required.
             </div>
@@ -40,8 +40,17 @@
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Password"
-              #passwordLocalVar="ngModel" [(ngModel)]="selectedUser.password" minlength="4" required [ngClass]="{ 'is-invalid':
+            <input
+            type="password"
+            name="password"
+            class="form-control"
+            id="password"
+            placeholder="Password"
+            #passwordLocalVar="ngModel"
+            [(ngModel)]="selectedUser.password"
+            minlength="4"
+            required
+            [ngClass]="{ 'is-invalid':
                   (passwordLocalVar.control.hasError('required') && (passwordLocalVar.touched)) ||
                   (passwordLocalVar.control.hasError('minlength') && (passwordLocalVar.touched)) ||
                   (signUpForm.submitted && !passwordLocalVar.valid), 'is-valid' : (!(passwordLocalVar.control.hasError('minlength')) &&  (passwordLocalVar.touched))
@@ -55,19 +64,28 @@
             </div>
           </div>
           <div class="form-group">
-            <div class="custom-control custom-checkbox mb-3">
-              <input type="checkbox" class="custom-control-input" id="useOfTerms" name="termsOfUse" [(ngModel)]="termsOfUse"
-                [ngClass]="{'is-invalid': !termsOfUse}" required>
+            <div class="custom-control custom-checkbox ">
+              <input
+              type="checkbox"
+              class="custom-control-input"
+              id="useOfTerms"
+              name="termsOfUse"
+              [(ngModel)]="termsOfUse"
+              [ngClass]="{'is-invalid': !termsOfUse}"
+              required>
               <label class="custom-control-label" for="useOfTerms">
-                Agree to terms and conditions {{termsOfUse}}
+                I have read and agree to the <a [routerLink]="['/info/terms-of-use']" routerLinkActive="active" > Terms of Use </a>
               </label>
               <div *ngIf="!termsOfUse" class="invalid-feedback">
                 You must agree before submitting.
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          <button type="submit" class="btn btn-primary btn-block">Register Account</button>
         </form>
+        <p class="pl-2 pb-2 text-muted">
+            Already have an account? <a [routerLink]="['/user/sign-in']" routerLinkActive="active" class="btn-link"> Sign In </a>
+          </p>
       </div>
     </div>
 

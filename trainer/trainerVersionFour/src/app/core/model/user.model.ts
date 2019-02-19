@@ -4,4 +4,9 @@ export class User {
   password: string;
 }
 
+export class Login {
+  email: string;
+  password: string;
+}
+
 

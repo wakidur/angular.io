@@ -10,7 +10,7 @@ import { catchError, map } from "rxjs/operators";
  * Application dependency
  */
 import { CoreModule } from "./core.module";
-import { User } from "../core/model/user.model";
+import { User, Login } from "../core/model/user.model";
 
 @Injectable({
   providedIn: CoreModule
@@ -43,23 +43,42 @@ export class UserService {
   }
 
   /**
-   * create user
-   */
-
-  /**
-   * createUser
+   * Ceate User
    */
   public createUser(user: User): Observable<User> {
     // let body = JSON.stringify({ name });
     // let headers = new Headers({ "Content-Type": "application/json" });
     // let options = new RequestOptions({ headers: headers });
 
-    return this.httpClient
-      .post(this.contactsUrlPort + "/signup", user)
-      .pipe(
-        map((response) => response as User ),
-        catchError(this.handleError<User>())
-      );
+    return this.httpClient.post(this.contactsUrlPort + "/signup", user).pipe(
+      map(response => response as User),
+      catchError(this.handleError<User>())
+    );
+  }
+
+  /**
+   * POST /login
+   * Sign in using email and password.
+   */
+
+  logIn(user: Login): Observable<Object> {
+    // let body = JSON.stringify({ name });
+    // let headers = new Headers({ 'Content-Type': 'application/json'});
+    // let options = new RequestOptions({ headers: headers });
+    // return this.http.post(this.contactsUrlPort + "/login", body, options)
+    //   .map(this.handleResponse)
+    //  .catch(this.handleError);
+
+    return this.httpClient.post(this.contactsUrlPort + "/login", user).pipe(
+      map(res => {
+        if (!res) {
+          throw new Error("Value expected!");
+        }
+        return res;
+      }),
+       catchError(this.handleError("getExercise", []))
+      // catchError(err => of([]))
+    );
   }
 
   private handleError<T>(operation = "operation", result?: T) {
