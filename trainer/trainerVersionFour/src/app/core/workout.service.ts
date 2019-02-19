@@ -17,6 +17,10 @@ import { CoreModule } from "./core.module";
 })
 export class WorkoutService {
   // Class member variable
+  mockWorkouts: Array<WorkoutPlan> = [];
+  mockExercises: Array<Exercise> = [];
+  mockWorkout: WorkoutPlan;
+
   workouts: Array<WorkoutPlan> = [];
   exercises: Array<Exercise> = [];
   workout: WorkoutPlan;
@@ -27,14 +31,27 @@ export class WorkoutService {
   private contactsUrlPort = "http://localhost:3000";
 
   constructor(public httpClient: HttpClient) {
-    // this.setupInitialExercises();
-    // this.setupInitialWorkouts();
+     this.setupInitialExercises();
+     this.setupInitialWorkouts();
   }
-
   static handleErrorStatuc(error: Response) {
     console.error(error);
     return Observable.throw(error || "Server error");
   }
+
+/**
+ * getExercisesMockData
+ */
+public getExercisesMockData() {
+  return this.mockExercises;
+}
+/**
+ * getWorkoutsMockData
+ */
+public getWorkoutsMockData() {
+  return this.mockWorkouts;
+}
+
 
   private handleErrors(error: any) {
     const errMsg = error.message
@@ -301,7 +318,7 @@ export class WorkoutService {
   }
 
   private setupInitialExercises() {
-    this.exercises.push(
+    this.mockExercises.push(
       new Exercise(
         "jumpingJacks",
         "Jumping Jacks",
@@ -489,13 +506,13 @@ export class WorkoutService {
   }
 
   private setupInitialWorkouts() {
-    const exercises = this.getExercises();
+    const exercises = this.getExercisesMockData();
     const workout = new WorkoutPlan("7MinWorkout", "7 Minute Workout", 10, []);
     // practice 22-01-2019
     for (const exercise of this.exercises) {
       workout.exercises.push(new ExercisePlan(exercise, 30));
     }
-    this.workouts.push(workout);
+    this.mockWorkouts.push(workout);
     /*
       // practice 22-01-2019
       for (const i in exercises) {

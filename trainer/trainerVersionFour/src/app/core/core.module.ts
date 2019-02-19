@@ -16,10 +16,12 @@ import { BootstrapModalModule } from "ngx-modialog/plugins/bootstrap";
  * we import the core module and export the component from the core module.
  */
 import { WorkoutRunnerHeaderComponent } from "./workout-runner-header/workout-runner-header.component";
+import { WorkoutRunnerFooterComponent } from "./workout-runner-footer/workout-runner-footer.component";
 
 @NgModule({
   declarations: [
-    WorkoutRunnerHeaderComponent
+    WorkoutRunnerHeaderComponent,
+    WorkoutRunnerFooterComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { WorkoutRunnerHeaderComponent } from "./workout-runner-header/workout-ru
     BootstrapModalModule
   ],
   exports: [
-    WorkoutRunnerHeaderComponent
+    WorkoutRunnerHeaderComponent,
+    WorkoutRunnerFooterComponent
   ]
 })
 export class CoreModule {}

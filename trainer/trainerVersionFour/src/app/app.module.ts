@@ -6,8 +6,6 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 
-
-
 /**
  * Application dependency Module
  * AppRoutingModule
@@ -36,7 +34,7 @@ import { FinishComponent } from "./finish/finish.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { WorkoutHistoryComponent } from "./workout-history/workout-history.component";
 import { WorkoutHistoryDialogComponent } from "./workout-history/workout-history-dialog/workout-history-dialog.component";
-
+import { HomeComponent } from "./home/home.component";
 
 @NgModule({
   declarations: [
@@ -45,7 +43,8 @@ import { WorkoutHistoryDialogComponent } from "./workout-history/workout-history
     FinishComponent,
     DashboardComponent,
     WorkoutHistoryComponent,
-    WorkoutHistoryDialogComponent
+    WorkoutHistoryDialogComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -54,15 +53,10 @@ import { WorkoutHistoryDialogComponent } from "./workout-history/workout-history
     AppRoutingModule,
     WorkoutRunnerModule,
     CoreModule,
-    SharedModule,
-
+    SharedModule
   ],
   providers: [],
-  entryComponents: [
-    WorkoutHistoryDialogComponent
-  ],
-  bootstrap: [
-    AppComponent
-  ]
+  entryComponents: [WorkoutHistoryDialogComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

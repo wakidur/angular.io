@@ -1,0 +1,20 @@
+"scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  
+  const routes: Routes = [
+  { path: "start", component: StartComponent, data: { title: "Start" } },
+  // { path: "workout", component: WorkoutRunnerComponent, data: { title: "Workout" } },
+  { path: "workout/:id", component: WorkoutRunnerComponent, data: { title: "Workout" } },
+  { path: "finish", component: FinishComponent, data: { title: "Finish" }  },
+  { path: "dashboard", component: DashboardComponent, data: { title: "Dashboard" }  },
+  { path: "history", component: WorkoutHistoryComponent, data: { title: "History" }  },
+  { path: "builder", loadChildren: "./workout-builder/workout-builder.module#WorkoutBuilderModule" },
+  { path: "user", loadChildren: "./user/user.module#UserModule" },
+  { path: "**", redirectTo: "/start", pathMatch: "full" }
+];
