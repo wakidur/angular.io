@@ -15,6 +15,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { UserRoutingModule } from "./user-routing.module";
 import { SharedModule } from "../shared/shared.module";
 import { CoreModule } from "../core/core.module";
+import { AuthModule } from "../auth/auth.module";
 
 /**
  * Application Component List
@@ -44,7 +45,8 @@ import { SignInComponent } from "./sign-in/sign-in.component";
     ReactiveFormsModule,
     UserRoutingModule,
     SharedModule,
-    CoreModule
+    CoreModule,
+    AuthModule
   ]
 })
 export class UserModule {}

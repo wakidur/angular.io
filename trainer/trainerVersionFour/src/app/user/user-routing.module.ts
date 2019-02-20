@@ -11,13 +11,18 @@ import { Routes, RouterModule } from "@angular/router";
  * SignUpComponent
  * UserProfileComponent
  * SignInComponent
- *
- *
  */
 import { UserComponent } from "./user.component";
 import { SignUpComponent } from "./sign-up/sign-up.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { SignInComponent } from "./sign-in/sign-in.component";
+
+/**
+ * Application service List
+ *
+*/
+import { AuthGuard } from "../auth/auth.guard";
+
 
 const routes: Routes = [
   {
@@ -42,6 +47,7 @@ const routes: Routes = [
       {
         path: "user-profile",
         component: UserProfileComponent,
+        canActivate: [AuthGuard],
         data: { title: "User Profile" }
       },
     ]

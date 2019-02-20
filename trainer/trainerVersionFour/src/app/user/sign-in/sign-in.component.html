@@ -13,22 +13,13 @@
       <h4 class="text-white mt-5  mb-3">User Login</h4>
     </div>
     <div class="d-flex justify-content-center">
-      <div class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-3 bg-white" >
+      <div class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-3 bg-white">
         <form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)" class="pt-4 pb-4 pl-2 pr-2">
           <div class="form-group">
             <label for="userEmail">Email address</label>
-            <input
-            type="email"
-            class="form-control"
-            id="email"
-            name="email"
-            aria-describedby="Enter valid email address"
-            placeholder="Enter email"
-            #emailLocalVar="ngModel"
-            [(ngModel)]="login.email"
-            [pattern]="emailRegex"
-            required
-            [ngClass]="{'is-invalid':
+            <input type="email" class="form-control" id="email" name="email" aria-describedby="Enter valid email address"
+              placeholder="Enter email" #emailLocalVar="ngModel" [(ngModel)]="login.email" [pattern]="emailRegex"
+              required [ngClass]="{'is-invalid':
             ((emailLocalVar.control.hasError('required')) && (emailLocalVar.touched)) ||
             (emailLocalVar.control.hasError('pattern')) ||
             (signInForm.submitted && !emailLocalVar.valid) , 'is-valid' : (!(emailLocalVar.control.hasError('pattern')) &&  (emailLocalVar.touched))}">
@@ -43,17 +34,8 @@
           </div>
           <div class="form-group">
             <label for="userPassword">Password</label>
-            <input
-            type="password"
-            name="password"
-            class="form-control"
-            id="password"
-            placeholder="Password"
-            #passwordLocalVar="ngModel"
-            [(ngModel)]="login.password"
-            minlength="4"
-            required
-            [ngClass]="{ 'is-invalid':
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+              #passwordLocalVar="ngModel" [(ngModel)]="login.password" minlength="4" required [ngClass]="{ 'is-invalid':
                   (passwordLocalVar.control.hasError('required') && (passwordLocalVar.touched)) ||
                   (passwordLocalVar.control.hasError('minlength') && (passwordLocalVar.touched)) ||
                   (signInForm.submitted && !passwordLocalVar.valid), 'is-valid' : (!(passwordLocalVar.control.hasError('minlength')) &&  (passwordLocalVar.touched))
@@ -70,13 +52,7 @@
           <div class="form-group">
             <div class="d-flex justify-content-between ">
               <div class="custom-control custom-checkbox mb-3">
-                <input
-                type="checkbox"
-                class="custom-control-input"
-                id="remember"
-                name="remember"
-                [(ngModel)]="rememberCheckBox"
-                >
+                <input type="checkbox" class="custom-control-input" id="remember" name="remember" [(ngModel)]="rememberCheckBox">
                 <label class="custom-control-label" for="remember">Remember me {{rememberCheckBox}}</label>
               </div>
               <a [routerLink]="['/user/forget-passworkd']" routerLinkActive="active" class="btn-link text-muted mb-3">
@@ -84,12 +60,30 @@
               </a>
             </div>
           </div>
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+          <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </form>
 
         <p class="pl-2 pb-2 text-muted">
-          Don't have an account? <a [routerLink]="['/user/sign-up']" routerLinkActive="active" class="btn-link"> Register </a>
+          Don't have an account? <a [routerLink]="['/user/sign-up']" routerLinkActive="active" class="btn-link">
+            Register </a>
         </p>
+      </div>
+    </div>
+
+    <!-- Success message -->
+    <div class="d-flex justify-content-center" *ngIf="showSucessMessage">
+      <div class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-3 bg-white">
+        <div class="alert alert-success" role="alert">
+          Saved successfully
+        </div>
+      </div>
+    </div>
+    <!-- Error message -->
+    <div class="d-flex justify-content-center" *ngIf="serverErrorMessages">
+      <div class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-3 bg-white">
+        <div class="alert alert-danger" role="alert">
+          {{serverErrorMessages}}
+        </div>
       </div>
     </div>
   </div>

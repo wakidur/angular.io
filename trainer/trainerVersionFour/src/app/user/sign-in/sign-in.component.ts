@@ -21,12 +21,18 @@ export class SignInComponent implements OnInit {
     email: "",
     password: ""
   };
-  public rememberCheckBox:boolean;
+  public rememberCheckBox: boolean;
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   serverErrorMessages: string;
+  showSucessMessage: boolean;
   constructor(private userService: UserService, public router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const token = this.userService.getToken();
+    console.log(token);
+    const isLoggedIn = this.userService.isLoggedIn();
+    console.log(isLoggedIn);
+  }
 
   /**
    * onSubmit
@@ -37,12 +43,14 @@ export class SignInComponent implements OnInit {
         email: singInForm.value.email,
         password: singInForm.value.password
       };
-      this.userService.logIn(inputValue).subscribe(
+      this.userService.logInUser(inputValue).subscribe(
         res => {
-          console.log("Observer got a next value: " + res["token"]);
+          this.showSucessMessage = true;
+          this.router.navigateByUrl("/user/user-profile");
         },
         err => {
           console.error("Observer got an error: " + err);
+          this.serverErrorMessages = err.error.message;
         },
         () => console.log("Observer got a complete notification")
       );
