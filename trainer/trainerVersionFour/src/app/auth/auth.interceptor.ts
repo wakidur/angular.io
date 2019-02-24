@@ -3,12 +3,7 @@
  */
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import {
-  HttpInterceptor,
-  HttpEvent,
-  HttpHandler,
-  HttpRequest
-} from "@angular/common/http";
+import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest} from "@angular/common/http";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 
@@ -18,7 +13,7 @@ import { tap } from "rxjs/operators";
 import { AuthModule } from "./auth.module";
 import { UserService } from "../core/user.service";
 
-@Injectable({ providedIn: AuthModule })
+@Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private userService: UserService, private router: Router) {}
 

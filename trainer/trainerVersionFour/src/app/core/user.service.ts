@@ -2,7 +2,11 @@
  * Frameworks dependency
  */
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders
+} from "@angular/common/http";
 import { Http, Response } from "@angular/http";
 import { Observable, of, throwError, forkJoin } from "rxjs";
 import { catchError, map, throwIfEmpty } from "rxjs/operators";
@@ -25,6 +29,8 @@ export class UserService {
   apiKey = "TRZfI48FK_XQeAyB5EE5-7z3d8wFgcgV";
   params = "?apiKey=" + this.apiKey;
   private contactsUrlPort = "http://localhost:3000/api/users";
+
+  noAuthHeader = { headers: new HttpHeaders({ NoAuth: "True" }) };
   constructor(
     public httpClient: HttpClient,
     private storage: SessionStorageService
@@ -55,10 +61,12 @@ export class UserService {
     // let headers = new Headers({ "Content-Type": "application/json" });
     // let options = new RequestOptions({ headers: headers });
 
-    return this.httpClient.post(this.contactsUrlPort + "/signup", user).pipe(
-      map(response => response as User),
-      catchError(this.handleError)
-    );
+    return this.httpClient
+      .post(this.contactsUrlPort + "/signup", user, this.noAuthHeader)
+      .pipe(
+        map(response => response as User),
+        catchError(this.handleError)
+      );
   }
 
   /**
@@ -74,16 +82,22 @@ export class UserService {
     //   .map(this.handleResponse)
     //  .catch(this.handleError);
 
-    return this.httpClient.post(this.contactsUrlPort + "/login", user).pipe(
-      map(res => {
-        this.storage.setToken(this.storageKey, res["token"]);
-        return res;
-      }),
-      catchError(this.handleError)
-    );
+    return this.httpClient
+      .post(this.contactsUrlPort + "/login", user, this.noAuthHeader)
+      .pipe(
+        map(res => {
+          this.storage.setToken(this.storageKey, res["token"]);
+          return res;
+        }),
+        catchError(this.handleError)
+      );
   }
 
-  //Helper Methods
+  getUserProfile() {
+    return this.httpClient.get(this.contactsUrlPort + "/account/profile");
+  }
+
+  // Helper Methods
 
   /**
    * name

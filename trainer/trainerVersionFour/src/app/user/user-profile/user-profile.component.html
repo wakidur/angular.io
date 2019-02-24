@@ -1,3 +1,143 @@
-<p>
-  user-profile works!
-</p>
+<!-- tob menu -->
+<header style="border-bottom: 1px solid #2d3073;">
+  <app-workout-runner-header></app-workout-runner-header>
+</header>
+<!-- tob menu -->
+
+
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- sidebar -->
+      <nav class="col-md-2 d-none d-md-block bg-light guest-user-sidebar">
+        <div class="sidebar-sticky">
+            <div class="d-flex justify-content-center" style="background-color: #7679e2">
+                <figure class="figure" *ngIf="userDetails">
+                    <img width="94" src="/assets/images/user.jpg" class="figure-img img-fluid rounded-circle" alt="...">
+                    <figcaption class="figure-caption text-white font-weight-bold">{{userDetails.fullname}}</figcaption>
+                  </figure>
+            </div>
+
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">
+                  <i class="icon ion-md-aperture"></i>
+                Dashboard <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/user/user-profile">
+                  <i class="icon ion-md-person"></i>
+                Profile
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="shopping-cart"></span>
+                Products
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="users"></span>
+                Customers
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="bar-chart-2"></span>
+                Reports
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="layers"></span>
+                Integrations
+              </a>
+            </li>
+          </ul>
+
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Saved reports</span>
+            <a class="d-flex align-items-center text-muted" href="#">
+              <span data-feather="plus-circle"></span>
+            </a>
+          </h6>
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="file-text"></span>
+                Current month
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="file-text"></span>
+                Last quarter
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="file-text"></span>
+                Social engagement
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="file-text"></span>
+                Year-end sale
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- sidebar -->
+
+      <!-- main container -->
+      <div role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+        <!-- page name  -->
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+          <!-- <h1 class="h2 "> Dashboard </h1> -->
+          <button class="btn btn-primary"> <i class="icon ion-md-calendar"></i> Dashboard </button>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button type="button" class="btn btn-sm btn-outline-secondary"> <i class="icon ion-md-person"></i> </button>
+              <button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-money" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+        <!-- page name  -->
+
+
+
+
+        <div class="table-responsive">
+          <table class="table table-striped table-sm" *ngIf="userDetails">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{userDetails.fullname}}</td>
+                <td>{{userDetails.email}}</td>
+                <td>ipsum</td>
+                <td>dolor</td>
+                <td>sit</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- main container -->
+    </div>
+  </div>
+</main>

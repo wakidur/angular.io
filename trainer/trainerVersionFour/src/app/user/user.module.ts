@@ -4,7 +4,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 /**
  * Application dependency Module
@@ -31,6 +31,13 @@ import { SignUpComponent } from "./sign-up/sign-up.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { SignInComponent } from "./sign-in/sign-in.component";
 
+/**
+ * Application Service List
+ *
+ */
+
+import { AuthInterceptor } from "../auth/auth.interceptor";
+
 @NgModule({
   declarations: [
     UserComponent,
@@ -47,6 +54,13 @@ import { SignInComponent } from "./sign-in/sign-in.component";
     SharedModule,
     CoreModule,
     AuthModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ]
 })
 export class UserModule {}
