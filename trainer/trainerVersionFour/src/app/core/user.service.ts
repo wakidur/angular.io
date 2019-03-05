@@ -138,4 +138,17 @@ export class UserService {
   private handleError(error: HttpErrorResponse) {
     return throwError(error);
   }
+
+
+  // user role managment
+/**
+ * getListOfUserRoles
+ */
+public getListOfUserRoles() {
+
+
+  return this.httpClient.get('url').pipe();
+
+}
+
 }

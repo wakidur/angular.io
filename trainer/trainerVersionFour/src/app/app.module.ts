@@ -31,7 +31,7 @@ import { WorkoutRunnerModule } from "./workout-runner/workout-runner.module";
 import { AppComponent } from "./app.component";
 import { StartComponent } from "./start/start.component";
 import { FinishComponent } from "./finish/finish.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
+
 import { WorkoutHistoryComponent } from "./workout-history/workout-history.component";
 import { WorkoutHistoryDialogComponent } from "./workout-history/workout-history-dialog/workout-history-dialog.component";
 import { HomeComponent } from "./home/home.component";
@@ -41,7 +41,6 @@ import { HomeComponent } from "./home/home.component";
     AppComponent,
     StartComponent,
     FinishComponent,
-    DashboardComponent,
     WorkoutHistoryComponent,
     WorkoutHistoryDialogComponent,
     HomeComponent

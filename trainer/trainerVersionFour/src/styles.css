@@ -116,7 +116,9 @@
   position: relative;
   border-radius: 0;
   margin: 0;
+  padding: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   background-color: #fff;
   backface-visibility: hidden;
 }
@@ -209,7 +211,7 @@ ul.collapse-level-1>li a:active {
   color: #878787;
 }
 
-.fixed-sidebar-left .side-nav>li>a.active {
+.fixed-sidebar-left .side-nav>li.active>a {
   background: #dc0030;
   color: #fff;
 }
@@ -281,7 +283,7 @@ ul.collapse-level-1>li a:active {
 .navbar-brand .brand-text {
   display: inline-block;
   font-family: 'Poppins', sans-serif;
-  color: #212121;
+  color: #fff;
   font-size: 21px;
   text-transform: capitalize;
   opacity: 1;

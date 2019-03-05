@@ -3,13 +3,13 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 // import app dependency
-
-import { DashboardComponent } from "./dashboard/dashboard.component";
 import { WorkoutRunnerComponent } from "./workout-runner/workout-runner.component";
 import { StartComponent } from "./start/start.component";
 import { FinishComponent } from "./finish/finish.component";
 import { WorkoutHistoryComponent } from "./workout-history/workout-history.component";
 import { HomeComponent } from "./home/home.component";
+
+
 
 /**
  * Routes (use configurations)
@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: "home", component: HomeComponent, data: { title: "Home" } },
   { path: "workout/:id", component: WorkoutRunnerComponent, data: { title: "Workout" } },
   { path: "finish", component: FinishComponent, data: { title: "Finish" }  },
-  { path: "dashboard", component: DashboardComponent, data: { title: "Dashboard" }  },
+  { path: "dashboard", loadChildren: "./dashboard/dashboard.module#DashboardModule"},
   { path: "history", component: WorkoutHistoryComponent, data: { title: "History" }  },
   { path: "builder", loadChildren: "./workout-builder/workout-builder.module#WorkoutBuilderModule" },
   { path: "user", loadChildren: "./user/user.module#UserModule" },
