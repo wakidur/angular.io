@@ -1,3 +1,57 @@
-<p>
-  list-of-role works!
-</p>
+<div class="container-fluid pt-4">
+  <div class="row">
+    <div class="col-12">
+      <div *ngIf="message" class="alert alert-primary" role="alert">
+        {{message}}
+      </div>
+      <div *ngIf="successFrom" class="alert alert-success" role="alert">
+        {{successFrom}}
+      </div>
+      <div *ngIf="errorOfRoles" class="alert alert-danger" role="alert">
+        {{errorOfRoles}}
+      </div>
+
+      <form #listOfRole="ngForm" (ngSubmit)="roleSubmit(listOfRole)">
+        <div class="form-group row">
+          <label for="userRole" class="col-sm-2 col-form-label">Role Name</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" id="userRole" name="name" [(ngModel)]="listOfRoles.name"
+              #nameLocalVar="ngModel" placeholder="Role name">
+          </div>
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listOfRoles; let i=index">
+              <td>{{i}}</td>
+              <td>{{item._id}}</td>
+              <td>{{item.name}}</td>
+              <td>
+                <button type="button" class="btn p-0 text-danger" (click)="deleteRole(item)"><i class="fa fa-trash"
+                    aria-hidden="true"></i></button>
+                <button type="button" class="btn p-0 text-dark" (click)="updateRole(item)"><i class="fa fa-pencil-square-o"
+                    aria-hidden="true"></i></button>
+
+
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

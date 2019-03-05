@@ -29,6 +29,7 @@ export class Login {
 }
 
 export class ListOfRoles {
+   _id: string;
    name: string;
 }
 

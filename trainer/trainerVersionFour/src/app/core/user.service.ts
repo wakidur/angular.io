@@ -14,7 +14,7 @@ import { catchError, map, throwIfEmpty } from "rxjs/operators";
  * Application dependency
  */
 import { CoreModule } from "./core.module";
-import { User, Login } from "../core/model/user.model";
+import { User, Login, ListOfRoles } from "../core/model/user.model";
 import { SessionStorageService } from "../core/session-storage.service";
 
 @Injectable({
@@ -35,6 +35,10 @@ export class UserService {
     public httpClient: HttpClient,
     private storage: SessionStorageService
   ) {}
+
+  private handleError(error: HttpErrorResponse) {
+    return throwError(error);
+  }
 
   // get("/api/users/account")
 
@@ -116,7 +120,7 @@ export class UserService {
   /**
    * getUserPayload
    */
-  getUserPayload() {
+  public getUserPayload() {
     const token = this.getToken();
     if (token) {
       const userPayload = atob((token as string).split(".")[1]);
@@ -126,7 +130,7 @@ export class UserService {
     }
   }
 
-  isLoggedIn() {
+  public isLoggedIn() {
     const userPayload = this.getUserPayload();
     if (userPayload) {
       return userPayload.exp > Date.now() / 1000;
@@ -135,20 +139,41 @@ export class UserService {
     }
   }
 
-  private handleError(error: HttpErrorResponse) {
-    return throwError(error);
+  // user role managment
+  /**
+   * getListOfUserRoles
+   */
+  public getListOfUserRoles(): Observable<ListOfRoles> {
+    return this.httpClient.get(this.contactsUrlPort + "/list-of-roles").pipe(
+      map(response => response as ListOfRoles),
+      catchError(this.handleError)
+    );
   }
 
+  /**
+   * postUserRole
+   */
+  public postListOfUserRole(value) {
+    return this.httpClient
+      .post(this.contactsUrlPort + "/list-of-roles", value)
+      .pipe(
+        map(response => {
+          if (response) {
+            return "success full save";
+          } else {
+            return "some proble";
+          }
+        }),
+        catchError(this.handleError)
+      );
+  }
 
-  // user role managment
-/**
- * getListOfUserRoles
- */
-public getListOfUserRoles() {
-
-
-  return this.httpClient.get('url').pipe();
-
-}
-
+  public updateListOfUserRole(value) {
+    return this.httpClient
+      .put(this.contactsUrlPort + "/list-of-roles", value)
+      .pipe(
+        map(response => response),
+        catchError(this.handleError)
+      );
+  }
 }
