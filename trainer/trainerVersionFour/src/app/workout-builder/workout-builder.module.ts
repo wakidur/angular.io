@@ -9,7 +9,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+
 
 /**
  * Application dependency Module
@@ -65,7 +65,6 @@ import { ExerciseResolverGuard } from "./exercise/exercise-resolver.guard";
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,

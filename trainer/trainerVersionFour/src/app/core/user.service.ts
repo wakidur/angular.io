@@ -10,6 +10,7 @@ import {
 import { Http, Response } from "@angular/http";
 import { Observable, of, throwError, forkJoin } from "rxjs";
 import { catchError, map, throwIfEmpty } from "rxjs/operators";
+
 /**
  * Application dependency
  */
@@ -175,5 +176,28 @@ export class UserService {
         map(response => response),
         catchError(this.handleError)
       );
+  }
+
+  // using Rxjs
+  public UsingRxJs() {
+    this.httpClient
+      .get(this.contactsUrlPort)
+      .pipe(
+        map(res => {
+          if (!res) {
+            throw new Error("Value expected!");
+          }
+          return res;
+        }),
+        catchError(err => of([]))
+      )
+      .subscribe({
+        next(x) {
+          console.log("data: ", x);
+        },
+        error(err) {
+          console.log("errors already caught... will not run");
+        }
+      });
   }
 }

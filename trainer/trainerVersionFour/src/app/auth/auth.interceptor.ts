@@ -13,7 +13,9 @@ import { tap } from "rxjs/operators";
 import { AuthModule } from "./auth.module";
 import { UserService } from "../core/user.service";
 
-@Injectable()
+@Injectable({
+  providedIn: AuthModule
+})
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private userService: UserService, private router: Router) {}
 

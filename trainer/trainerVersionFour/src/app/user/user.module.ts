@@ -4,7 +4,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
 /**
  * Application dependency Module
@@ -47,7 +47,6 @@ import { AuthInterceptor } from "../auth/auth.interceptor";
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     UserRoutingModule,
@@ -55,12 +54,6 @@ import { AuthInterceptor } from "../auth/auth.interceptor";
     CoreModule,
     AuthModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ]
+  providers: []
 })
 export class UserModule {}

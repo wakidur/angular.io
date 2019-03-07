@@ -3,6 +3,7 @@
  */
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 
 // incorporate a third-party library
@@ -27,7 +28,8 @@ import { WorkoutRunnerFooterComponent } from "./workout-runner-footer/workout-ru
     CommonModule,
     RouterModule,
     ModalModule.forRoot(),
-    BootstrapModalModule
+    BootstrapModalModule,
+    HttpClientModule
   ],
   exports: [
     WorkoutRunnerHeaderComponent,
