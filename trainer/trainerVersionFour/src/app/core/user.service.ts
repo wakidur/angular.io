@@ -141,6 +141,7 @@ export class UserService {
   }
 
   // user role managment
+
   /**
    * getListOfUserRoles
    */
@@ -169,11 +170,53 @@ export class UserService {
       );
   }
 
+  /**
+   * updateListOfUserRole
+   * @param value
+   */
   public updateListOfUserRole(value) {
     return this.httpClient
       .put(this.contactsUrlPort + "/list-of-roles", value)
       .pipe(
-        map(response => response),
+        map(response => {
+          return "Update Successfully";
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * deleteListOfUserRole
+   */
+  public deleteListOfUserRole(delContactId): Observable<string> {
+    const url = `${this.contactsUrlPort}/list-of-roles/${delContactId}`;
+    return this.httpClient
+      .delete(url)
+      .pipe(
+        map(res => {
+          return "List of User Role  successfully Delete";
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * getListOfUserRoleByName
+   */
+  public getListOfUserRoleByName(value) {
+    return this.httpClient
+      .get(this.contactsUrlPort + "/list-of-roles/" + value)
+      .pipe(
+        map(res => {
+          console.log(res["name"]);
+          if (res["name"] === value) {
+            return true;
+          } else if (res["name"] === "not found") {
+            return false;
+          } else {
+            return false;
+          }
+        }),
         catchError(this.handleError)
       );
   }

@@ -1,27 +1,36 @@
 /**
  * Frameworks dependency
  */
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import {
+  Component,
+  AfterViewInit,
+  OnInit,
+  OnDestroy,
+  ElementRef
+} from "@angular/core";
+import { NgForm } from "@angular/forms";
 /**
  * Application dependency
  *
  */
 import { ListOfRoles } from "../../../core/model/user.model";
 import { UserService } from "../../../core/user.service";
-import { NgForm } from "@angular/forms";
 
 @Component({
   selector: "app-list-of-role",
   templateUrl: "./list-of-role.component.html",
   styles: []
 })
-export class ListOfRoleComponent implements OnInit, OnDestroy {
+export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
+  search: any;
+  jQuery: any;
   listOfRoles: ListOfRoles;
   listOfEdit: ListOfRoles;
   message: string;
-  errorOfRoles;
-  successFrom;
+  errorOfRoles: string;
+  successFrom: string;
   formSubmint = {
+    _id: "",
     name: ""
   };
   constructor(private userService: UserService) {}
@@ -29,78 +38,103 @@ export class ListOfRoleComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getUserRole();
   }
+
+  ngAfterViewInit() {}
   /**
    * getUserRole
    */
   public getUserRole() {
-    this.userService
-      .getListOfUserRoles()
-      .subscribe(
-        x => {
-          this.listOfRoles = x;
-          // this.listOfEdit = x;
-        },
-        err => (this.errorOfRoles = err),
-        () => console.log("Observer got a complete notification")
-      );
+    this.userService.getListOfUserRoles().subscribe(
+      x => {
+        this.listOfRoles = x;
+        // this.listOfEdit = x;
+      },
+      err => (this.errorOfRoles = err),
+      () => console.log("Observer got a complete notification")
+    );
   }
 
   /**
    * roleSubmit
    */
   public roleSubmit(name: NgForm) {
-  if (!this.listOfEdit) {
-    if (name.valid) {
-      this.userService.postListOfUserRole(name.value).subscribe(
-        x => {
-          this.successFrom = x;
-          this.getUserRole();
-        },
-        err => (this.errorOfRoles = err),
-        () => console.log(`Observer got a complete notification`)
-      );
-    } else {
-      console.log("invalie ");
-    }
-  } else {
-    if (name.valid) {
-      if (this.listOfEdit.name === name.value.name) {
-        this.message = "same name not modify";
-      } else {
-        const editValue = {
-          _id: this.listOfEdit._id,
-          name: name.value.name
-        };
-        this.userService.updateListOfUserRole(editValue).subscribe(
-          x => {
-            this.successFrom = x;
-            this.getUserRole();
+    if (!this.listOfEdit) {
+      if (name.valid) {
+        this.userService.getListOfUserRoleByName(name.value.name).subscribe(
+          res => {
+            if (res) {
+              this.message = `Already exists please choose another`;
+            } else {
+              this.userService.postListOfUserRole(name.value).subscribe(
+                x => {
+                  this.successFrom = x;
+                  this.getUserRole();
+                },
+                err => (this.errorOfRoles = err),
+                () => console.log(`Observer got a complete notification`)
+              );
+            }
           },
-          err => (this.errorOfRoles = err),
-          () => console.log(`Observer got a complete notification`)
+          err => {
+            this.errorOfRoles = err;
+          }
         );
+      } else {
+        this.message = "Name Field requred";
       }
-
     } else {
-
+      if (name.valid) {
+        if (this.listOfEdit.name === name.value.name) {
+          this.message = "You did not modify the user role";
+        } else {
+          this.userService.getListOfUserRoleByName(name.value.name).subscribe(
+            res => {
+              if (res) {
+                this.message = `Already exists please choose another`;
+              } else {
+                const editValue = {
+                  _id: this.listOfEdit._id,
+                  name: name.value.name
+                };
+                this.userService.updateListOfUserRole(editValue).subscribe(
+                  x => {
+                    this.successFrom = x;
+                    this.getUserRole();
+                  },
+                  err => (this.errorOfRoles = err),
+                  () => console.log(`Observer got a complete notification`)
+                );
+              }
+            },
+            err => {
+              this.errorOfRoles = err;
+            }
+          );
+        }
+      }
     }
-
-  }
-
   }
 
   /**
    * deleteRole
    */
-  public deleteRole(deleteItem) {
-
+  public deleteRole(delContactId) {
+    this.userService.deleteListOfUserRole(delContactId._id).subscribe(
+      res => {
+        this.message = res;
+        this.getUserRole();
+      },
+      err => {
+        this.errorOfRoles = err;
+      }
+    );
   }
 
   /**
    * updateRole
    */
   public updateRole(editItem) {
-    this.listOfRoles = {
+    this.formSubmint = {
       _id: editItem._id,
       name: editItem.name
     };
@@ -109,6 +143,23 @@ export class ListOfRoleComponent implements OnInit, OnDestroy {
       name: editItem.name
     };
   }
+
+  // table data search
+  /**
+   * onSearchChange
+   */
+  public onSearchChange(searchValue: string) {
+    console.log(searchValue);
+  }
+
+  /**
+   * valueChange
+   */
+  public valuechange(newValue) {
+    this.search = newValue;
+    console.log(newValue)
+  }
+
 
   ngOnDestroy(): void {}
 }

@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
  */
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { CoreModule } from "../core/core.module";
+import { SharedModule } from "../shared/shared.module";
 /**
  * Application Components List
  * */
@@ -46,7 +47,8 @@ import { DeshboardContainerComponent } from "./deshboard-container/deshboard-con
     FormsModule,
     ReactiveFormsModule,
     DashboardRoutingModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ]
 })
 export class DashboardModule {}

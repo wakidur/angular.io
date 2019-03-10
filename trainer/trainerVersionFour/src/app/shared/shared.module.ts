@@ -17,6 +17,7 @@ import { AlphabetNumbersValidatorDirective } from "./alphabet-numbers-validator.
 import { RemoteValidatorDirective } from "./remote-validator.directive";
 import { BusyIndicatorDirective } from "./busy-indicator.directive";
 import { AjaxButtonComponent } from "./ajax-button/ajax-button.component";
+import { TooltipDirective } from "./tooltip.directive";
 
 @NgModule({
   declarations: [
@@ -28,12 +29,10 @@ import { AjaxButtonComponent } from "./ajax-button/ajax-button.component";
     AlphabetNumbersValidatorDirective,
     RemoteValidatorDirective,
     BusyIndicatorDirective,
-    AjaxButtonComponent
+    AjaxButtonComponent,
+    TooltipDirective
   ],
-  imports: [
-    CommonModule,
-    HttpClientModule
-  ],
+  imports: [CommonModule, HttpClientModule],
   exports: [
     OrderByPipe,
     SearchPipe,
@@ -43,7 +42,8 @@ import { AjaxButtonComponent } from "./ajax-button/ajax-button.component";
     SecondsToTimePipe,
     RemoteValidatorDirective,
     BusyIndicatorDirective,
-    AjaxButtonComponent
+    AjaxButtonComponent,
+    TooltipDirective
   ]
 })
 export class SharedModule {}
