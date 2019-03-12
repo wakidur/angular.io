@@ -1,4 +1,5 @@
 <div class="container-fluid pt-4">
+
   <div class="row">
     <div class="col-8">
       <div class="card mb-2">
@@ -16,8 +17,14 @@
             <div class="form-group row mb-0">
               <label for="userRole" class="col-sm-4 col-form-label">Role Name</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" id="userRole" name="name" [(ngModel)]="formSubmint.name"
-                  #nameLocalVar="ngModel" placeholder="Role name">
+                <input
+                type="text"
+                class="form-control"
+                id="userRole"
+                name="name"
+                [(ngModel)]="formSubmint.name"
+                #nameLocalVar="ngModel"
+                placeholder="Role name">
 
               </div>
               <div class="col-sm-2">
@@ -39,10 +46,7 @@
                   <label class="sr-only" for="searchListOfRole">Username</label>
                   <div class="input-group">
                     <!-- <input type="text" class="form-control" id="searchListOfRole" placeholder="Search" (input)="onSearchChange($event.target.value)"> -->
-                    <input type="text" class="form-control" id="searchListOfRole" placeholder="Search" [ngModel]="search" (ngModelChange)="valuechange($event)">
-
-
-
+                    <input type="text" class="form-control" id="searchListOfRole" placeholder="Search" name="search" [(ngModel)]="search">
                     <div class="input-group-prepend">
                       <button class="btn btn-danger" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
                       <button class="btn btn-info" type="button "><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -64,7 +68,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of listOfRoles; let i=index">
+                <tr *ngFor="let item of listofrole|filter:search; let i=index ">
                   <td>{{i}}</td>
                   <td>{{item.name}}</td>
                   <td>

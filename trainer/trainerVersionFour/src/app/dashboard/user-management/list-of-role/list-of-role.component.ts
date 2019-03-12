@@ -13,7 +13,7 @@ import { NgForm } from "@angular/forms";
  * Application dependency
  *
  */
-import { ListOfRoles } from "../../../core/model/user.model";
+import { ListOfRoles, ListOfUserRoles } from "../../../core/model/user.model";
 import { UserService } from "../../../core/user.service";
 
 @Component({
@@ -24,15 +24,13 @@ import { UserService } from "../../../core/user.service";
 export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
   search: any;
   jQuery: any;
-  listOfRoles: ListOfRoles;
-  listOfEdit: ListOfRoles;
-  message: string;
-  errorOfRoles: string;
-  successFrom: string;
-  formSubmint = {
-    _id: "",
-    name: ""
-  };
+  public listofrole: ListOfUserRoles;
+  public listOfEdit: ListOfUserRoles;
+  public message: string;
+  public errorOfRoles: string;
+  public successFrom: string;
+  public formSubmint = new ListOfUserRoles("", "");
+
   constructor(private userService: UserService) {}
 
   ngOnInit() {
@@ -46,7 +44,7 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
   public getUserRole() {
     this.userService.getListOfUserRoles().subscribe(
       x => {
-        this.listOfRoles = x;
+        this.listofrole = x;
         // this.listOfEdit = x;
       },
       err => (this.errorOfRoles = err),
@@ -157,9 +155,8 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   public valuechange(newValue) {
     this.search = newValue;
-    console.log(newValue)
+    console.log(newValue);
   }
-
 
   ngOnDestroy(): void {}
 }

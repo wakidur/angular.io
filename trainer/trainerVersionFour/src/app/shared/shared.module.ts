@@ -18,6 +18,7 @@ import { RemoteValidatorDirective } from "./remote-validator.directive";
 import { BusyIndicatorDirective } from "./busy-indicator.directive";
 import { AjaxButtonComponent } from "./ajax-button/ajax-button.component";
 import { TooltipDirective } from "./tooltip.directive";
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TooltipDirective } from "./tooltip.directive";
     RemoteValidatorDirective,
     BusyIndicatorDirective,
     AjaxButtonComponent,
-    TooltipDirective
+    TooltipDirective,
+    FilterPipe
   ],
   imports: [CommonModule, HttpClientModule],
   exports: [
@@ -43,7 +45,8 @@ import { TooltipDirective } from "./tooltip.directive";
     RemoteValidatorDirective,
     BusyIndicatorDirective,
     AjaxButtonComponent,
-    TooltipDirective
+    TooltipDirective,
+    FilterPipe
   ]
 })
 export class SharedModule {}

@@ -33,4 +33,13 @@ export class ListOfRoles {
    name: string;
 }
 
+export class ListOfUserRoles {
+  constructor(
+
+    public name: string,
+    public _id?: string,
+
+  ) {}
+}
+
 
