@@ -15,8 +15,9 @@ import { catchError, map, throwIfEmpty } from "rxjs/operators";
  * Application dependency
  */
 import { CoreModule } from "./core.module";
-import { User, Login, ListOfRoles } from "../core/model/user.model";
+import { User, Login, ListOfRoles, SearchName } from "../core/model/user.model";
 import { SessionStorageService } from "../core/session-storage.service";
+import { resolve } from "url";
 
 @Injectable({
   providedIn: CoreModule
@@ -190,14 +191,12 @@ export class UserService {
    */
   public deleteListOfUserRole(delContactId): Observable<string> {
     const url = `${this.contactsUrlPort}/list-of-roles/${delContactId}`;
-    return this.httpClient
-      .delete(url)
-      .pipe(
-        map(res => {
-          return "List of User Role  successfully Delete";
-        }),
-        catchError(this.handleError)
-      );
+    return this.httpClient.delete(url).pipe(
+      map(res => {
+        return "List of User Role  successfully Delete";
+      }),
+      catchError(this.handleError)
+    );
   }
 
   /**
@@ -217,6 +216,18 @@ export class UserService {
             return false;
           }
         }),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * searchRoleByName
+   */
+  public searchRoleByName(value: SearchName): Observable<any> {
+    return this.httpClient
+      .post(this.contactsUrlPort + "/list-of-roles/search", value)
+      .pipe(
+        map(response => response),
         catchError(this.handleError)
       );
   }

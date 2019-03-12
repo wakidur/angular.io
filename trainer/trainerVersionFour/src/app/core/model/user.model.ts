@@ -29,17 +29,44 @@ export class Login {
 }
 
 export class ListOfRoles {
-   _id: string;
-   name: string;
+  _id: string;
+  name: string;
+}
+
+export class SearchName {
+  name: string;
 }
 
 export class ListOfUserRoles {
-  constructor(
-
-    public name: string,
-    public _id?: string,
-
-  ) {}
+  constructor(public name: string, public _id?: string) {}
 }
 
+// export class Alert {
+//   type: AlertType;
+//   message: string;
+// }
 
+// export enum AlertType {
+//   Success,
+//   Error,
+//   Info,
+//   Warning
+// }
+
+export class Alert {
+  type: AlertType;
+  message: string;
+  alertId?: string;
+  keepAfterRouteChange?: boolean;
+
+  constructor(init?: Partial<Alert>) {
+    Object.assign(this, init);
+  }
+}
+
+export enum AlertType {
+  Success,
+  Error,
+  Info,
+  Warning
+}

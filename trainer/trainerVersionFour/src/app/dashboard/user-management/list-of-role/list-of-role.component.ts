@@ -13,7 +13,11 @@ import { NgForm } from "@angular/forms";
  * Application dependency
  *
  */
-import { ListOfRoles, ListOfUserRoles } from "../../../core/model/user.model";
+import {
+  ListOfRoles,
+  ListOfUserRoles,
+  SearchName
+} from "../../../core/model/user.model";
 import { UserService } from "../../../core/user.service";
 
 @Component({
@@ -22,14 +26,20 @@ import { UserService } from "../../../core/user.service";
   styles: []
 })
 export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
-  search: any;
-  jQuery: any;
+  public search: any;
   public listofrole: ListOfUserRoles;
   public listOfEdit: ListOfUserRoles;
+  public Success
   public message: string;
   public errorOfRoles: string;
   public successFrom: string;
+
   public formSubmint = new ListOfUserRoles("", "");
+  public searchObject = new SearchName();
+  public tableDataNotFound: boolean = false;
+  public isResetShow: boolean = false;
+  public isAlert: boolean = false;
+
 
   constructor(private userService: UserService) {}
 
@@ -42,8 +52,10 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
    * getUserRole
    */
   public getUserRole() {
+    this.tableDataNotFound = false;
     this.userService.getListOfUserRoles().subscribe(
       x => {
+        this.tableDataNotFound = false;
         this.listofrole = x;
         // this.listOfEdit = x;
       },
@@ -66,6 +78,7 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
               this.userService.postListOfUserRole(name.value).subscribe(
                 x => {
                   this.successFrom = x;
+                  this.isAlert = true;
                   this.getUserRole();
                 },
                 err => (this.errorOfRoles = err),
@@ -147,7 +160,29 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
    * onSearchChange
    */
   public onSearchChange(searchValue: string) {
-    console.log(searchValue);
+    if (searchValue.length > 0) {
+      this.isResetShow = true;
+    } else {
+      this.isResetShow = false;
+    }
+    // this.searchObject.name = searchValue;
+    // this.userService.searchRoleByName(this.searchObject).subscribe(
+    //   result => {
+    //     if (result.length === 0) {
+    //       this.tableDataNotFound = true;
+    //       this.listofrole = null;
+    //     } else if (result.name === "not found") {
+    //       this.tableDataNotFound = true;
+    //       this.listofrole = null;
+    //     } else {
+    //       this.tableDataNotFound = false;
+    //       this.listofrole = result;
+    //     }
+    //   },
+    //   err => {
+    //     this.message = err;
+    //   }
+    // );
   }
 
   /**
@@ -158,5 +193,46 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(newValue);
   }
 
+  /**
+   * searchReset
+   */
+  public searchReset(value: string) {
+    console.log(value);
+    this.search = "";
+    this.isResetShow = false;
+    this.getUserRole();
+  }
+
+  /**
+   * searchForValue
+   */
+  public searchForValue(search: string) {
+    this.searchObject.name = search;
+    this.userService.searchRoleByName(this.searchObject).subscribe(
+      result => {
+        if (result.length === 0) {
+          this.tableDataNotFound = true;
+          this.listofrole = null;
+        } else if (result.name === "not found") {
+          this.tableDataNotFound = true;
+          this.listofrole = null;
+        } else {
+          this.tableDataNotFound = false;
+          this.listofrole = result;
+        }
+      },
+      err => {
+        this.message = err;
+      }
+    );
+  }
+
+/**
+ * isAlertClick
+ */
+public isAlertClick() {
+
+
+}
   ngOnDestroy(): void {}
 }

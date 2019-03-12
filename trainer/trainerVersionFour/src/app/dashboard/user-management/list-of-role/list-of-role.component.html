@@ -4,15 +4,25 @@
     <div class="col-8">
       <div class="card mb-2">
         <div class="card-body">
-          <div *ngIf="message" class="alert alert-primary" role="alert">
-            {{message}}
+          <div *ngIf="message" #alert class="alert alert-primary  alert-dismissible fade show"  role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="close" aria-label="Close" (click)="isAlertClick()">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div *ngIf="successFrom" class="alert alert-success" role="alert">
+          <div *ngIf="successFrom" class="alert alert-success"  role="alert">
             {{successFrom}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div *ngIf="errorOfRoles" class="alert alert-danger" role="alert">
+          <div *ngIf="errorOfRoles" class="alert alert-danger"  role="alert">
             {{errorOfRoles}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
+
           <form #listOfRole="ngForm" (ngSubmit)="roleSubmit(listOfRole)">
             <div class="form-group row mb-0">
               <label for="userRole" class="col-sm-4 col-form-label">Role Name</label>
@@ -45,11 +55,11 @@
                 <div class="col-auto">
                   <label class="sr-only" for="searchListOfRole">Username</label>
                   <div class="input-group">
-                    <!-- <input type="text" class="form-control" id="searchListOfRole" placeholder="Search" (input)="onSearchChange($event.target.value)"> -->
-                    <input type="text" class="form-control" id="searchListOfRole" placeholder="Search" name="search" [(ngModel)]="search">
+                    <input type="text" class="form-control" id="searchListOfRole" placeholder="Search" name="search" #searchLocVar="ngModel" [(ngModel)]="search" (input)="onSearchChange($event.target.value)">
+                    <!-- <input type="text" class="form-control" id="searchListOfRole" placeholder="Search" name="search" [(ngModel)]="search"> -->
                     <div class="input-group-prepend">
-                      <button class="btn btn-danger" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
-                      <button class="btn btn-info" type="button "><i class="fa fa-search" aria-hidden="true"></i></button>
+                      <button *ngIf="isResetShow" (click)="searchReset(search)" class="btn btn-danger" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
+                      <button (click)="searchForValue(search)" class="btn btn-info" type="button "><i class="fa fa-search" aria-hidden="true"></i></button>
                     </div>
                   </div>
                 </div>
@@ -68,7 +78,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of listofrole|filter:search; let i=index ">
+                <tr *ngFor="let item of listofrole; let i=index ">
                   <td>{{i}}</td>
                   <td>{{item.name}}</td>
                   <td>
@@ -77,6 +87,9 @@
                     <a appTooltip role="button" data-toggle="tooltip" data-placement="top" title="Edit" class="btn p-0 text-dark"
                       (click)="updateRole(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                   </td>
+                </tr>
+                <tr *ngIf="tableDataNotFound">
+                  <td colspan="3">Table data not found</td>
                 </tr>
               </tbody>
             </table>

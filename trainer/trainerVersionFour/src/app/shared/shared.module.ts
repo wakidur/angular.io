@@ -34,7 +34,10 @@ import { FilterPipe } from './filter.pipe';
     TooltipDirective,
     FilterPipe
   ],
-  imports: [CommonModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    HttpClientModule
+  ],
   exports: [
     OrderByPipe,
     SearchPipe,

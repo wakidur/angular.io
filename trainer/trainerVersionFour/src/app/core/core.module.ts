@@ -18,11 +18,14 @@ import { BootstrapModalModule } from "ngx-modialog/plugins/bootstrap";
  */
 import { WorkoutRunnerHeaderComponent } from "./workout-runner-header/workout-runner-header.component";
 import { WorkoutRunnerFooterComponent } from "./workout-runner-footer/workout-runner-footer.component";
+import { AlertNotificationsComponent } from "./alert-notifications/alert-notifications.component";
 
 @NgModule({
   declarations: [
     WorkoutRunnerHeaderComponent,
-    WorkoutRunnerFooterComponent
+    WorkoutRunnerFooterComponent,
+    AlertNotificationsComponent,
+    AlertNotificationsComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +36,8 @@ import { WorkoutRunnerFooterComponent } from "./workout-runner-footer/workout-ru
   ],
   exports: [
     WorkoutRunnerHeaderComponent,
-    WorkoutRunnerFooterComponent
+    WorkoutRunnerFooterComponent,
+    AlertNotificationsComponent
   ]
 })
 export class CoreModule {}
