@@ -4,25 +4,7 @@
     <div class="col-8">
       <div class="card mb-2">
         <div class="card-body">
-          <div *ngIf="message" #alert class="alert alert-primary  alert-dismissible fade show"  role="alert">
-            <strong>{{message}}</strong>
-            <button type="button" class="close" aria-label="Close" (click)="isAlertClick()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div *ngIf="successFrom" class="alert alert-success"  role="alert">
-            {{successFrom}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div *ngIf="errorOfRoles" class="alert alert-danger"  role="alert">
-            {{errorOfRoles}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
+          <app-alert-notifications></app-alert-notifications>
           <form #listOfRole="ngForm" (ngSubmit)="roleSubmit(listOfRole)">
             <div class="form-group row mb-0">
               <label for="userRole" class="col-sm-4 col-form-label">Role Name</label>
@@ -96,11 +78,6 @@
           </div>
         </div>
       </div>
-
-
-
-
-
     </div>
   </div>
 </div>

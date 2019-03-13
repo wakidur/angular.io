@@ -9,16 +9,14 @@ import {
   ElementRef
 } from "@angular/core";
 import { NgForm } from "@angular/forms";
+
 /**
  * Application dependency
  *
  */
-import {
-  ListOfRoles,
-  ListOfUserRoles,
-  SearchName
-} from "../../../core/model/user.model";
+import { ListOfRoles, ListOfUserRoles, SearchName } from "../../../core/model/user.model";
 import { UserService } from "../../../core/user.service";
+import { AlertNotificationsService } from "../../../core/alert-notifications.service";
 
 @Component({
   selector: "app-list-of-role",
@@ -29,19 +27,22 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
   public search: any;
   public listofrole: ListOfUserRoles;
   public listOfEdit: ListOfUserRoles;
-  public Success
   public message: string;
   public errorOfRoles: string;
   public successFrom: string;
 
   public formSubmint = new ListOfUserRoles("", "");
   public searchObject = new SearchName();
-  public tableDataNotFound: boolean = false;
-  public isResetShow: boolean = false;
-  public isAlert: boolean = false;
+  public tableDataNotFound:boolean = false;
+  public isResetShow:boolean = false;
+  public isAlert:boolean = false;
 
 
-  constructor(private userService: UserService) {}
+
+  constructor(
+    private userService: UserService,
+    private alertNotificationsService: AlertNotificationsService
+    ) {}
 
   ngOnInit() {
     this.getUserRole();
@@ -74,34 +75,41 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
           res => {
             if (res) {
               this.message = `Already exists please choose another`;
+              this.alertNotificationsService.infoAlert("Already exists please choose another");
             } else {
               this.userService.postListOfUserRole(name.value).subscribe(
                 x => {
                   this.successFrom = x;
+                  this.alertNotificationsService.successAlert(x);
                   this.isAlert = true;
                   this.getUserRole();
                 },
-                err => (this.errorOfRoles = err),
+                err => {
+                  this.alertNotificationsService.errorAlert(err);
+                  this.errorOfRoles = err;
+                },
                 () => console.log(`Observer got a complete notification`)
               );
             }
           },
           err => {
             this.errorOfRoles = err;
+            this.alertNotificationsService.errorAlert(err);
           }
         );
       } else {
         this.message = "Name Field requred";
+
       }
     } else {
       if (name.valid) {
         if (this.listOfEdit.name === name.value.name) {
-          this.message = "You did not modify the user role";
+          this.alertNotificationsService.infoAlert("You did not modify the user role");
         } else {
           this.userService.getListOfUserRoleByName(name.value.name).subscribe(
             res => {
               if (res) {
-                this.message = `Already exists please choose another`;
+                this.alertNotificationsService.infoAlert("Already exists please choose another");
               } else {
                 const editValue = {
                   _id: this.listOfEdit._id,
@@ -109,16 +117,18 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
                 };
                 this.userService.updateListOfUserRole(editValue).subscribe(
                   x => {
-                    this.successFrom = x;
+                    this.alertNotificationsService.successAlert(x);
                     this.getUserRole();
                   },
-                  err => (this.errorOfRoles = err),
+                  err => {
+                    this.alertNotificationsService.errorAlert(err);
+                  } ,
                   () => console.log(`Observer got a complete notification`)
                 );
               }
             },
             err => {
-              this.errorOfRoles = err;
+              this.alertNotificationsService.errorAlert(err);
             }
           );
         }
@@ -132,11 +142,11 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
   public deleteRole(delContactId) {
     this.userService.deleteListOfUserRole(delContactId._id).subscribe(
       res => {
-        this.message = res;
+        this.alertNotificationsService.infoAlert(res);
         this.getUserRole();
       },
       err => {
-        this.errorOfRoles = err;
+        this.alertNotificationsService.errorAlert(err);
       }
     );
   }
@@ -165,32 +175,24 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.isResetShow = false;
     }
-    // this.searchObject.name = searchValue;
-    // this.userService.searchRoleByName(this.searchObject).subscribe(
-    //   result => {
-    //     if (result.length === 0) {
-    //       this.tableDataNotFound = true;
-    //       this.listofrole = null;
-    //     } else if (result.name === "not found") {
-    //       this.tableDataNotFound = true;
-    //       this.listofrole = null;
-    //     } else {
-    //       this.tableDataNotFound = false;
-    //       this.listofrole = result;
-    //     }
-    //   },
-    //   err => {
-    //     this.message = err;
-    //   }
-    // );
-  }
-
-  /**
-   * valueChange
-   */
-  public valuechange(newValue) {
-    this.search = newValue;
-    console.log(newValue);
+    this.searchObject.name = searchValue;
+    this.userService.searchRoleByName(this.searchObject).subscribe(
+      result => {
+        if (result.length === 0) {
+          this.tableDataNotFound = true;
+          this.listofrole = null;
+        } else if (result.name === "not found") {
+          this.tableDataNotFound = true;
+          this.listofrole = null;
+        } else {
+          this.tableDataNotFound = false;
+          this.listofrole = result;
+        }
+      },
+      err => {
+        this.message = err;
+      }
+    );
   }
 
   /**

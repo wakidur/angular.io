@@ -6,10 +6,20 @@ import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 
-// incorporate a third-party library
+/**
+ * incorporate a third-party library
+ */
 
 import { ModalModule } from "ngx-modialog";
 import { BootstrapModalModule } from "ngx-modialog/plugins/bootstrap";
+
+/**
+ * Application Service List
+ *
+ */
+// under core module any  component use this service and also outside module can use this service
+// that way i use only providers
+import { AlertNotificationsService } from "./alert-notifications.service";
 
 /**
  *
@@ -24,7 +34,6 @@ import { AlertNotificationsComponent } from "./alert-notifications/alert-notific
   declarations: [
     WorkoutRunnerHeaderComponent,
     WorkoutRunnerFooterComponent,
-    AlertNotificationsComponent,
     AlertNotificationsComponent
   ],
   imports: [
@@ -34,10 +43,12 @@ import { AlertNotificationsComponent } from "./alert-notifications/alert-notific
     BootstrapModalModule,
     HttpClientModule
   ],
+  providers: [AlertNotificationsService],
   exports: [
     WorkoutRunnerHeaderComponent,
     WorkoutRunnerFooterComponent,
-    AlertNotificationsComponent
+    AlertNotificationsComponent,
+
   ]
 })
 export class CoreModule {}

@@ -1,3 +1,6 @@
-<p>
-  alert-notifications works!
-</p>
+<div *ngFor="let alert of alerts" [className]="cssClass(alert)"  role="alert">
+  {{alert.message}}
+  <button type="button" class="close"  aria-label="Close" (click)="removeAlert(alert)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>

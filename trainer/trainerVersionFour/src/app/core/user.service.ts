@@ -2,11 +2,7 @@
  * Frameworks dependency
  */
 import { Injectable } from "@angular/core";
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders
-} from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Http, Response } from "@angular/http";
 import { Observable, of, throwError, forkJoin } from "rxjs";
 import { catchError, map, throwIfEmpty } from "rxjs/operators";
@@ -17,7 +13,7 @@ import { catchError, map, throwIfEmpty } from "rxjs/operators";
 import { CoreModule } from "./core.module";
 import { User, Login, ListOfRoles, SearchName } from "../core/model/user.model";
 import { SessionStorageService } from "../core/session-storage.service";
-import { resolve } from "url";
+
 
 @Injectable({
   providedIn: CoreModule
