@@ -20,8 +20,10 @@
         <li  class="nav-item " *ngIf="showHistoryLink" routerLinkActive="active">
           <a class="nav-link" routerLink="/history" title="Workout History">History </a>
         </li>
-        <li class="nav-item " *ngIf="showWorkoutLink" routerLinkActive="active">
-          <a class="nav-link" routerLink="/workout" title="Workout History">Workout</a>
+        <li class="nav-item " *ngIf="showWorkoutLink && !checkUserLongInStatus" routerLinkActive="active">
+          <a class="nav-link" routerLink="/workout" title="Workout History">
+            Workout
+          </a>
         </li>
         <li [hidden]="!checkUserLongInStatus" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/start"> Start </a>

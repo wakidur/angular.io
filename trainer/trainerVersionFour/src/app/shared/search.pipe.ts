@@ -12,6 +12,7 @@ export class SearchPipe implements PipeTransform {
     if (searchTerm == null) {
       return [...value];
     }
+    console.log(value.filter(item => item[field]));
     return value.filter(item => item[field] === searchTerm);
   }
 }
