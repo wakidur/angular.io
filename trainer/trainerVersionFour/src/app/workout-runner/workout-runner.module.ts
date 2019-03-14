@@ -10,6 +10,8 @@ import { VideoDialogComponent } from "./video-player/video-dialog/video-dialog.c
 import { WorkoutAudioComponent } from "./workout-audio/workout-audio.component";
 import { WorkoutContainerComponent } from "./workout-container/workout-container.component";
 import { SharedModule } from "../shared/shared.module";
+import { LocalStorageWorkoutComponent } from "./local-storage-workout/local-storage-workout.component";
+import { LocalStorageWorkoutContainerComponent } from "./local-storage-workout-container/local-storage-workout-container.component";
 
 @NgModule({
   declarations: [
@@ -19,13 +21,10 @@ import { SharedModule } from "../shared/shared.module";
     VideoDialogComponent,
     WorkoutAudioComponent,
     WorkoutContainerComponent,
+    LocalStorageWorkoutComponent,
+    LocalStorageWorkoutContainerComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    CoreModule,
-    SharedModule
-  ],
+  imports: [CommonModule, RouterModule, CoreModule, SharedModule],
   exports: [],
   entryComponents: [VideoDialogComponent]
 })

@@ -15,9 +15,7 @@ import { User, Login, ListOfRoles, SearchName } from "../core/model/user.model";
 import { SessionStorageService } from "../core/session-storage.service";
 
 
-@Injectable({
-  providedIn: CoreModule
-})
+@Injectable()
 export class UserService {
   // Class member variable
   private storageKey = "session";

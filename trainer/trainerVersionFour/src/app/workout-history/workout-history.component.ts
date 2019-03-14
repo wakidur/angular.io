@@ -15,6 +15,7 @@ import { WorkoutLogEntry } from "../core/model/workoutLogEntryModel";
 // Wrokout history tracken service
 import { WorkoutHistoryTrackerService } from "../core/workout-history-tracker.service";
 import { WorkoutHistoryTrackerServerInteractionsService } from "../core/workout-history-tracker-server-interactions.service";
+import { UserService } from "../core/user.service";
 
 @Component({
   selector: "app-workout-history",
@@ -24,29 +25,32 @@ import { WorkoutHistoryTrackerServerInteractionsService } from "../core/workout-
 export class WorkoutHistoryComponent implements OnInit {
   historyitems: Array<WorkoutLogEntry> = [];
   historyLogitems: Array<WorkoutLogEntry> = [];
-
   completed: boolean;
+  public isLogInUser: boolean;
 
   constructor(
     private tracker: WorkoutHistoryTrackerService,
     private trackerSI: WorkoutHistoryTrackerServerInteractionsService,
     private location: Location,
-    private modal: Modal
+    private modal: Modal,
+    private userService: UserService
+
   ) {}
 
   ngOnInit() {
-    this.historyitems = this.tracker.getHistory();
-    console.log(this.historyitems);
-
-    this.trackerSI.getHistoryByObservable().subscribe(
-      historyLogitem => {
-        if (historyLogitem) {
-          console.log("getHistoryByObservable " + historyLogitem);
-          this.historyLogitems = historyLogitem;
-        }
-      },
-      (err: any) => console.error
-    );
+    this.isLogInUser = this.userService.isLoggedIn();
+    if (!this.isLogInUser) {
+      this.historyitems = this.tracker.getHistory();
+    } else {
+      this.trackerSI.getHistoryByObservable().subscribe(
+        historyLogitem => {
+          if (historyLogitem) {
+            this.historyLogitems = historyLogitem;
+          }
+        },
+        (err: any) => {console.error(err)}
+      );
+    }
   }
 
   /**

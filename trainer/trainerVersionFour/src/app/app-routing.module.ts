@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 // import app dependency
+import { LocalStorageWorkoutContainerComponent } from "./workout-runner/local-storage-workout-container/local-storage-workout-container.component";
 import { WorkoutRunnerComponent } from "./workout-runner/workout-runner.component";
 import { StartComponent } from "./start/start.component";
 import { FinishComponent } from "./finish/finish.component";
@@ -28,16 +29,16 @@ import { HomeComponent } from "./home/home.component";
   *
   */
 const routes: Routes = [
+  { path: "home", component: HomeComponent, data: { title: "Home" }},
   { path: "start", component: StartComponent, data: { title: "Start" } },
-  // { path: "workout", component: WorkoutRunnerComponent, data: { title: "Workout" } },
-  { path: "home", component: HomeComponent, data: { title: "Home" } },
+  { path: "workout", component: LocalStorageWorkoutContainerComponent, data: { title: "Workout" } },
   { path: "workout/:id", component: WorkoutRunnerComponent, data: { title: "Workout" } },
   { path: "finish", component: FinishComponent, data: { title: "Finish" }  },
-  { path: "dashboard", loadChildren: "./dashboard/dashboard.module#DashboardModule"},
   { path: "history", component: WorkoutHistoryComponent, data: { title: "History" }  },
+  { path: "dashboard", loadChildren: "./dashboard/dashboard.module#DashboardModule"},
   { path: "builder", loadChildren: "./workout-builder/workout-builder.module#WorkoutBuilderModule" },
   { path: "user", loadChildren: "./user/user.module#UserModule" },
-  { path: "**", redirectTo: "/start", pathMatch: "full" }
+  { path: "**", redirectTo: "/home", pathMatch: "full" }
 ];
 
 /**

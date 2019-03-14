@@ -4,52 +4,99 @@
     <app-workout-runner-header></app-workout-runner-header>
     <!-- Top navigation -->
   </header>
-  <main class="flex-shrink-0">
+  <main role="main" class="flex-shrink-0">
     <!-- Main jumbotron for a primary marketing message or call to action -->
+    <!-- <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card text-center">
+                  <div class="card-body">
+                    <h3 class="card-title">Ready for a Workout?</h3>
+                    <p class="card-text">
+                      If you are not a login user you can direcly run the 7 Minute workout. We are no resposivle for your
+                      workout
+                      history data. Wheh you create a accout you can create you own workout base on propular exercise.
+                    </p>
+                    <a routerLink="/workout" class="card-link btn btn-primary"> <i class="icon ion-md-play"></i> Start</a>
+                    <a routerLink="/user/sign-up" class="card-link btn btn-success"><i class="fa fa-user" aria-hidden="true"></i>
+                      Sign Up </a>
+                    <a routerLink="/user/sign-in" class="card-link btn btn-dark"><i class="fa fa-sign-in " aria-hidden="true"></i>
+                      Log In </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                  <h2>Workouts</h2>
+                  <form #f="ngForm" name="formWorkout" class="">
+                    <div class="form-group">
+                      <label for="search">Search Exercise</label>
+                      <input type="text" class="form-control" name="search" placeholder="Search for Workout" [(ngModel)]="searchTerm" />
+                    </div>
+                  </form>
+                  <div class="list-group" *ngIf="workoutList && workoutList.length > 0">
+                    <a (click)="onSelect(workout)" class="list-group-item list-group-item-action" *ngFor="let workout of workoutList|search:'title': searchTerm|orderBy:'title'">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{workout.title}}</h5>
+                        <small class="text-muted">{{(workout.totalWorkoutDuration? workout.totalWorkoutDuration():
+                          0)|secondsToTime}}</small>
+                      </div>
+                      <p class="mb-1">{{workout.description}}</p>
+                      <small class="text-muted">Exercises {{workout.exercises.length}}</small>
+                    </a>
+                  </div>
+                </div>
+        </div>
+      </div> -->
+    <!-- <div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 56px); min-height: calc(100vh - 56px);"> -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between">
+                <h2>Workouts</h2>
+                <form #f="ngForm" name="formWorkout" class="">
+                  <div class="form-row align-items-center">
+                    <div class="col-auto">
+                      <div class="input-group mb-2">
+                        <input type="text" class="form-control" name="search" placeholder="Search for Workout"
+                          [(ngModel)]="searchTerm" />
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">@</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row" *ngIf="workoutList && workoutList.length > 0">
+                <div class="col-sm-3" *ngFor="let workout of workoutList|search:'title': searchTerm|orderBy:'title'">
+                  <div class="card  mb-4 shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title">{{workout.title}}</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Exercises {{workout.exercises.length}}</h6>
+                      <p class="card-text">{{workout.description}}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onSelect(workout)">View</button>
 
-    <div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 56px); min-height: calc(100vh - 56px);">
-      <div class="col-sm-6">
-        <div class="card text-center">
-          <div class="card-body">
-            <h3 class="card-title">Ready for a Workout?</h3>
-
-            <p class="card-text">
-              If you are not a login user you can direcly run the 7 Minute workout. We are no resposivle for your
-              workout
-              history data. Wheh you create a accout you can create you own workout base on propular exercise.
-            </p>
-            <a routerLink="/workout" class="card-link btn btn-primary"> <i class="icon ion-md-play"></i> Start</a>
-            <a routerLink="/user/sign-up" class="card-link btn btn-success"><i class="fa fa-user" aria-hidden="true"></i>
-              Sign Up </a>
-            <a routerLink="/user/sign-in" class="card-link btn btn-dark"><i class="fa fa-sign-in " aria-hidden="true"></i>
-              Log In </a>
+                        </div>
+                        <small class="text-muted">{{(workout.totalWorkoutDuration? workout.totalWorkoutDuration():
+                          0)|secondsToTime}}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <!-- <div class="col-sm-6">
-          <h2>Workouts</h2>
-          <form #f="ngForm" name="formWorkout" class="">
-            <div class="form-group">
-              <label for="search">Search Exercise</label>
-              <input type="text" class="form-control" name="search" placeholder="Search for Workout" [(ngModel)]="searchTerm" />
-            </div>
-            <div class="form-group">
-
-            </div>
-          </form>
-          <div class="list-group" *ngIf="workoutList && workoutList.length > 0">
-            <a (click)="onSelect(workout)" class="list-group-item list-group-item-action" *ngFor="let workout of workoutList|search:'title': searchTerm|orderBy:'title'">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{workout.title}}</h5>
-                <small class="text-muted">{{(workout.totalWorkoutDuration? workout.totalWorkoutDuration():
-                  0)|secondsToTime}}</small>
-              </div>
-              <p class="mb-1">{{workout.description}}</p>
-              <small class="text-muted">Exercises {{workout.exercises.length}}</small>
-            </a>
-          </div>
-        </div> -->
     </div>
+    <!-- </div> -->
+
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
   </main>

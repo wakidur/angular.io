@@ -2,10 +2,8 @@
  * Frameworks dependency
  */
 import { Injectable } from "@angular/core";
-import { CoreModule } from "./core.module";
-@Injectable({
-  providedIn: CoreModule
-})
+
+@Injectable()
 export class SessionStorageService {
   constructor() {}
 
@@ -34,7 +32,7 @@ export class SessionStorageService {
    */
   public removeItem(key: string) {
     if (sessionStorage[key]) {
-      return localStorage.removeItem(key);
+      return sessionStorage.removeItem(key);
     }
     return null;
   }

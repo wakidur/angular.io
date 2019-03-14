@@ -20,6 +20,8 @@ import { BootstrapModalModule } from "ngx-modialog/plugins/bootstrap";
 // under core module any  component use this service and also outside module can use this service
 // that way i use only providers
 import { AlertNotificationsService } from "./alert-notifications.service";
+import { UserService } from "./user.service";
+import { SessionStorageService } from "./session-storage.service";
 
 /**
  *
@@ -43,7 +45,11 @@ import { AlertNotificationsComponent } from "./alert-notifications/alert-notific
     BootstrapModalModule,
     HttpClientModule
   ],
-  providers: [AlertNotificationsService],
+providers: [
+  AlertNotificationsService,
+  UserService,
+  SessionStorageService
+],
   exports: [
     WorkoutRunnerHeaderComponent,
     WorkoutRunnerFooterComponent,

@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
-import { pipe } from "rxjs";
 import { map, filter, mergeMap } from "rxjs/operators";
+
+import { UserService } from "../user.service";
+
 
 @Component({
   selector: "app-workout-runner-header",
@@ -9,10 +11,14 @@ import { map, filter, mergeMap } from "rxjs/operators";
   styles: []
 })
 export class WorkoutRunnerHeaderComponent implements OnInit {
+  public checkUserLongInStatus: boolean = false;
   public showHistoryLink = true;
   public showWorkoutLink = true;
   public showBuilderLink = true;
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private userService: UserService
+    ) {
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((e: NavigationEnd) => {
@@ -28,5 +34,24 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
         }
       });
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.checkUserLongInStatus  =  this.userService.isLoggedIn();
+    if (this.checkUserLongInStatus ) {
+      console.log(this.checkUserLongInStatus );
+    } else {
+      console.log(this.checkUserLongInStatus );
+    }
+  }
+
+  /**
+   * onLogout
+   */
+  public onLogout() {
+    this.userService.deleteToken();
+    this.router.navigate(["/home"]);
+  }
+
+
+
+
 }
