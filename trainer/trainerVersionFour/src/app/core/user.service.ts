@@ -239,10 +239,12 @@ export class UserService {
    * getListOfResource
    */
   public getListOfResource(): Observable<ListOfRoles[]> {
-    return this.httpClient.get(this.contactsUrlPort + "/list-of-resources").pipe(
-      map(response => response as ListOfRoles[]),
-      catchError(this.handleError)
-    );
+    return this.httpClient
+      .get(this.contactsUrlPort + "/list-of-resources")
+      .pipe(
+        map(response => response as ListOfRoles[]),
+        catchError(this.handleError)
+      );
   }
 
   /**
@@ -324,6 +326,55 @@ export class UserService {
       .post(this.contactsUrlPort + "/list-of-resources/search", value)
       .pipe(
         map(response => response),
+        catchError(this.handleError)
+      );
+  }
+
+  /*************************** User Role ************************** */
+  /**
+   * getUserRole
+   */
+  public getUserRole() {
+    return this.httpClient.get(this.contactsUrlPort + "/user-roles").pipe(
+      map((response: Array<any>) => {
+        const result: Array<any> = [];
+        response.forEach(value => {
+          result.push({
+            name: value.user_id.fullname,
+            email: value.user_id.email,
+            roles: roles()
+          });
+          function roles() {
+            const arrayofRole: Array<any> = [];
+            if (value.role_id.length > 0) {
+              value.role_id.forEach(element => {
+                arrayofRole.push(element.name);
+              });
+              // arrayofRole;
+            }
+            return arrayofRole.toString();
+          }
+        });
+        return result;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * postUserRole
+   */
+  public postUserRole(value) {
+    return this.httpClient
+      .post(this.contactsUrlPort + "/user-roles", value)
+      .pipe(
+        map(response => {
+          if (response) {
+            return "success full save";
+          } else {
+            return "some proble";
+          }
+        }),
         catchError(this.handleError)
       );
   }

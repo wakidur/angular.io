@@ -55,7 +55,7 @@ export class ListOfResourceComponent
     this.tableDataNotFound = false;
     this.userService.getListOfResource().subscribe(
       x => {
-        this.tableDataNotFound = !x.length ? true : false;;
+        this.tableDataNotFound = !x.length ? true : false;
         this.listofrole = x;
         // this.listOfEdit = x;
       },
