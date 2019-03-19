@@ -14,7 +14,11 @@ import { NgForm } from "@angular/forms";
  * Application dependency
  *
  */
-import { ListOfRoles, ListOfUserRoles, SearchName } from "../../../core/model/user.model";
+import {
+  ListOfRoles,
+  ListOfUserRoles,
+  SearchName
+} from "../../../core/model/user.model";
 import { UserService } from "../../../core/user.service";
 import { AlertNotificationsService } from "../../../core/alert-notifications.service";
 
@@ -25,7 +29,7 @@ import { AlertNotificationsService } from "../../../core/alert-notifications.ser
 })
 export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
   public search: any;
-  public listofrole: ListOfUserRoles;
+  public listofrole: ListOfUserRoles[];
   public listOfEdit: ListOfUserRoles;
   public message: string;
   public errorOfRoles: string;
@@ -33,16 +37,14 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public formSubmint = new ListOfUserRoles("", "");
   public searchObject = new SearchName();
-  public tableDataNotFound:boolean = false;
-  public isResetShow:boolean = false;
-  public isAlert:boolean = false;
-
-
+  public tableDataNotFound: boolean = false;
+  public isResetShow: boolean = false;
+  public isAlert: boolean = false;
 
   constructor(
     private userService: UserService,
     private alertNotificationsService: AlertNotificationsService
-    ) {}
+  ) {}
 
   ngOnInit() {
     this.getUserRole();
@@ -56,7 +58,8 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tableDataNotFound = false;
     this.userService.getListOfUserRoles().subscribe(
       x => {
-        this.tableDataNotFound = false;
+        this.tableDataNotFound = !x.length ? true : false;
+        console.log(this.tableDataNotFound);
         this.listofrole = x;
         // this.listOfEdit = x;
       },
@@ -75,7 +78,9 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
           res => {
             if (res) {
               this.message = `Already exists please choose another`;
-              this.alertNotificationsService.infoAlert("Already exists please choose another");
+              this.alertNotificationsService.infoAlert(
+                "Already exists please choose another"
+              );
             } else {
               this.userService.postListOfUserRole(name.value).subscribe(
                 x => {
@@ -99,17 +104,20 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
         );
       } else {
         this.message = "Name Field requred";
-
       }
     } else {
       if (name.valid) {
         if (this.listOfEdit.name === name.value.name) {
-          this.alertNotificationsService.infoAlert("You did not modify the user role");
+          this.alertNotificationsService.infoAlert(
+            "You did not modify the user role"
+          );
         } else {
           this.userService.getListOfUserRoleByName(name.value.name).subscribe(
             res => {
               if (res) {
-                this.alertNotificationsService.infoAlert("Already exists please choose another");
+                this.alertNotificationsService.infoAlert(
+                  "Already exists please choose another"
+                );
               } else {
                 const editValue = {
                   _id: this.listOfEdit._id,
@@ -122,7 +130,7 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
                   },
                   err => {
                     this.alertNotificationsService.errorAlert(err);
-                  } ,
+                  },
                   () => console.log(`Observer got a complete notification`)
                 );
               }
@@ -140,7 +148,7 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
    * deleteRole
    */
   public deleteRole(delContactId) {
-    this.userService.deleteListOfUserRole(delContactId._id).subscribe(
+    this.userService.deleteListOfUserRole(delContactId).subscribe(
       res => {
         this.alertNotificationsService.infoAlert(res);
         this.getUserRole();
@@ -229,12 +237,9 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-/**
- * isAlertClick
- */
-public isAlertClick() {
-
-
-}
+  /**
+   * isAlertClick
+   */
+  public isAlertClick() {}
   ngOnDestroy(): void {}
 }

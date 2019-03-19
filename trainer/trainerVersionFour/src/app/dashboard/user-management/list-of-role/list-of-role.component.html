@@ -1,7 +1,6 @@
-<div class="container-fluid pt-4">
-
+<div class="container-fluid">
   <div class="row">
-    <div class="col-8">
+    <div class="col-12 col-sm-12 col-md-8 col-xl-8 col-lg-8">
       <div class="card mb-2">
         <div class="card-body">
           <app-alert-notifications></app-alert-notifications>
@@ -17,7 +16,6 @@
                 [(ngModel)]="formSubmint.name"
                 #nameLocalVar="ngModel"
                 placeholder="Role name">
-
               </div>
               <div class="col-sm-2">
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -26,11 +24,10 @@
           </form>
         </div>
       </div>
-
       <div class="card">
         <div class="card-header">
           <div class="d-flex justify-content-between">
-            <h5 class="card-title mb-0">Role name</h5>
+            <h5 class="card-title mb-0 mt-1">Role name</h5>
             <!-- table search section -->
             <form>
               <div class="form-row align-items-center mb-0">
@@ -64,9 +61,11 @@
                   <td>{{i}}</td>
                   <td>{{item.name}}</td>
                   <td>
-                    <a appTooltip role="button" class="p-0 text-danger mr-3" data-toggle="tooltip" data-placement="top"
+                    <!-- <a appTooltip role="button" class="p-0 text-danger mr-3" data-toggle="tooltip" data-placement="top"
+                      title="Delete" (click)="deleteRole(item)"><i class="fa fa-trash" aria-hidden="true"></i></a> -->
+                    <a  role="button" class="p-0 text-danger mr-3" data-toggle="tooltip" data-placement="top"
                       title="Delete" (click)="deleteRole(item)"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                    <a appTooltip role="button" data-toggle="tooltip" data-placement="top" title="Edit" class="btn p-0 text-dark"
+                    <a  role="button" data-toggle="tooltip" data-placement="top" title="Edit" class="btn p-0 text-dark"
                       (click)="updateRole(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                   </td>
                 </tr>

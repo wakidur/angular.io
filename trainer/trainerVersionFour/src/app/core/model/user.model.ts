@@ -17,6 +17,7 @@
     }
 
  */
+
 export class User {
   fullname: string;
   email: string;
@@ -33,26 +34,31 @@ export class ListOfRoles {
   name: string;
 }
 
-export class SearchName {
-  name: string;
-}
-
 export class ListOfUserRoles {
-  constructor(public name: string, public _id?: string) {}
+  constructor(
+    public name: string,
+    public _id?: string
+  ) {}
 }
 
-// export class Alert {
-//   type: AlertType;
-//   message: string;
-// }
+export class ListOfResource {
+  name: string;
+  _id?: string;
+}
 
-// export enum AlertType {
-//   Success,
-//   Error,
-//   Info,
-//   Warning
-// }
+/*
+export class Alert {
+  type: AlertType;
+  message: string;
+}
 
+export enum AlertType {
+  Success,
+  Error,
+  Info,
+  Warning
+}
+*/
 export class Alert {
   type: AlertType;
   message: string;
@@ -69,4 +75,8 @@ export enum AlertType {
   Error,
   Info,
   Warning
+}
+
+export class SearchName {
+  name: string;
 }

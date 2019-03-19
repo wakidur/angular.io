@@ -2,7 +2,11 @@
  * Frameworks dependency
  */
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders
+} from "@angular/common/http";
 import { Http, Response } from "@angular/http";
 import { Observable, of, throwError, forkJoin } from "rxjs";
 import { catchError, map, throwIfEmpty } from "rxjs/operators";
@@ -13,7 +17,6 @@ import { catchError, map, throwIfEmpty } from "rxjs/operators";
 import { CoreModule } from "./core.module";
 import { User, Login, ListOfRoles, SearchName } from "../core/model/user.model";
 import { SessionStorageService } from "../core/session-storage.service";
-
 
 @Injectable()
 export class UserService {
@@ -48,7 +51,7 @@ export class UserService {
   // }
   getAllUserByObservable(): Observable<User[]> {
     return this.httpClient.get(this.contactsUrlPort + "/account").pipe(
-      map((res: Response) => <User[]>res.json()),
+      map(res => res as User[]),
       catchError(this.handleError)
     );
   }
@@ -136,13 +139,13 @@ export class UserService {
   }
 
   // user role managment
-
+  /*************************** List of user Roles ************************** */
   /**
    * getListOfUserRoles
    */
-  public getListOfUserRoles(): Observable<ListOfRoles> {
+  public getListOfUserRoles(): Observable<ListOfRoles[]> {
     return this.httpClient.get(this.contactsUrlPort + "/list-of-roles").pipe(
-      map(response => response as ListOfRoles),
+      map(response => response as ListOfRoles[]),
       catchError(this.handleError)
     );
   }
@@ -184,8 +187,12 @@ export class UserService {
    * deleteListOfUserRole
    */
   public deleteListOfUserRole(delContactId): Observable<string> {
-    const url = `${this.contactsUrlPort}/list-of-roles/${delContactId}`;
-    return this.httpClient.delete(url).pipe(
+    const url = `${this.contactsUrlPort}/list-of-roles`;
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": "application/json" }),
+      body: delContactId
+    };
+    return this.httpClient.delete(url, httpOptions).pipe(
       map(res => {
         return "List of User Role  successfully Delete";
       }),
@@ -220,6 +227,101 @@ export class UserService {
   public searchRoleByName(value: SearchName): Observable<any> {
     return this.httpClient
       .post(this.contactsUrlPort + "/list-of-roles/search", value)
+      .pipe(
+        map(response => response),
+        catchError(this.handleError)
+      );
+  }
+
+  /*************************** List of Resource ************************** */
+
+  /**
+   * getListOfResource
+   */
+  public getListOfResource(): Observable<ListOfRoles[]> {
+    return this.httpClient.get(this.contactsUrlPort + "/list-of-resources").pipe(
+      map(response => response as ListOfRoles[]),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * postResource
+   */
+  public postListOfResource(value) {
+    return this.httpClient
+      .post(this.contactsUrlPort + "/list-of-resources", value)
+      .pipe(
+        map(response => {
+          if (response) {
+            return "success full save";
+          } else {
+            return "some proble";
+          }
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * updateListOfResource
+   * @param value
+   */
+  public updateListOfResource(value) {
+    return this.httpClient
+      .put(this.contactsUrlPort + "/list-of-resources", value)
+      .pipe(
+        map(response => {
+          return "Update Successfully";
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * deleteListOfResource
+   */
+  public deleteListOfResource(delContactId): Observable<string> {
+    const url = `${this.contactsUrlPort}/list-of-resources`;
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": "application/json" }),
+      body: delContactId
+    };
+    return this.httpClient.delete(url, httpOptions).pipe(
+      map(res => {
+        return "List of User Role  successfully Delete";
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * getListOfResourceByName
+   */
+  public getListOfResourceByName(value) {
+    return this.httpClient
+      .get(this.contactsUrlPort + "/list-of-resources/" + value)
+      .pipe(
+        map(res => {
+          console.log(res["name"]);
+          if (res["name"] === value) {
+            return true;
+          } else if (res["name"] === "not found") {
+            return false;
+          } else {
+            return false;
+          }
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * searchRoleByName
+   */
+  public searchResourceByName(value: SearchName): Observable<any> {
+    return this.httpClient
+      .post(this.contactsUrlPort + "/list-of-resources/search", value)
       .pipe(
         map(response => response),
         catchError(this.handleError)

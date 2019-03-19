@@ -3,11 +3,13 @@
     <ul class="nav flex-column">
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link " [routerLink]="['/builder/workouts']">
+          <i class="icon ion-md-man"></i>
           Workouts
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/builder/exercises']">
+          <i class="icon ion-md-walk"></i>
           Exercises
         </a>
       </li>
@@ -37,26 +39,30 @@
         </li> -->
     </ul>
 
-    <!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-        <span>Saved reports</span>
-        <a class="d-flex align-items-center text-muted" href="#">
-          <span data-feather="plus-circle"></span>
-        </a>
+     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <span>Create Section</span>
+        <i class="icon ion-md-add"></i>
+        <!-- <a class="d-flex align-items-center text-muted" href="#">
+          <i class="icon ion-md-add"></i>
+        </a> -->
       </h6>
+
       <ul class="nav flex-column mb-2">
         <li class="nav-item">
-          <a class="nav-link" href="#">
-            <span data-feather="file-text"></span>
-            Current month
-          </a>
+            <a class="nav-link" routerLink="/builder/workout/new">
+              <i class="icon ion-md-add"></i>
+              Workout
+            </a>
+
+
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
-            <span data-feather="file-text"></span>
-            Last quarter
-          </a>
+            <a class="nav-link" routerLink="/builder/exercise/new">
+              <i class="icon ion-md-add"></i>
+               Exercise
+            </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="#">
             <span data-feather="file-text"></span>
             Social engagement
@@ -67,7 +73,7 @@
             <span data-feather="file-text"></span>
             Year-end sale
           </a>
-        </li>
-      </ul> -->
+        </li> -->
+      </ul>
   </div>
 </nav>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
+
+import { UserService } from "../../../core/user.service";
 
 @Component({
   selector: "app-top-nav-main",
@@ -6,7 +9,15 @@ import { Component, OnInit } from "@angular/core";
   styles: []
 })
 export class TopNavMainComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router,
+    private userService: UserService) {}
 
   ngOnInit() {}
+  /**
+   * onLogout
+   */
+  public onLogout() {
+    this.userService.deleteToken();
+    this.router.navigate(["/home"]);
+  }
 }

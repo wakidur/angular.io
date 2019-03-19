@@ -1,3 +1,25 @@
-<p>
-  user-roles works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <!-- <pre>{{listOfRoles|json}}</pre> -->
+    <form #userRole="ngForm"  (ngSubmit)="userRoleSubmit(userRole)">
+      <div class="form-group">
+        <label for="userName">User Name</label>
+        <select class="form-control" id="userName" name="userName" ngModel>
+            <option value="" disabled>Choose a state</option>
+            <option *ngFor="let item of users" [ngValue]="item">
+              {{ item.fullname }}
+            </option>
+          </select>
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-checkbox custom-control-inline" *ngFor="let item of listOfRoles; let i = index" >
+          <input type="checkbox" class="custom-control-input" [id]="i" [formControlName]="i" [value]="item.name" ngModel>
+          <!-- <input type="checkbox" [checked]="item.checked"> -->
+          <label class="custom-control-label" [for]="i">{{item.name}}</label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Submit form</button>
+    </form>
+  </div>
+</div>

@@ -1,3 +1,80 @@
-<p>
-  list-of-resource works!
-</p>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-8 col-xl-8 col-lg-8">
+        <div class="card mb-2">
+          <div class="card-body">
+            <app-alert-notifications></app-alert-notifications>
+            <form #listOfRole="ngForm" (ngSubmit)="roleSubmit(listOfRole)">
+              <div class="form-group row mb-0">
+                <label for="userRole" class="col-sm-4 col-form-label">Resource Name</label>
+                <div class="col-sm-6">
+                  <input
+                  type="text"
+                  class="form-control"
+                  id="userRole"
+                  name="name"
+                  [(ngModel)]="formSubmint.name"
+                  #nameLocalVar="ngModel"
+                  placeholder="Resource Name">
+                </div>
+                <div class="col-sm-2">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title mb-0 mt-1">Resource Name</h5>
+              <!-- table search section -->
+              <form>
+                <div class="form-row align-items-center mb-0">
+                  <div class="col-auto">
+                    <label class="sr-only" for="searchListOfRole">Username</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="searchListOfRole" placeholder="Search" name="search" #searchLocVar="ngModel" [(ngModel)]="search" (input)="onSearchChange($event.target.value)">
+                      <!-- <input type="text" class="form-control" id="searchListOfRole" placeholder="Search" name="search" [(ngModel)]="search"> -->
+                      <div class="input-group-prepend">
+                        <button *ngIf="isResetShow" (click)="searchReset(search)" class="btn btn-danger" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        <button (click)="searchForValue(search)" class="btn btn-info" type="button "><i class="fa fa-search" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover table-bordered table-sm mb-0">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of listofrole; let i=index ">
+                    <td>{{i}}</td>
+                    <td>{{item.name}}</td>
+                    <td>
+                      <a  role="button" class="p-0 text-danger mr-3" data-toggle="tooltip" data-placement="top"
+                        title="Delete" (click)="deleteRole(item)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                      <a role="button" data-toggle="tooltip" data-placement="top" title="Edit" class="btn p-0 text-dark"
+                        (click)="updateRole(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="tableDataNotFound">
+                    <td colspan="3">Table data not found</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
