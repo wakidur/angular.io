@@ -33,7 +33,7 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
   public listOfEdit: ListOfUserRoles;
   public message: string;
   public errorOfRoles: string;
-  public successFrom: string;
+  // public successFrom: string;
 
   public formSubmint = new ListOfUserRoles("", "");
   public searchObject = new SearchName();
@@ -84,7 +84,7 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
             } else {
               this.userService.postListOfUserRole(name.value).subscribe(
                 x => {
-                  this.successFrom = x;
+                  // this.successFrom = x;
                   this.alertNotificationsService.successAlert(x);
                   this.isAlert = true;
                   this.getUserRole();

@@ -372,7 +372,34 @@ export class UserService {
           if (response) {
             return "success full save";
           } else {
-            return "some proble";
+            return "some problem";
+          }
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * getUserRoleByName
+   */
+  public getUserRoleById(value) {
+    const userObject = {
+      id: value._id,
+      name: value.fullname,
+      email: value.email
+    };
+    return this.httpClient
+      .get(this.contactsUrlPort + "/user-roles/" + userObject.id)
+      .pipe(
+        map(res => {
+          if (res[0]) {
+            if (res[0]["user_id"] === userObject.id) {
+              return true;
+            }
+          } else if (res["message"] === "Not found") {
+            return false;
+          } else {
+            return false;
           }
         }),
         catchError(this.handleError)

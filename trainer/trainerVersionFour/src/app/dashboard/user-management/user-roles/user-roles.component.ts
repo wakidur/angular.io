@@ -4,14 +4,16 @@ import {
   FormGroup,
   FormArray,
   FormControl,
-  ValidatorFn
+  ValidatorFn,
+  Validators
 } from "@angular/forms";
 
 import {
   User,
   Login,
   ListOfRoles,
-  SearchName,ListOfResource
+  SearchName,
+  ListOfResource
 } from "../../../core/model/user.model";
 import { UserService } from "../../../core/user.service";
 import { AlertNotificationsService } from "../../../core/alert-notifications.service";
@@ -22,9 +24,13 @@ import { AlertNotificationsService } from "../../../core/alert-notifications.ser
 })
 export class UserRolesComponent implements OnInit {
   users: Array<User>;
+  public submitted: boolean;
   listOfRoles = [];
   form: FormGroup;
   userRole = [];
+  // user = {
+  //   fullname: ""
+  // };
 
   public search: any;
   public listofrole: ListOfResource[];
@@ -33,7 +39,7 @@ export class UserRolesComponent implements OnInit {
   public errorOfRoles: string;
   public successFrom: string;
 
-  public formSubmint: ListOfResource =  { name: "", _id: "" };
+  public formSubmint: ListOfResource = { name: "", _id: "" };
   public searchObject = new SearchName();
   public tableDataNotFound: boolean = false;
   public isResetShow: boolean = false;
@@ -45,8 +51,8 @@ export class UserRolesComponent implements OnInit {
     private alertNotificationsService: AlertNotificationsService
   ) {
     this.form = this.formBuilder.group({
-      listOfRoles: new FormArray([]),
-      user: new FormControl()
+      listOfRoles: new FormArray([], minSelectedCheckboxes(1)),
+      user: new FormControl("", [Validators.required])
     });
 
     // async orders (could be a http service call)
@@ -73,13 +79,12 @@ export class UserRolesComponent implements OnInit {
   private addCheckboxes() {
     this.listOfRoles.map((o, i) => {
       // if first item set to true, else false
-      const control = new FormControl( !o.name.indexOf("guest") );
+      const control = new FormControl(!o.name.indexOf("guest"));
       (this.form.controls.listOfRoles as FormArray).push(control);
     });
   }
 
   ngOnInit() {
-
     this.getUserRole();
   }
 
@@ -103,28 +108,42 @@ export class UserRolesComponent implements OnInit {
   /**
    * userRoleSubmit
    */
-  public submit() {
-    const selectedOrderIds = this.form.value.listOfRoles
+  public submit(formGroup: FormGroup) {
+    const selectedOrderIds = formGroup.value.listOfRoles
       .map((v, i) => (v ? this.listOfRoles[i]._id : null))
       .filter(v => v !== null);
     const postObject = {
-      user_id: this.form.value.user._id,
-      role_id: selectedOrderIds,
+      user_id: formGroup.value.user._id,
+      role_id: selectedOrderIds
     };
-    this.userService.postUserRole(postObject).subscribe(
-      x => {
-        this.alertNotificationsService.successAlert(x);
-        this.getUserRole();
-      },
-      err => {
-        this.alertNotificationsService.errorAlert(err);
-      },
 
+    this.userService.getUserRoleById(formGroup.value.user).subscribe(
+      response => {
+        console.log(response);
+        if (response) {
+          this.alertNotificationsService.infoAlert(
+            "This user already have role"
+          );
+        } else {
+          this.userService.postUserRole(postObject).subscribe(
+            x => {
+              this.alertNotificationsService.successAlert(x);
+              this.getUserRole();
+            },
+            error => {
+              this.alertNotificationsService.errorAlert(error);
+            }
+          );
+        }
+      },
+      error => {
+        this.alertNotificationsService.errorAlert(error);
+      },
+      () => console.log("Observer got a complete notification")
     );
   }
 
-
-   /**
+  /**
    * deleteRole
    */
   public deleteRole(delContactId) {
@@ -216,4 +235,19 @@ export class UserRolesComponent implements OnInit {
       }
     );
   }
+}
+
+function minSelectedCheckboxes(min = 1) {
+  const validator: ValidatorFn = (formArray: FormArray) => {
+    const totalSelected = formArray.controls
+      // get a list of checkbox values (boolean)
+      .map(control => control.value)
+      // total up the number of checked checkboxes
+      .reduce((prev, next) => (next ? prev + next : prev), 0);
+
+    // if the total is not greater than the minimum, return the error message
+    return totalSelected >= min ? null : { required: true };
+  };
+
+  return validator;
 }
