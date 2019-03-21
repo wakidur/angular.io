@@ -59,7 +59,6 @@ export class ListOfRoleComponent implements OnInit, OnDestroy, AfterViewInit {
     this.userService.getListOfUserRoles().subscribe(
       x => {
         this.tableDataNotFound = !x.length ? true : false;
-        console.log(this.tableDataNotFound);
         this.listofrole = x;
         // this.listOfEdit = x;
       },

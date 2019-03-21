@@ -4,7 +4,8 @@
   <div class="la-anim-1"></div>
 </div>
 <!--/Preloader-->
-<div class="wrapper theme-1-active pimary-color-red " [ngClass]="{'slide-nav-toggle': leftSlideNavtoggle, 'open-right-sidebar': rightSlideNavtoggle}">
+<div class="wrapper theme-1-active pimary-color-red "
+  [ngClass]="{'slide-nav-toggle': leftSlideNavtoggle, 'open-right-sidebar': rightSlideNavtoggle}">
   <!-- Top Menu Items -->
   <nav class="navbar fixed-top navbar-light navbar-expand-lg " style="background-color: #1b2060;">
     <a class="navbar-brand" href="#">
@@ -22,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item " routerLinkActive="active">
-          <a class="nav-link text-white" [routerLink]="['/dashboard/deshboare-container']"  >Dashboard</a>
+          <a class="nav-link text-white" [routerLink]="['/dashboard/deshboare-container']">Dashboard</a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">Settings</a>
@@ -36,8 +37,8 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link text-white" href="#" id="navbarApps" role="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+          <a class="nav-link text-white" href="#" id="navbarApps" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-th" aria-hidden="true"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarApps">
@@ -48,8 +49,8 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link text-white" href="#" id="navbarSatting" role="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+          <a class="nav-link text-white" href="#" id="navbarSatting" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarSatting">
@@ -60,8 +61,8 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link text-white" href="#" id="navbarNotification" role="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+          <a class="nav-link text-white" href="#" id="navbarNotification" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-bell" aria-hidden="true"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotification">
@@ -90,23 +91,23 @@
         <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
       </li>
       <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/dashboard/deshboare-container']"  routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/dashboard/deshboare-container']" routerLinkActive="active">
 
-            <div class="d-flex justify-content-between">
-              <div class="">
-                <!-- <i class="zmdi zmdi-landscape mr-20"></i> -->
-                <i class="fa fa-cloud mr-4" aria-hidden="true"></i>
-                <span class="right-nav-text"> Deshboare </span>
-              </div>
-              <div class="">
-                <i class="fa fa-caret-down" aria-hidden="true"></i>
-                <!-- <i class="fa fa-caret-up" aria-hidden="true"></i> -->
-              </div>
+          <div class="d-flex justify-content-between">
+            <div class="">
+              <!-- <i class="zmdi zmdi-landscape mr-20"></i> -->
+              <i class="fa fa-cloud mr-4" aria-hidden="true"></i>
+              <span class="right-nav-text"> Deshboare </span>
             </div>
-          </a>
-        </li>
-      <li class="nav-item" routerLinkActive="active" >
-        <a class="nav-link"  data-toggle="collapse" href="#collapseUserManage" role="button" aria-expanded="false"
+            <div class="">
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
+              <!-- <i class="fa fa-caret-up" aria-hidden="true"></i> -->
+            </div>
+          </div>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" data-toggle="collapse" href="#collapseUserManage" role="button" aria-expanded="false"
           aria-controls="collapseUserManage">
           <div class="d-flex justify-content-between">
             <div class="left-icon">
@@ -122,16 +123,19 @@
         </a>
         <div class="collapse" id="collapseUserManage">
           <ul class="nav flex-column  collapse-level-1">
-            <li class="nav-item">
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link " [routerLink]="['/dashboard/user']">User</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
               <a class="nav-link" [routerLink]="['/dashboard/list-of-roles']">List Of Role</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" routerLinkActive="active">
               <a class="nav-link" [routerLink]="['/dashboard/list-of-resources']">List Of Resource</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link"[routerLink]="['/dashboard/user-roles']">User Roles</a>
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/dashboard/user-roles']">User Roles</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" routerLinkActive="active">
               <a class="nav-link " [routerLink]="['/dashboard/role-wise-resource-permission']">Resource Permission</a>
             </li>
           </ul>
@@ -297,13 +301,13 @@
       <div class="tab-struct custom-tab-1">
         <ul class="nav nav-tabs" id="right_sidebar_tab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="chat_tab_btn" data-toggle="tab" href="#chat_tab" role="tab" aria-controls="chat"
-              aria-selected="true">chat</a>
+            <a class="nav-link active" id="chat_tab_btn" data-toggle="tab" href="#chat_tab" role="tab"
+              aria-controls="chat" aria-selected="true">chat</a>
 
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="messages_tab_btn" data-toggle="tab" href="#messages_tab" role="tab" aria-controls="messages"
-              aria-selected="false">messages</a>
+            <a class="nav-link" id="messages_tab_btn" data-toggle="tab" href="#messages_tab" role="tab"
+              aria-controls="messages" aria-selected="false">messages</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="todo_tab_btn" data-toggle="tab" href="#todo_tab" role="tab" aria-controls="todo"
@@ -368,7 +372,3 @@
   <!-- /Main Content -->
 </div>
 <!-- /#wrapper -->
-
-
-
-

@@ -44,14 +44,27 @@ export class UserService {
   /**
    * getUsers
    */
-  // public getAllUserByObservable(): Observable<User[]> {
-  //   return this.httpClient
-  //     .get<User[]>( this.contactsUrlPort + "/account")
-  //     .pipe(catchError(this.handleError("getExercise", [])));
-  // }
+
   getAllUserByObservable(): Observable<User[]> {
     return this.httpClient.get(this.contactsUrlPort + "/account").pipe(
       map(res => res as User[]),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * deleteListOfUserRole
+   */
+  public deleteUserAccount(delContactId): Observable<string> {
+    const url = `${this.contactsUrlPort}/account`;
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": "application/json" }),
+      body: delContactId
+    };
+    return this.httpClient.delete(url, httpOptions).pipe(
+      map(res => {
+        return "List of User Role  successfully Delete";
+      }),
       catchError(this.handleError)
     );
   }
@@ -339,11 +352,13 @@ export class UserService {
       map((response: Array<any>) => {
         const result: Array<any> = [];
         response.forEach(value => {
-          result.push({
-            name: value.user_id.fullname,
-            email: value.user_id.email,
-            roles: roles()
-          });
+          if (value.user_id !== null) {
+            result.push({
+              name: value.user_id.fullname,
+              email: value.user_id.email,
+              roles: roles()
+            });
+          }
           function roles() {
             const arrayofRole: Array<any> = [];
             if (value.role_id.length > 0) {

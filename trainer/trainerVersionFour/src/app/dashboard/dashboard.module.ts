@@ -24,6 +24,7 @@ import { ListOfResourceComponent } from "./user-management/list-of-resource/list
 import { UserRolesComponent } from "./user-management/user-roles/user-roles.component";
 import { RoleWiseResourcePermissionComponent } from "./user-management/role-wise-resource-permission/role-wise-resource-permission.component";
 import { DeshboardContainerComponent } from "./deshboard-container/deshboard-container.component";
+import { UserComponent } from "./user-management/user/user.component";
 
 /**
  * Application Service List
@@ -40,7 +41,8 @@ import { DeshboardContainerComponent } from "./deshboard-container/deshboard-con
     ListOfResourceComponent,
     UserRolesComponent,
     RoleWiseResourcePermissionComponent,
-    DeshboardContainerComponent
+    DeshboardContainerComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,

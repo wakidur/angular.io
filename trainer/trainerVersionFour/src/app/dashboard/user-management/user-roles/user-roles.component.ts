@@ -67,7 +67,6 @@ export class UserRolesComponent implements OnInit {
     );
     this.userService.getAllUserByObservable().subscribe(
       x => {
-        console.log(x);
         this.users = x;
       },
       err => {
@@ -92,10 +91,9 @@ export class UserRolesComponent implements OnInit {
    * getUserRole
    */
   public getUserRole() {
-    this.tableDataNotFound = false;
     this.userService.getUserRole().subscribe(
       x => {
-        // this.tableDataNotFound = !x.length ? true : false;
+        this.tableDataNotFound = !x.length ? true : false;
         this.userRole = x;
         console.log(this.userRole);
         // this.listOfEdit = x;

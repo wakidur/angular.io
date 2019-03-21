@@ -11,6 +11,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { DashboardComponent } from "./dashboard.component";
 import { DeshboardContainerComponent } from "./deshboard-container/deshboard-container.component";
+import { UserComponent } from "./user-management/user/user.component";
 import { ListOfRoleComponent } from "./user-management/list-of-role/list-of-role.component";
 import { ListOfResourceComponent } from "./user-management/list-of-resource/list-of-resource.component";
 import { UserRolesComponent } from "./user-management/user-roles/user-roles.component";
@@ -31,6 +32,11 @@ const routes: Routes = [
         path: "deshboare-container",
         component: DeshboardContainerComponent,
         data: { title: "Dashboard" }
+      },
+      {
+        path: "user",
+        component: UserComponent,
+        data: { title: "User" }
       },
       {
         path: "list-of-roles",

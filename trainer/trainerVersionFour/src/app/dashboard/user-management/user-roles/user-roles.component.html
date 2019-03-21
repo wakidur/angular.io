@@ -17,7 +17,7 @@
                   {{ user.fullname }}
                 </option>
               </select>
-              
+
               <small id="emailHelp" class="form-text text-danger" *ngIf="form.controls['user'].hasError('required') && form.controls['user'].touched">We'll
                 never share your email with anyone else.</small>
             </div>
@@ -88,8 +88,9 @@
                       (click)="updateRole(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                   </td> -->
                 </tr>
+
                 <tr *ngIf="tableDataNotFound">
-                  <td colspan="3">Table data not found</td>
+                  <td colspan="4">Table data not found</td>
                 </tr>
               </tbody>
             </table>
