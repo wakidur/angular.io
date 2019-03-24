@@ -1,3 +1,79 @@
-<p>
-  role-wise-resource-permission works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-8 col-xl-8 col-lg-8">
+      <div class="card  mb-2">
+        <div class="card-header">
+          <h5 class="card-title mb-0 mt-1">User Role</h5>
+        </div>
+        <div class="card-body">
+          <app-alert-notifications></app-alert-notifications>
+          <!-- <pre>{{listOfRoles|json}}</pre> -->
+          <form [formGroup]="roleWiseResourcePermissionForm" (ngSubmit)="resourceSubmint(roleWiseResourcePermissionForm)">
+            <div class="form-group">
+              <label for="userName" class="">User Name</label>
+              <select class="form-control" formControlName="userRole" id="userRole">
+                <option disabled [value]="null">-- Select --</option>
+                <option *ngFor="let role of listOfUserRoles" [ngValue]="role">
+                  {{ role.name }}
+                </option>
+              </select>
+
+              <small id="emailHelp" class="form-text text-danger" *ngIf="roleWiseResourcePermissionForm.controls['userRole'].hasError('required') && roleWiseResourcePermissionForm.controls['userRole'].touched">We'll
+                never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+
+              <div class="custom-control custom-checkbox custom-control-inline" formArrayName="listOfResources" *ngFor="let role of roleWiseResourcePermissionForm.controls.listOfResources.controls; let i = index">
+                <input class="custom-control-input" type="checkbox" [id]="i" [formControlName]="i">
+                <label class="custom-control-label" [for]="i">{{listOfResources[i].name}}</label>
+              </div>
+
+
+            </div>
+            <div class="form-group mb-0 pull-right">
+              <button class="btn btn-primary" [disabled]="!roleWiseResourcePermissionForm.valid" type="submit">Save</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      <div class="card">
+
+        <div class="card-header">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title mb-0 mt-1">User ways role</h5>
+
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <!-- <table class="table table-striped table-hover table-bordered table-sm mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Rolea</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of userRole; let i=index ">
+                  <td>{{i}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.roles}}</td>
+                </tr>
+
+                <tr *ngIf="tableDataNotFound">
+                  <td colspan="4">Table data not found</td>
+                </tr>
+              </tbody>
+            </table> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

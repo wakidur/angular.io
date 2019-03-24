@@ -17,6 +17,12 @@ import { ListOfResourceComponent } from "./user-management/list-of-resource/list
 import { UserRolesComponent } from "./user-management/user-roles/user-roles.component";
 import { RoleWiseResourcePermissionComponent } from "./user-management/role-wise-resource-permission/role-wise-resource-permission.component";
 
+/**
+ * Application Service List
+ *
+ * WorkoutBuilderService
+ */
+import { RoleWiseResourcePermissionGuard } from "./user-management/role-wise-resource-permission/role-wise-resource-permission.guard";
 
 const routes: Routes = [
   {
@@ -56,6 +62,7 @@ const routes: Routes = [
       {
         path: "role-wise-resource-permission",
         component: RoleWiseResourcePermissionComponent,
+        resolve: {listOfResource: RoleWiseResourcePermissionGuard },
         data: { title: "Role Wise Resource Permission" }
       },
     ]

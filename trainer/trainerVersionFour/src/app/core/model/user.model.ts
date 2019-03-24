@@ -80,3 +80,14 @@ export enum AlertType {
 export class SearchName {
   name: string;
 }
+
+/**
+ * Resources
+ */
+
+export class ListOfResources {
+  constructor(
+    public name: string,
+    public _id?: string
+  ) {}
+}

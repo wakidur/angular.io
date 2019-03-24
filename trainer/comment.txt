@@ -54,6 +54,7 @@ ng g d busy-indicator
 #routing
 ng g m workout-builder --routing
 ng g m user --routing
+ng g m dashboard --routing
 
 // ng generate guard [name]     generates a guard
 ng g g workout-resolver

@@ -420,6 +420,98 @@ export class UserService {
         catchError(this.handleError)
       );
   }
+/*************************** role-wise-resource-permission ************************** */
+/**
+   * getRoleWiseResourcePermission
+   */
+  public getRoleWiseResourcePermission() {
+    return this.httpClient.get(this.contactsUrlPort + "/role-wise-resource-permission").pipe(
+      map((response: Array<any>) => {
+        const result: Array<any> = [];
+        response.forEach(value => {
+          if (value.user_id !== null) {
+            result.push({
+              name: value.user_id.fullname,
+              email: value.user_id.email,
+              roles: roles()
+            });
+          }
+          function roles() {
+            const arrayofRole: Array<any> = [];
+            if (value.role_id.length > 0) {
+              value.role_id.forEach(element => {
+                arrayofRole.push(element.name);
+              });
+              // arrayofRole;
+            }
+            return arrayofRole.toString();
+          }
+        });
+        return result;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * postRoleWiseResourcePermission
+   */
+  public postRoleWiseResourcePermission(value) {
+    return this.httpClient
+      .post(this.contactsUrlPort + "/role-wise-resource-permission", value)
+      .pipe(
+        map(response => {
+          if (response) {
+            return "success full save";
+          } else {
+            return "some problem";
+          }
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+
+
+   /**
+   * getRoleWiseResourcePermissionByName
+   */
+  public getRoleWiseResourcePermissionById(value) {
+    const userObject = {
+      id: value._id,
+      name: value.fullname,
+      email: value.email
+    };
+    return this.httpClient
+      .get(this.contactsUrlPort + "/role-wise-resource-permission/" + userObject.id)
+      .pipe(
+        map(res => {
+          if (res[0]) {
+            if (res[0]["user_id"] === userObject.id) {
+              return true;
+            }
+          } else if (res["message"] === "Not found") {
+            return false;
+          } else {
+            return false;
+          }
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // using Rxjs
   public UsingRxJs() {
@@ -444,3 +536,6 @@ export class UserService {
       });
   }
 }
+
+
+

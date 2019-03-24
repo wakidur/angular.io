@@ -38,6 +38,7 @@ export class ExerciseBuilderService {
     this.newExercise = false;
     return exercise;
   }
+  
   /**
    * deleteExercise
    */

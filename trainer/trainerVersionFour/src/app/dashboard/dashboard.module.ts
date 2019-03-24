@@ -30,6 +30,8 @@ import { UserComponent } from "./user-management/user/user.component";
  * Application Service List
  */
 
+import { RoleWiseResourcePermissionGuard } from "./user-management/role-wise-resource-permission/role-wise-resource-permission.guard";
+
 @NgModule({
   declarations: [
     TopMenuComponent,
@@ -51,6 +53,10 @@ import { UserComponent } from "./user-management/user/user.component";
     DashboardRoutingModule,
     CoreModule,
     SharedModule
+  ],
+  providers: [
+    RoleWiseResourcePermissionGuard,
   ]
+
 })
 export class DashboardModule {}
