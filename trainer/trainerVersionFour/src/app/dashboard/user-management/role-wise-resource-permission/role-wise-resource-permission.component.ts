@@ -4,7 +4,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
-
   FormArray,
   FormGroup,
   FormControl,
@@ -31,17 +30,17 @@ import { AlertNotificationsService } from "../../../core/alert-notifications.ser
 })
 export class RoleWiseResourcePermissionComponent implements OnInit {
   public listOfResources: Array<ListOfResources>;
+  public roleWiseResource: any;
   public listOfResource: ListOfResources;
   public listOfUserRoles: Array<ListOfUserRoles>;
-  public submitted: boolean;
   public roleWiseResourcePermissionForm: FormGroup;
+  public submitted: boolean;
+  public tableDataNotFound: boolean = false;
   public model: any;
   public video: any;
   public sub: any;
   // listOfResources = [];
   // userRole = [];
-
-
 
   constructor(
     private route: ActivatedRoute,
@@ -54,37 +53,30 @@ export class RoleWiseResourcePermissionComponent implements OnInit {
       listOfResources: new FormArray([]),
       userRole: new FormControl("", [Validators.required])
     });
-    this.sub = this.route.data.subscribe(
-      (data) => {
-        this.listOfResources = data.listOfResource;
-        this.addCheckboxes();
-      }
-    );
-
+    this.sub = this.route.data.subscribe(data => {
+      this.listOfResources = data.listOfResource;
+      this.addCheckboxes();
+    });
     this.userService.getListOfUserRoles().subscribe(
       x => {
         this.listOfUserRoles = x;
-        console.log(this.listOfUserRoles)
       },
       err => {
         console.error(err);
       }
     );
-
-
-
   }
 
   ngOnInit() {
+    this.getRoleWiseResourcePermission();
   }
-
-
 
   private addCheckboxes() {
     this.listOfResources.map((o, i) => {
       // if first item set to true, else false
       const control = new FormControl(!o.name.indexOf("home"));
-      (this.roleWiseResourcePermissionForm.controls.listOfResources as FormArray).push(control);
+      (this.roleWiseResourcePermissionForm.controls
+        .listOfResources as FormArray).push(control);
     });
   }
 
@@ -93,6 +85,21 @@ export class RoleWiseResourcePermissionComponent implements OnInit {
     this.listOfResource._id = form.controls["_id"].value;
   }
 
+  /**
+   * getRoleWiseResourcePermission
+   */
+  public getRoleWiseResourcePermission() {
+    this.userService.getRoleWiseResourcePermission().subscribe(
+      x => {
+        this.tableDataNotFound = !x.length ? true : false;
+        this.roleWiseResource = x;
+        console.log(this.roleWiseResource);
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
 
   /**
    * resourceSubmint
@@ -100,8 +107,7 @@ export class RoleWiseResourcePermissionComponent implements OnInit {
   public resourceSubmint(formPermission: FormGroup) {
     this.submitted = true;
 
-
-  const selectedOrderIds = formPermission.value.listOfResources
+    const selectedOrderIds = formPermission.value.listOfResources
       .map((v, i) => (v ? this.listOfResources[i]._id : null))
       .filter(v => v !== null);
     const postObject = {
@@ -109,31 +115,34 @@ export class RoleWiseResourcePermissionComponent implements OnInit {
       resource_id: selectedOrderIds
     };
 
-    this.userService.getRoleWiseResourcePermissionById(formPermission.value.userRole).subscribe(
-      response => {
-        console.log(response);
-        if (response) {
-          this.alertNotificationsService.infoAlert(
-            "This user already have role"
-          );
-        } else {
-          this.userService.postRoleWiseResourcePermission(postObject).subscribe(
-            x => {
-              this.alertNotificationsService.successAlert(x);
-              // this.getUserRole();
-            },
-            error => {
-              this.alertNotificationsService.errorAlert(error);
-            }
-          );
-        }
-      },
-      error => {
-        this.alertNotificationsService.errorAlert(error);
-      },
-      () => console.log("Observer got a complete notification")
-    );
-
+    this.userService
+      .getRoleWiseResourcePermissionById(formPermission.value.userRole)
+      .subscribe(
+        response => {
+          console.log(response);
+          if (response) {
+            this.alertNotificationsService.infoAlert(
+              "This role already have role"
+            );
+          } else {
+            this.userService
+              .postRoleWiseResourcePermission(postObject)
+              .subscribe(
+                x => {
+                  this.alertNotificationsService.successAlert(x);
+                  this.getRoleWiseResourcePermission();
+                },
+                error => {
+                  this.alertNotificationsService.errorAlert(error);
+                }
+              );
+          }
+        },
+        error => {
+          this.alertNotificationsService.errorAlert(error);
+        },
+        () => console.log("Observer got a complete notification")
+      );
   }
 }
 

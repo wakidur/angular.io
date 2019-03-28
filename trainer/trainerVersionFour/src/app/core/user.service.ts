@@ -420,37 +420,38 @@ export class UserService {
         catchError(this.handleError)
       );
   }
-/*************************** role-wise-resource-permission ************************** */
-/**
+  /*************************** role-wise-resource-permission ************************** */
+  /**
    * getRoleWiseResourcePermission
    */
   public getRoleWiseResourcePermission() {
-    return this.httpClient.get(this.contactsUrlPort + "/role-wise-resource-permission").pipe(
-      map((response: Array<any>) => {
-        const result: Array<any> = [];
-        response.forEach(value => {
-          if (value.user_id !== null) {
-            result.push({
-              name: value.user_id.fullname,
-              email: value.user_id.email,
-              roles: roles()
-            });
-          }
-          function roles() {
-            const arrayofRole: Array<any> = [];
-            if (value.role_id.length > 0) {
-              value.role_id.forEach(element => {
-                arrayofRole.push(element.name);
+    return this.httpClient
+      .get(this.contactsUrlPort + "/role-wise-resource-permission")
+      .pipe(
+        map((response: Array<any>) => {
+          const result: Array<any> = [];
+          response.forEach(value => {
+            if (value.role_id !== null) {
+              result.push({
+                name: value.role_id.name,
+                roles: roles()
               });
-              // arrayofRole;
             }
-            return arrayofRole.toString();
-          }
-        });
-        return result;
-      }),
-      catchError(this.handleError)
-    );
+            function roles() {
+              const arrayofRole: Array<any> = [];
+              if (value.resource_id.length > 0) {
+                value.resource_id.forEach(element => {
+                  arrayofRole.push(element.name);
+                });
+                // arrayofRole;
+              }
+              return arrayofRole.toString();
+            }
+          });
+          return result;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   /**
@@ -471,9 +472,7 @@ export class UserService {
       );
   }
 
-
-
-   /**
+  /**
    * getRoleWiseResourcePermissionByName
    */
   public getRoleWiseResourcePermissionById(value) {
@@ -483,11 +482,13 @@ export class UserService {
       email: value.email
     };
     return this.httpClient
-      .get(this.contactsUrlPort + "/role-wise-resource-permission/" + userObject.id)
+      .get(
+        this.contactsUrlPort + "/role-wise-resource-permission/" + userObject.id
+      )
       .pipe(
         map(res => {
           if (res[0]) {
-            if (res[0]["user_id"] === userObject.id) {
+            if (res[0]["role_id"] === userObject.id) {
               return true;
             }
           } else if (res["message"] === "Not found") {
@@ -499,19 +500,6 @@ export class UserService {
         catchError(this.handleError)
       );
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   // using Rxjs
   public UsingRxJs() {
@@ -536,6 +524,3 @@ export class UserService {
       });
   }
 }
-
-
-

@@ -114,23 +114,22 @@
 
 
         <div class="table-responsive">
+          <pre>{{userDetails|json}}</pre>
           <table class="table table-striped table-sm" *ngIf="userDetails">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Roles</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{{userDetails.fullname}}</td>
                 <td>{{userDetails.email}}</td>
-                <td>ipsum</td>
-                <td>dolor</td>
-                <td>sit</td>
+                <td>
+                    <button *ngFor="let item of userDetails.role" type="button" class="btn btn-primary">{{item}}</button>
+                </td>
               </tr>
 
             </tbody>

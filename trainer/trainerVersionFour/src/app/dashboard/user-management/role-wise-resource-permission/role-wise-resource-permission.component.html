@@ -7,7 +7,7 @@
         </div>
         <div class="card-body">
           <app-alert-notifications></app-alert-notifications>
-          <!-- <pre>{{listOfRoles|json}}</pre> -->
+
           <form [formGroup]="roleWiseResourcePermissionForm" (ngSubmit)="resourceSubmint(roleWiseResourcePermissionForm)">
             <div class="form-group">
               <label for="userName" class="">User Name</label>
@@ -46,30 +46,30 @@
           </div>
         </div>
         <div class="card-body">
+          <!-- <pre>{{roleWiseResource|json}}</pre> -->
           <div class="table-responsive">
-            <!-- <table class="table table-striped table-hover table-bordered table-sm mb-0">
+            <table class="table table-striped table-hover table-bordered table-sm mb-0">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Rolea</th>
+                  <th>Role</th>
+                  <th>Page Name</th>
+
 
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of userRole; let i=index ">
+                <tr *ngFor="let item of roleWiseResource; let i=index ">
                   <td>{{i}}</td>
                   <td>{{item.name}}</td>
-                  <td>{{item.email}}</td>
                   <td>{{item.roles}}</td>
                 </tr>
 
                 <tr *ngIf="tableDataNotFound">
-                  <td colspan="4">Table data not found</td>
+                  <td colspan="3">Table data not found</td>
                 </tr>
               </tbody>
-            </table> -->
+            </table>
           </div>
         </div>
       </div>
