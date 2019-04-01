@@ -18,10 +18,10 @@
           <h1 class="text-center">{{currentExercise.exercise.title}}</h1>
           <h3 *ngIf="currentExercise !== restExercise" class="text-center">Current Exercise:
             {{currentExercise.exercise}}</h3>
-          <div class="row">
-            <img class="img-responsive" [src]="'/assets/images/' + currentExercise.exercise.image" />
+          <div class=" row">
+            <img height="360" class="img-responsive" [src]="'/assets/images/' + currentExercise.exercise.image" />
           </div>
-          <div class="progress time-progress row">
+          <div class="progress time-progress row mt-4">
             <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="exerciseRunningDuration" aria-valuemin="0"
               [attr.aria-valuemax]="currentExercise.duration" [ngStyle]="{'width':(exerciseRunningDuration/currentExercise.duration) * 100 + '%'}">
             </div>

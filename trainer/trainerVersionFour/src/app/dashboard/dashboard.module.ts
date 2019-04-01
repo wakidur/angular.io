@@ -10,6 +10,13 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { CoreModule } from "../core/core.module";
 import { SharedModule } from "../shared/shared.module";
+
+/**
+ * Application Service List
+ */
+
+import { RoleWiseResourcePermissionGuard } from "./user-management/role-wise-resource-permission/role-wise-resource-permission.guard";
+
 /**
  * Application Components List
  * */
@@ -25,12 +32,8 @@ import { UserRolesComponent } from "./user-management/user-roles/user-roles.comp
 import { RoleWiseResourcePermissionComponent } from "./user-management/role-wise-resource-permission/role-wise-resource-permission.component";
 import { DeshboardContainerComponent } from "./deshboard-container/deshboard-container.component";
 import { UserComponent } from "./user-management/user/user.component";
-
-/**
- * Application Service List
- */
-
-import { RoleWiseResourcePermissionGuard } from "./user-management/role-wise-resource-permission/role-wise-resource-permission.guard";
+import { ProductComponent, FilterProductPipe } from "./e-commerce/product/product.component";
+import { StarRatingComponent } from "./e-commerce/product/star-rating/star-rating.component";
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { RoleWiseResourcePermissionGuard } from "./user-management/role-wise-res
     UserRolesComponent,
     RoleWiseResourcePermissionComponent,
     DeshboardContainerComponent,
-    UserComponent
+    UserComponent,
+    ProductComponent,
+    StarRatingComponent,
+    FilterProductPipe
   ],
   imports: [
     CommonModule,
@@ -54,9 +60,6 @@ import { RoleWiseResourcePermissionGuard } from "./user-management/role-wise-res
     CoreModule,
     SharedModule
   ],
-  providers: [
-    RoleWiseResourcePermissionGuard,
-  ]
-
+  providers: [RoleWiseResourcePermissionGuard]
 })
 export class DashboardModule {}

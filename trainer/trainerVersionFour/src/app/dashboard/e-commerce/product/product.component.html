@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-3 col-xl-3 col-lg-3">
+      <h5 class="text-uppercase border-bottom">Brand</h5>
+      <div *ngFor="let item of filterItems; let i=index" class="custom-control custom-checkbox">
+        <input class="custom-control-input" type="checkbox" [id]="i" [name]="i" type="checkbox" [(ngModel)]="item.checked" [value]="item.value">
+        <label class="custom-control-label" [for]="i">
+          {{item.value}}
+        </label>
+      </div>
+      <h5 class="text-uppercase border-bottom mt-4"> Types </h5>
+      <div *ngFor="let type of types; let i=index" class="custom-control custom-checkbox">
+        <input class="custom-control-input" [name]="type" type="checkbox" value="type" [id]="type">
+        <label class="custom-control-label" [for]="type">
+          {{type}}
+        </label>
+      </div>
+
+      <hr>
+      <pre>Selected items: <span *ngFor="let filterItem of checked()" style="padding-right:10px;">{{ filterItem.value }}</span></pre>
+
+    </div>
+    <div class="col-12 col-sm-12 col-md-9 col-xl-9 col-lg-9">
+      <div class="d-flex justify-content-between border-bottom pb-1 mb-1">
+        <h5 class="text-uppercase mb-0">Product</h5>
+        <div class="form-group mb-0">
+          <select class="form-control" id="price">
+            <option *ngFor="let price of prices" [value]="price">$ {{price}}</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-md-12" *ngFor="let item of items|filterproduct: { brand: ''} : checked() : false" >
+          <div class="card flex-md-row mb-2 shadow-sm h-md-250">
+            <img [src]="item.image" width="200" height="250" class="card-img-left flex-auto d-none d-lg-block"
+              [alt]="item.brand">
+            <div class="card-body d-flex flex-column align-items-start">
+              <h5 class="mb-0 ">
+                <a class="text-dark " [href]="item.url"> {{item.brand}}</a>
+              </h5>
+              <p><span class="badge badge-dark badge-pill">${{item.price}}</span></p>
+
+              <div class="mb-1 text-muted">{{item.type}}</div>
+              <p class="card-text mb-auto">
+                <app-star-rating [maxScore]="5" [score]="item.rating" [forDisplay]="true"
+                  (rateChanged)="onRateChange($event)"></app-star-rating>
+                ({{item.rating}})
+              </p>
+              <p class="card-text mb-auto">{{item.description}}</p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

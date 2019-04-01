@@ -11,12 +11,14 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { DashboardComponent } from "./dashboard.component";
 import { DeshboardContainerComponent } from "./deshboard-container/deshboard-container.component";
+// user-management
 import { UserComponent } from "./user-management/user/user.component";
 import { ListOfRoleComponent } from "./user-management/list-of-role/list-of-role.component";
 import { ListOfResourceComponent } from "./user-management/list-of-resource/list-of-resource.component";
 import { UserRolesComponent } from "./user-management/user-roles/user-roles.component";
 import { RoleWiseResourcePermissionComponent } from "./user-management/role-wise-resource-permission/role-wise-resource-permission.component";
-
+// e-commerce
+import { ProductComponent } from "./e-commerce/product/product.component";
 /**
  * Application Service List
  *
@@ -64,6 +66,11 @@ const routes: Routes = [
         component: RoleWiseResourcePermissionComponent,
         resolve: {listOfResource: RoleWiseResourcePermissionGuard },
         data: { title: "Role Wise Resource Permission" }
+      },
+      {
+        path: "product",
+        component: ProductComponent,
+        data: { title: "Products" }
       },
     ]
   }

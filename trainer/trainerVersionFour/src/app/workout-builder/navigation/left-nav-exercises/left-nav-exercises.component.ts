@@ -44,7 +44,7 @@ export class LeftNavExercisesComponent implements OnInit {
     this.workoutService
       .getExercises()
       .then(result => {
-        console.log("workout Exercise" + result);
+
         this.exerciseList = result;
       })
       .catch(err => {

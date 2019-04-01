@@ -29,20 +29,84 @@ export class UserService {
   params = "?apiKey=" + this.apiKey;
   private contactsUrlPort = "http://localhost:3000/api/users";
 
-  noAuthHeader = { headers: new HttpHeaders({ NoAuth: "True" }) };
+  private noAuthHeader = { headers: new HttpHeaders({ NoAuth: "True" }) };
+
   constructor(
     public httpClient: HttpClient,
     private storage: SessionStorageService
   ) {}
 
+  // getJSON
+  /**
+   * getJSON
+   */
+  public getJSON(filename: string): Observable<any> {
+    return this.httpClient.get(filename).pipe(
+        map(res => {
+        if (!res) {
+          throw new Error("Value expected!");
+        }
+        return res;
+      }),
+      catchError(err => of([]))
+    );
+  }
+
+  /*******************  Helper Methods  ***************** */
+
   private handleError(error: HttpErrorResponse) {
     return throwError(error);
   }
 
-  // get("/api/users/account")
+  /**
+   * setToken
+   */
+  public setToken(token) {
+    this.storage.setToken(this.storageKey, token);
+  }
 
   /**
-   * getUsers
+   * getToken
+   */
+  public getToken() {
+    return this.storage.getItem(this.storageKey);
+  }
+
+  /**
+   * deleteToken
+   */
+  public deleteToken() {
+    this.storage.removeItem(this.storageKey);
+  }
+
+  /**
+   * getUserPayload
+   */
+  public getUserPayload() {
+    const token = this.getToken();
+    if (token) {
+      const userPayload = atob((token as string).split(".")[1]);
+      return JSON.parse(userPayload);
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * isLoggedIn
+   */
+  public isLoggedIn() {
+    const userPayload = this.getUserPayload();
+    if (userPayload) {
+      return userPayload.exp > Date.now() / 1000;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * getAllUserByObservable
+   * /api/users/account
    */
 
   getAllUserByObservable(): Observable<User[]> {
@@ -53,7 +117,8 @@ export class UserService {
   }
 
   /**
-   * deleteListOfUserRole
+   * deleteUserAccount
+   * /api/users/account
    */
   public deleteUserAccount(delContactId): Observable<string> {
     const url = `${this.contactsUrlPort}/account`;
@@ -71,12 +136,10 @@ export class UserService {
 
   /**
    * Ceate User
+   * createUser
+   * /api/users/signup
    */
   public createUser(user: User): Observable<User> {
-    // let body = JSON.stringify({ name });
-    // let headers = new Headers({ "Content-Type": "application/json" });
-    // let options = new RequestOptions({ headers: headers });
-
     return this.httpClient
       .post(this.contactsUrlPort + "/signup", user, this.noAuthHeader)
       .pipe(
@@ -88,16 +151,11 @@ export class UserService {
   /**
    * POST /login
    * Sign in using email and password.
+   * logInUser
+   * /api/users/login
    */
 
   logInUser(user: Login) {
-    // let body = JSON.stringify({ name });
-    // let headers = new Headers({ 'Content-Type': 'application/json'});
-    // let options = new RequestOptions({ headers: headers });
-    // return this.http.post(this.contactsUrlPort + "/login", body, options)
-    //   .map(this.handleResponse)
-    //  .catch(this.handleError);
-
     return this.httpClient
       .post(this.contactsUrlPort + "/login", user, this.noAuthHeader)
       .pipe(
@@ -109,49 +167,22 @@ export class UserService {
       );
   }
 
+  /**
+   * POST /login
+   * Sign in using email and password.
+   * logInUser
+   * /api/users/account/profile
+   */
+
   getUserProfile() {
-    return this.httpClient.get(this.contactsUrlPort + "/account/profile");
+    return this.httpClient.get(this.contactsUrlPort + "/account/profile").pipe(
+      map(res => res),
+      catchError(this.handleError)
+    );
   }
 
-  // Helper Methods
+  /** ============== user role managment =========================  */
 
-  /**
-   * name
-   */
-  public setToken(token) {
-    this.storage.setToken(this.storageKey, token);
-  }
-
-  public getToken() {
-    return this.storage.getItem(this.storageKey);
-  }
-
-  public deleteToken() {
-    this.storage.removeItem(this.storageKey);
-  }
-  /**
-   * getUserPayload
-   */
-  public getUserPayload() {
-    const token = this.getToken();
-    if (token) {
-      const userPayload = atob((token as string).split(".")[1]);
-      return JSON.parse(userPayload);
-    } else {
-      return null;
-    }
-  }
-
-  public isLoggedIn() {
-    const userPayload = this.getUserPayload();
-    if (userPayload) {
-      return userPayload.exp > Date.now() / 1000;
-    } else {
-      return false;
-    }
-  }
-
-  // user role managment
   /*************************** List of user Roles ************************** */
   /**
    * getListOfUserRoles

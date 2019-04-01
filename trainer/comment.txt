@@ -59,6 +59,7 @@ ng g m dashboard --routing
 // ng generate guard [name]     generates a guard
 ng g g workout-resolver
 ng g g exercise-resolver
+ng g g role-wise-resource-permission
 
 ## create a Model class
 ng g class user --type=model

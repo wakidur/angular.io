@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 import { map, filter, mergeMap } from "rxjs/operators";
+import * as _ from "lodash";
 
 import { UserService } from "../user.service";
-
 
 @Component({
   selector: "app-workout-runner-header",
@@ -12,13 +12,11 @@ import { UserService } from "../user.service";
 })
 export class WorkoutRunnerHeaderComponent implements OnInit {
   public checkUserLongInStatus: boolean = false;
+  public isSuperAdmin: boolean = false;
   public showHistoryLink = true;
   public showWorkoutLink = true;
   public showBuilderLink = true;
-  constructor(
-    private router: Router,
-    private userService: UserService
-    ) {
+  constructor(private router: Router, private userService: UserService) {
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((e: NavigationEnd) => {
@@ -35,11 +33,32 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
       });
   }
   ngOnInit() {
-    this.checkUserLongInStatus  =  this.userService.isLoggedIn();
-    if (this.checkUserLongInStatus ) {
-      console.log(this.checkUserLongInStatus );
+    this.checkUserLongInStatus = this.userService.isLoggedIn();
+
+    if (this.checkUserLongInStatus) {
+      console.log(this.checkUserLongInStatus);
     } else {
-      console.log(this.checkUserLongInStatus );
+      console.log(this.checkUserLongInStatus);
+    }
+
+    // this.userService.getUserPayload().subscribe(
+    //   res => {
+    //     console.log(res)
+    //   },
+    //   err => {
+    //     console.log('object :', err);
+    //   }
+    //   );
+
+    const getRole = this.userService.getUserPayload();
+    if (getRole.roles.length > 0) {
+      let status = false;
+      getRole.roles.find(element => {
+        status = element === "superAdmin" || element === "administrator" || element === "admin" ? true : false;
+        console.log(this.isSuperAdmin);
+      });
+    } else {
+      console.log(" No role exist");
     }
   }
 
@@ -50,8 +69,4 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
     this.userService.deleteToken();
     this.router.navigate(["/home"]);
   }
-
-
-
-
 }

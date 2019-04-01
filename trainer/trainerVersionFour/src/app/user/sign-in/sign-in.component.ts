@@ -29,9 +29,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     const token = this.userService.getToken();
-    console.log(token);
     const isLoggedIn = this.userService.isLoggedIn();
-    console.log(isLoggedIn);
   }
 
   /**
@@ -49,7 +47,6 @@ export class SignInComponent implements OnInit {
           this.router.navigateByUrl("/user/user-profile");
         },
         err => {
-          console.error("Observer got an error: " + err);
           this.serverErrorMessages = err.error.message;
         },
         () => console.log("Observer got a complete notification")

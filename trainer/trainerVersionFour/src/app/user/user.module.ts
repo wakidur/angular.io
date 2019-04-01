@@ -31,12 +31,7 @@ import { SignUpComponent } from "./sign-up/sign-up.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { SignInComponent } from "./sign-in/sign-in.component";
 
-/**
- * Application Service List
- *
- */
 
-import { AuthInterceptor } from "../auth/auth.interceptor";
 
 @NgModule({
   declarations: [
