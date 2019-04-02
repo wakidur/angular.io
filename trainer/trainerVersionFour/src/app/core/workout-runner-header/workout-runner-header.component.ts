@@ -11,11 +11,17 @@ import { UserService } from "../user.service";
   styles: []
 })
 export class WorkoutRunnerHeaderComponent implements OnInit {
+  public deshborarUser: Array<string> = [
+    "superAdmin",
+    "administrator",
+    "admin"
+  ];
   public checkUserLongInStatus: boolean = false;
   public isSuperAdmin: boolean = false;
   public showHistoryLink = true;
   public showWorkoutLink = true;
   public showBuilderLink = true;
+  public isDeshboardUser: boolean = false;
   constructor(private router: Router, private userService: UserService) {
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
@@ -34,32 +40,23 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
   }
   ngOnInit() {
     this.checkUserLongInStatus = this.userService.isLoggedIn();
-
-    if (this.checkUserLongInStatus) {
-      console.log(this.checkUserLongInStatus);
-    } else {
-      console.log(this.checkUserLongInStatus);
-    }
-
-    // this.userService.getUserPayload().subscribe(
-    //   res => {
-    //     console.log(res)
-    //   },
-    //   err => {
-    //     console.log('object :', err);
-    //   }
-    //   );
-
+    console.log(this.checkUserLongInStatus);
+    console.log(this.isDeshboardUser);
     const getRole = this.userService.getUserPayload();
-    if (getRole.roles.length > 0) {
-      let status = false;
-      getRole.roles.find(element => {
-        status = element === "superAdmin" || element === "administrator" || element === "admin" ? true : false;
-        console.log(this.isSuperAdmin);
-      });
-    } else {
-      console.log(" No role exist");
+    console.log(getRole);
+    if (getRole) {
+      if (getRole.roles.length > 0) {
+        const statusValueFilter = _.filter(getRole.roles, function(o) {
+          return o === "superAdmin" || o === "administrator" ||  o === "admin";
+        });
+        if (statusValueFilter.length > 0) {
+          this.isDeshboardUser = true;
+        }
+      } else {
+        console.log("Not role");
+      }
     }
+
   }
 
   /**
