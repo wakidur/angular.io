@@ -7,64 +7,231 @@
 
 <main role="main">
   <div class="container">
-      <div class="row mb-2">
-          <div class="col-md-6">
-            <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-              <img src="/assets/images/user.jpg"  width="200" height="250" class="figure-img img-fluid rounded-circle card-img-right flex-auto d-none d-lg-block" alt="nice">
-              <div class="card-body d-flex flex-column align-items-start">
+    <div class="row mb-2">
+      <div class="col-md-12">
+        <div class="card flex-md-row mb-4 shadow-sm  profile-image">
+          <img src="/assets/images/user-180-180.jpg" width="180" height="180"
+            class="figure-img img-fluid rounded-circle card-img-right flex-auto d-none d-lg-block" alt="nice">
+          <div class="card-body d-flex flex-column align-items-start">
+            <h3 class="mb-0">
+              {{userDetails.fullname}}
+            </h3>
+            <div class="mb-1 text-muted">
+              {{userDetails.designation ? userDetails.designation : "Designation "}}
+            </div>
+            <p class="card-text mb-auto">
+              {{userDetails.address ? userDetails.address : "Address "}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5 col-lg-5">
+        <div class="card">
+          <div class="card-body">
+            <h5> About </h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <p class="text-muted mb-0">Email address:</p>
+                <p>{{userDetails.email ? userDetails.email : "michael@gmail.com"}}</p>
+              </li>
+              <li class="list-group-item">
+                <p class="text-muted mb-0">Phone: </p>
+                <p>{{userDetails.phone ? userDetails.phone : "+ 202-555-9191"}}</p>
+              </li>
+              <li class="list-group-item">
+                <p class="text-muted mb-0">Mobile:</p>
+                <p>{{userDetails.mobile ? userDetails.mobile : "+ 202-555-2828"}}</p>
+              </li>
+              <li class="list-group-item">
+                <p class="text-muted mb-0">Birth Date:</p>
+                <p>{{userDetails.birthofdate ? userDetails.birthofdate : "October 22th, 1990"}}</p>
+              </li>
+              <li class="list-group-item" *ngIf="roleStatus">
+                <p class="text-muted mb-0">Role:</p>
+                <a *ngFor="let item of userDetails.role" class="btn btn-outline-secondary mr-1" href="#"
+                  role="button">{{item }}</a>
+              </li>
+              <li class="list-group-item" *ngIf="!roleStatus">
+                <p class="text-muted mb-0">Role:</p>
+                <p> you are not currently assigned to a role </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7 col-lg-7">
+        <div class="card">
+          <div class="card-body">
+            <ul class="nav nav-pills" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="pills-action-tab" data-toggle="pill" href="#pills-action" role="tab" aria-controls="pills-action" aria-selected="true">My Action</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile setting</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-action" role="tabpanel" aria-labelledby="pills-action-tab">
+                <div class="list-group">
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Workout Name</h5>
+                      <small class="text-danger">3 days ago</small>
+                    </div>
+                    <p class="mb-1 text-truncate">
+                      description .
+                      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                    </p>
+                    <div class="d-flex w-100 justify-content-between">
+                      <small>Total Exercises .</small>
+                      <small>Total Duration .</small>
+                    </div>
 
-                <h3 class="mb-0">
-                  <a class="text-dark" href="#">{{userDetails.fullname}}</a>
-                </h3>
-                <div class="mb-1 text-muted">{{userDetails.email}}</div>
-                <p class="card-text mb-auto"></p>
-                <a  href="#" *ngFor="let item of userDetails.role">{{item}}</a>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Workout Name</h5>
+                      <small class="text-danger">3 days ago</small>
+                    </div>
+                    <p class="mb-1 text-truncate">
+                      description .
+                      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                    </p>
+                    <div class="d-flex w-100 justify-content-between">
+                      <small>Total Exercises .</small>
+                      <small>Total Duration .</small>
+                    </div>
+
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Workout Name</h5>
+                      <small class="text-danger">3 days ago</small>
+                    </div>
+                    <p class="mb-1 text-truncate">
+                      description .
+                      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                    </p>
+                    <div class="d-flex w-100 justify-content-between">
+                      <small>Total Exercises .</small>
+                      <small>Total Duration .</small>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Workout Name</h5>
+                      <small class="text-danger">3 days ago</small>
+                    </div>
+                    <p class="mb-1 text-truncate">
+                      description .
+                      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                    </p>
+                    <div class="d-flex w-100 justify-content-between">
+                      <small>Total Exercises .</small>
+                      <small>Total Duration .</small>
+                    </div>
+
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Workout Name</h5>
+                      <small class="text-danger">3 days ago</small>
+                    </div>
+                    <p class="mb-1 text-truncate">
+                      description .
+                      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                    </p>
+                    <div class="d-flex w-100 justify-content-between">
+                      <small>Total Exercises .</small>
+                      <small>Total Duration .</small>
+                    </div>
+
+                  </a>
+
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <!-- Profiel form -->
+                <form class="border-top" #profileForm="ngForm" (ngSubmit)="profileSubmit(profileForm)">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="fullname">Name</label>
+                      <input type="text" class="form-control" readonly placeholder="Full Name" name="fullname"
+                        id="fullname" [(ngModel)]="userProfileForm.fullname" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" id="email" readonly placeholder="Email" name="email"
+                        [(ngModel)]="userProfileForm.email">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="designation">Designation</label>
+                      <input type="text" class="form-control" placeholder="Designation" name="designation"
+                        id="designation" [(ngModel)]="userProfileForm.designation">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="phone">Phone</label>
+                      <input type="tel" class="form-control" placeholder="phone" name="phone number" id="phone"
+                        [(ngModel)]="userProfileForm.phone">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="mobile">Mobile</label>
+                      <input type="tel" class="form-control" placeholder="Mobile number" name="mobile" id="mobile"
+                        [(ngModel)]="userProfileForm.mobile">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="birthofdate">Birth Date</label>
+                      <input type="date" class="form-control" id="birthofdate" name="birthofdate"
+                        [(ngModel)]="userProfileForm.birthofdate" placeholder=" Birth Date">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="country">Country</label>
+                      <input type="text" class="form-control" id="country" name="country"
+                        [(ngModel)]="userProfileForm.country" placeholder="Country">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="city">City</label>
+                      <input type="text" class="form-control" id="city" name="city" [(ngModel)]="userProfileForm.city"
+                        placeholder="City">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="zip">Zip</label>
+                      <input type="text" class="form-control" id="zip" name="zip" [(ngModel)]="userProfileForm.zip"
+                        placeholder="zip cord">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea class="form-control" id="address" rows="2" name="address" id="address"
+                      placeholder="Address" [(ngModel)]="userProfileForm.address"></textarea>
+                  </div>
+                  <div class="form-group ">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="userImage" name="userImage"
+                        [(ngModel)]="userProfileForm.userImage" lang="es">
+                      <label class="custom-file-label" for="userImage">Select User Picture</label>
+                    </div>
+                  </div>
+                  <div class="form-group pull-right">
+                      <button type="reset" class="btn btn-outline-danger">Reset</button>
+                    <button type="submit" class="btn btn-outline-primary mr-2">Save</button>
+
+                  </div>
+                </form>
               </div>
             </div>
           </div>
-
-        </div>
-    <div class="row">
-      <!-- main container -->
-      <div role="main" class="col-md-12 col-lg-12">
-        <!-- page name  -->
-        <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-          <button class="btn btn-primary"> <i class="icon ion-md-calendar"></i> Dashboard </button>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary"> <i class="icon ion-md-person"></i> </button>
-              <button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-money" aria-hidden="true"></i></button>
-              <button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
-            </div>
-          </div>
-        </div> -->
-        <!-- page name  -->
-
-        <div class="table-responsive">
-          <pre>{{userDetails|json}}</pre>
-          <table class="table table-striped table-sm" *ngIf="userDetails">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Roles</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{userDetails.fullname}}</td>
-                <!-- <td>{{userDetails.email}}</td> -->
-                <!-- <td>{{userDetails.email}}</td> -->
-                <td>
-                    <button *ngFor="let item of userDetails.role" type="button" class="btn btn-primary">{{item}}</button>
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
         </div>
       </div>
-      <!-- main container -->
     </div>
   </div>
 </main>
+

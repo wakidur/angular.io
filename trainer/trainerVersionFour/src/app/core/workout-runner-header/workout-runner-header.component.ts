@@ -44,10 +44,10 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
     console.log(this.isDeshboardUser);
     const getRole = this.userService.getUserPayload();
     console.log(getRole);
-    if (getRole) {
+    if (getRole["roles"]) {
       if (getRole.roles.length > 0) {
         const statusValueFilter = _.filter(getRole.roles, function(o) {
-          return o === "superAdmin" || o === "administrator" ||  o === "admin";
+          return o === "superAdmin" || o === "administrator" || o === "admin";
         });
         if (statusValueFilter.length > 0) {
           this.isDeshboardUser = true;
@@ -56,7 +56,6 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
         console.log("Not role");
       }
     }
-
   }
 
   /**
