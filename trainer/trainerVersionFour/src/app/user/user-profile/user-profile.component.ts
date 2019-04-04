@@ -25,21 +25,35 @@ export class UserProfileComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       res => {
         if (res["user"]["role"]) {
-          console.log(res["user"]);
-          console.log("FullName " + res["user"].fullname);
+          console.log("role" + res["user"]);
           this.roleStatus = true;
           this.userDetails = res["user"];
           this.userProfileForm.fullname = res["user"].fullname;
-          console.log("user profile name " + this.userProfileForm);
           this.userProfileForm.email = res["user"].email;
+          this.userProfileForm.designation = res["user"].designation;
+          this.userProfileForm.address = res["user"].address;
+          this.userProfileForm.country = res["user"].country;
+          this.userProfileForm.city = res["user"].city;
+          this.userProfileForm.mobile = res["user"].mobile;
+          this.userProfileForm.phone = res["user"].phone;
+          this.userProfileForm.birthofdate = res["user"].birthofdate;
+          this.userProfileForm.zip = res["user"].zip;
         } else {
-          console.log(res["user"]);
           this.roleStatus = false;
           this.userDetails = res["user"];
-          console.log("FullName " + res["user"].fullname);
-          this.userProfileForm.fullname = res["user"].fullname;
-          console.log("user profile name " + this.userProfileForm);
-          this.userProfileForm.email = res["user"].email;
+          if (res["user"]) {
+            console.log("no role" + res["user"]);
+              this.userProfileForm.fullname = res["user"].fullname;
+              this.userProfileForm.email = res["user"].email;
+              this.userProfileForm.designation = res["user"].designation;
+              this.userProfileForm.address = res["user"].address;
+              this.userProfileForm.country = res["user"].country;
+              this.userProfileForm.city = res["user"].city;
+              this.userProfileForm.mobile = res["user"].mobile;
+              this.userProfileForm.phone = res["user"].phone;
+              this.userProfileForm.birthofdate = res["user"].birthofdate;
+              this.userProfileForm.zip = res["user"].zip;
+          }
         }
       },
       err => {

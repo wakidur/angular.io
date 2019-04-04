@@ -44,7 +44,7 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
     console.log(this.isDeshboardUser);
     const getRole = this.userService.getUserPayload();
     console.log(getRole);
-    if (getRole["roles"]) {
+    if (getRole !== null && getRole["roles"]) {
       if (getRole.roles.length > 0) {
         const statusValueFilter = _.filter(getRole.roles, function(o) {
           return o === "superAdmin" || o === "administrator" || o === "admin";

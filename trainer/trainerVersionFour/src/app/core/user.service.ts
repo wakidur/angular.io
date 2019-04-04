@@ -176,7 +176,7 @@ export class UserService {
 
   getUserProfile() {
     return this.httpClient.get(this.contactsUrlPort + "/account/profile").pipe(
-      map(res => res),
+      map(res  => res ),
       catchError(this.handleError)
     );
   }
