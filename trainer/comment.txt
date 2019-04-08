@@ -2,10 +2,16 @@ trainerVersionOne
 trainerVersionTwo
 trainerVersionThree
 
+npm install -g @angular/cli@latest
+npm install -g @angular/cli // by the default it add latest versing 
 
 (The -is flag is used to stop generation of a separate CSS file for the component)
 ## ng new
 ng new trainerVersionTwo
+
+##  start server 
+ng serve
+ng serve --open
 
 ng generate module workout-runner --module app.module.ts
 ng g m core --module app
@@ -30,7 +36,7 @@ ng g c user -is
 
 ng g c workout-history -is
 
-ng serve --open
+
 
 ng generate component exercise-description -is
 ng generate component video-player -is
