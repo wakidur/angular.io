@@ -15,10 +15,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
  * Application dependency Module
  * WorkoutBuilderRoutingModule
  * SharedModule
+ * AuthModule
  */
 import { WorkoutBuilderRoutingModule } from "./workout-builder-routing.module";
 import { SharedModule } from "../shared/shared.module";
-
+import { AuthModule } from "../auth/auth.module";
 /**
  * Application Components List
  *
@@ -68,7 +69,8 @@ import { ExerciseResolverGuard } from "./exercise/exercise-resolver.guard";
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    WorkoutBuilderRoutingModule
+    WorkoutBuilderRoutingModule,
+    AuthModule
   ],
   providers: [
     WorkoutBuilderService,

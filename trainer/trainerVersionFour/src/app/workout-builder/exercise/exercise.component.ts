@@ -10,13 +10,14 @@ import {
   FormControl,
   FormBuilder
 } from "@angular/forms";
-
+import { Subscription, Observable } from "rxjs";
 /**
  * Application dependency
  */
 import { Exercise } from "../../core/model/workoutModel";
 import { ExerciseBuilderService } from "../builder-services/exercise-builder.service";
 import { AlphaNumericValidator, AlphaNumericValidatorCustome } from "../../shared/alphanumeric-validator";
+import { WorkoutService } from "../../core/workout.service";
 // import {  } from "module";
 
 @Component({
@@ -37,6 +38,7 @@ export class ExerciseComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public router: Router,
     private exerciseBuilderService: ExerciseBuilderService,
+    private workoutService: WorkoutService,
     private formBuilder: FormBuilder
   ) {}
 
@@ -83,15 +85,33 @@ export class ExerciseComponent implements OnInit, OnDestroy {
   /**
    * onSubmit
    */
-  public onSubmit(formExercise: FormGroup) {
+  // public onSubmit(formExercise: FormGroup) {
+  //   this.submitted = true;
+  //   if (!formExercise.valid) {
+  //     return;
+  //   }
+  //   this.mapFormValues(formExercise);
+  //   console.log(formExercise.value);
+  //   this.exerciseBuilderService.saveExercise();
+  //   this.router.navigate(["/builder/exercises"]);
+  // }
+
+  public onSubmit = (formExercise: FormGroup): Promise<Object | any> => {
     this.submitted = true;
     if (!formExercise.valid) {
       return;
     }
     this.mapFormValues(formExercise);
     console.log(formExercise.value);
-    this.exerciseBuilderService.saveExercise();
-    this.router.navigate(["/builder/exercises"]);
+    const savePromise = this.exerciseBuilderService.saveExercise().toPromise();
+    savePromise
+      .then(result => {
+        this.router.navigate(["/builder/exercises"]);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+      return savePromise;
   }
 
   /**

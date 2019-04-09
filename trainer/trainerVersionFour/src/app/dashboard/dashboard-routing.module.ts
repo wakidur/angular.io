@@ -25,6 +25,7 @@ import { ProductComponent } from "./e-commerce/product/product.component";
  * WorkoutBuilderService
  */
 import { RoleWiseResourcePermissionGuard } from "./user-management/role-wise-resource-permission/role-wise-resource-permission.guard";
+import { AuthGuard } from "../auth/auth.guard";
 
 const routes: Routes = [
   {
@@ -44,6 +45,7 @@ const routes: Routes = [
       {
         path: "user",
         component: UserComponent,
+        canActivate: [AuthGuard],
         data: { title: "User" }
       },
       {

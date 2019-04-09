@@ -4,7 +4,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
+
 
 /**
  * Application dependency Module

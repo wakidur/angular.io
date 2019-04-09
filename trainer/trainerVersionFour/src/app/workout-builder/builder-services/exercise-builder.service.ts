@@ -31,14 +31,14 @@ export class ExerciseBuilderService {
   /**
    * saveExercise
    */
-  public saveExercise() {
-    const exercise = this.newExercise
-      ? this.workoutService.addExercise(this.buildingExercise)
-      : this.workoutService.updateExercise(this.buildingExercise);
+  saveExercise() {
+    const exercise = this.newExercise ?
+    this.workoutService.addExercise(this.buildingExercise) :
+    this.workoutService.updateExercise(this.buildingExercise);
     this.newExercise = false;
     return exercise;
   }
-  
+
   /**
    * deleteExercise
    */

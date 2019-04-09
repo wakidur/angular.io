@@ -34,6 +34,7 @@ import { DeshboardContainerComponent } from "./deshboard-container/deshboard-con
 import { UserComponent } from "./user-management/user/user.component";
 import { ProductComponent, FilterProductPipe } from "./e-commerce/product/product.component";
 import { StarRatingComponent } from "./e-commerce/product/star-rating/star-rating.component";
+import { AuthModule } from "../auth/auth.module";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { StarRatingComponent } from "./e-commerce/product/star-rating/star-ratin
     ReactiveFormsModule,
     DashboardRoutingModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    AuthModule
   ],
   providers: [RoleWiseResourcePermissionGuard]
 })

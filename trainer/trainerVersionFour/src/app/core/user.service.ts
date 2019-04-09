@@ -24,9 +24,6 @@ export class UserService {
   private storageKey = "session";
   users: Array<User> = [];
   user: User;
-  collectionsUrl = "https://api.mlab.com/api/1/databases/training/collections";
-  apiKey = "TRZfI48FK_XQeAyB5EE5-7z3d8wFgcgV";
-  params = "?apiKey=" + this.apiKey;
   private contactsUrlPort = "http://localhost:3000/api/users";
 
   private noAuthHeader = { headers: new HttpHeaders({ NoAuth: "True" }) };

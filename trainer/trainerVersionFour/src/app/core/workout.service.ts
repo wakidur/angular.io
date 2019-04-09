@@ -2,7 +2,7 @@
  * Frameworks dependency
  */
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Http, Response } from "@angular/http";
 import { Observable, of, throwError, forkJoin } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -24,12 +24,9 @@ export class WorkoutService {
   workouts: Array<WorkoutPlan> = [];
   exercises: Array<Exercise> = [];
   workout: WorkoutPlan;
-  collectionsUrl = "https://api.mlab.com/api/1/databases/training/collections";
-  apiKey = "TRZfI48FK_XQeAyB5EE5-7z3d8wFgcgV";
-  params = "?apiKey=" + this.apiKey;
-  private contactsUrlApi = "/api";
-  private contactsUrlPort = "http://localhost:3000";
 
+  private contactsUrlPort = "http://localhost:3000/api";
+  private noAuthHeader = { headers: new HttpHeaders({ NoAuth: "True" }) };
   constructor(public httpClient: HttpClient) {
      this.setupInitialExercises();
      this.setupInitialWorkouts();
@@ -80,7 +77,7 @@ public getWorkoutsMockData() {
   public getExercises(): Promise<Exercise[]> {
     return this.httpClient
       .get<Exercise[]>(
-        this.contactsUrlPort + this.contactsUrlApi + "/exercise/create"
+        this.contactsUrlPort  + "/exercise/create"
       )
       .toPromise()
       .then(res => res)
@@ -91,14 +88,14 @@ public getWorkoutsMockData() {
   public getExercisesByObservable(): Observable<Exercise[]> {
     return this.httpClient
       .get<Exercise[]>(
-        this.contactsUrlPort + this.contactsUrlApi + "/exercise/create"
+        this.contactsUrlPort  + "/exercise/create"
       )
       .pipe(catchError(this.handleError("getExercise", [])));
   }
   // get("/api/contacts")
   public getExercisesByPromisess(): Promise<Exercise[]> {
     return this.httpClient
-      .get(this.contactsUrlPort + this.contactsUrlApi + "/exercise/create")
+      .get(this.contactsUrlPort  + "/exercise/create")
       .toPromise()
       .then(response => response as Exercise[])
       .catch(err => {
@@ -108,7 +105,7 @@ public getWorkoutsMockData() {
   public getExercisesByPromises(): Promise<Exercise[]> {
     return this.httpClient
       .get<Exercise[]>(
-        this.contactsUrlPort + this.contactsUrlApi + "/exercise/create"
+        this.contactsUrlPort  + "/exercise/create"
       )
       .toPromise()
       .then(res => res)
@@ -123,7 +120,7 @@ public getWorkoutsMockData() {
   public getExercise(exerciseName: string): Observable<Exercise[]> {
     return this.httpClient
       .get<Exercise[]>(
-        this.contactsUrlPort + this.contactsUrlApi + "/exercise/" + exerciseName
+        this.contactsUrlPort  + "/exercise/" + exerciseName
       )
       .pipe(catchError(WorkoutService.handleErrorStatuc));
   }
@@ -131,24 +128,25 @@ public getWorkoutsMockData() {
   /**
    * addExercise
    */
-  public addExercise(exercise: Exercise) {
-    if (exercise.name) {
-      this.exercises.push(exercise);
-      return exercise;
-    }
-  }
+  public addExercise(exercise: any) {
+      return this.httpClient.post(this.contactsUrlPort + "/exercise/create", exercise)
+      .pipe(map(res=> res),catchError(this.handleError<Exercise>("addExercise")));
+}
   /**
    * updateExercise
    */
   public updateExercise(exercise: Exercise) {
-    for (let index = 0; index < this.exercises.length; index++) {
-      if (this.exercises[index].name === exercise.name) {
-        this.exercises[index] = exercise;
-      } else {
-        return "Update value not found";
-      }
-    }
-    return exercise;
+    // for (let index = 0; index < this.exercises.length; index++) {
+    //   if (this.exercises[index].name === exercise.name) {
+    //     this.exercises[index] = exercise;
+    //   } else {
+    //     return "Update value not found";
+    //   }
+    // }
+    // return exercise;
+    return this.httpClient
+      .put(this.contactsUrlPort  + "/workoutplan/", exercise)
+      .pipe(catchError(this.handleError<Exercise>()));
   }
   /**
    * deleteExercise
@@ -171,7 +169,7 @@ public getWorkoutsMockData() {
   public getWorkouts() {
     return this.httpClient
       .get<WorkoutPlan[]>(
-        this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/create"
+        this.contactsUrlPort  + "/workoutplan/create"
       )
       .pipe(
         map((workouts: Array<any>) => {
@@ -201,7 +199,7 @@ public getWorkoutsMockData() {
   public getWorkoutByName(workoutName: string) {
     return this.httpClient
       .get<WorkoutPlan>(
-        this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/" + name
+        this.contactsUrlPort  + "/workoutplan/" + name
       )
       .pipe(catchError(WorkoutService.handleErrorStatuc));
   }
@@ -217,11 +215,10 @@ public getWorkoutsMockData() {
      */
     return forkJoin(
       this.httpClient.get(
-        this.contactsUrlPort + this.contactsUrlApi + "/exercise/create"
+        this.contactsUrlPort  + "/exercise/create"
       ),
       this.httpClient.get(
-        this.contactsUrlPort +
-          this.contactsUrlApi +
+        this.contactsUrlPort  +
           "/workoutplan/" +
           workoutName
       )
@@ -272,7 +269,7 @@ public getWorkoutsMockData() {
 
     return this.httpClient
       .post(
-        this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/create",
+        this.contactsUrlPort  + "/workoutplan/create",
         body
       )
       .pipe(catchError(this.handleError<WorkoutPlan>()));
@@ -299,7 +296,7 @@ public getWorkoutsMockData() {
     };
 
     return this.httpClient
-      .put(this.contactsUrlPort + this.contactsUrlApi + "/workoutplan/", body)
+      .put(this.contactsUrlPort  + "/workoutplan/", body)
       .pipe(catchError(this.handleError<WorkoutPlan>()));
   }
 
@@ -309,8 +306,7 @@ public getWorkoutsMockData() {
   public deleteWorkout(workoutName: string) {
     return this.httpClient
       .delete(
-        this.contactsUrlPort +
-          this.contactsUrlApi +
+        this.contactsUrlPort  +
           "/workoutplan/" +
           workoutName
       )
