@@ -27,6 +27,7 @@ import { ExerciseComponent } from "./exercise/exercise.component";
  */
 import { WorkoutResolverGuard } from "./workout/workout-resolver.guard";
 import { ExerciseResolverGuard } from "./exercise/exercise-resolver.guard";
+import { AuthGuard } from "../auth/auth.guard";
 
 // Child Routes
 const routes: Routes = [
@@ -42,6 +43,7 @@ const routes: Routes = [
       {
         path: "workouts",
         component: WorkoutsComponent,
+        canActivate: [AuthGuard],
         data: { title: "Workouts" }
       },
       {
@@ -64,20 +66,23 @@ const routes: Routes = [
       {
         path: "exercises",
         component: ExercisesComponent,
+        canActivate: [AuthGuard],
         data: {title: "Exercises"}
       },
       {
         path: "exercise/new",
         component: ExerciseComponent,
         resolve: {exercise: ExerciseResolverGuard },
-        data: {title: "Create new exercise"}
+        data: {title: "Create new exercise"},
+        canActivate: [AuthGuard]
       },
-      {
-        path: "exercise/:id",
-        component: ExerciseComponent,
-        resolve: {exercise: ExerciseResolverGuard },
-        data: {title: "Exercise"}
-      },
+      // {
+      //   path: "exercise/:id",
+      //   component: ExerciseComponent,
+      //   canActivate: [AuthGuard],
+      //   resolve: {exercise: ExerciseResolverGuard },
+      //   data: {title: "Exercise"}
+      // },
     ]
   }
 ];

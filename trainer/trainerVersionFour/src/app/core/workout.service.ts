@@ -3,7 +3,7 @@
  */
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { Http, Response } from "@angular/http";
+import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { Observable, of, throwError, forkJoin } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 /**
@@ -11,6 +11,7 @@ import { catchError, map } from "rxjs/operators";
  */
 import { WorkoutPlan, ExercisePlan, Exercise } from "./model/workoutModel";
 import { CoreModule } from "./core.module";
+import { UserService } from "./user.service";
 
 @Injectable({
   providedIn: CoreModule
@@ -27,7 +28,7 @@ export class WorkoutService {
 
   private contactsUrlPort = "http://localhost:3000/api";
   private noAuthHeader = { headers: new HttpHeaders({ NoAuth: "True" }) };
-  constructor(public httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient, public userService: UserService) {
      this.setupInitialExercises();
      this.setupInitialWorkouts();
   }
@@ -62,10 +63,8 @@ public getWorkoutsMockData() {
   private handleError<T>(operation = "operation", result?: T) {
     return (error: HttpErrorResponse): Observable<T> => {
       if (error.status === 404) {
-        console.log("HTTP 404 Not found error");
         return of(result as T);
       } else {
-        console.error(error);
         return throwError("An error occurred:", error.error.message);
       }
     };
@@ -129,9 +128,36 @@ public getWorkoutsMockData() {
    * addExercise
    */
   public addExercise(exercise: any) {
+    let headers  = new Headers();;
+    headers.append('Authorization', 'Bearer ' + sessionStorage.getItem("session"));
+    headers.append('Content-Type', 'application/json');
+    let options = new RequestOptions({ headers: headers });
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + this.userService.getToken()
+      })
+    };
+
       return this.httpClient.post(this.contactsUrlPort + "/exercise/create", exercise)
       .pipe(map(res=> res),catchError(this.handleError<Exercise>("addExercise")));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /**
    * updateExercise
    */

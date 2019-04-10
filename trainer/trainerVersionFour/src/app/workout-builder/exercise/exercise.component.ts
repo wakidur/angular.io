@@ -102,7 +102,6 @@ export class ExerciseComponent implements OnInit, OnDestroy {
       return;
     }
     this.mapFormValues(formExercise);
-    console.log(formExercise.value);
     const savePromise = this.exerciseBuilderService.saveExercise().toPromise();
     savePromise
       .then(result => {

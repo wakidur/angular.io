@@ -51,6 +51,7 @@ import { WorkoutBuilderService } from "./builder-services/workout-builder.servic
 import { ExerciseBuilderService } from "./builder-services/exercise-builder.service";
 import { WorkoutResolverGuard } from "./workout/workout-resolver.guard";
 import { ExerciseResolverGuard } from "./exercise/exercise-resolver.guard";
+import { CoreModule } from "../core/core.module";
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { ExerciseResolverGuard } from "./exercise/exercise-resolver.guard";
     ReactiveFormsModule,
     SharedModule,
     WorkoutBuilderRoutingModule,
+    CoreModule,
     AuthModule
   ],
   providers: [
