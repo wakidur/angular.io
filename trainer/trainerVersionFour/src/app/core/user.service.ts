@@ -80,6 +80,7 @@ export class UserService {
    * getUserPayload
    */
   public getUserPayload() {
+    // get the token
     const token = this.getToken();
     if (token) {
       const userPayload = atob((token as string).split(".")[1]);
