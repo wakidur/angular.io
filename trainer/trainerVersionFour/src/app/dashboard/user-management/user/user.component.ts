@@ -48,7 +48,8 @@ export class UserComponent implements OnInit {
         this.users = x;
       },
       err => {
-        console.error(err);
+        this.tableDataNotFound = true;
+        this.alertNotificationsService.errorAlert(err.error.message);
       }
     );
   }
