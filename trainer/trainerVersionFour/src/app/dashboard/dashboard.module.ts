@@ -35,6 +35,7 @@ import { UserComponent } from "./user-management/user/user.component";
 import { ProductComponent, FilterProductPipe } from "./e-commerce/product/product.component";
 import { StarRatingComponent } from "./e-commerce/product/star-rating/star-rating.component";
 import { AuthModule } from "../auth/auth.module";
+import { LoaderModule } from "../loader/loader.module";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import { AuthModule } from "../auth/auth.module";
     DashboardRoutingModule,
     CoreModule,
     SharedModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [RoleWiseResourcePermissionGuard]
 })

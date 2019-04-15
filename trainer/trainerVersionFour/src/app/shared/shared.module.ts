@@ -20,6 +20,7 @@ import { AjaxButtonComponent } from "./ajax-button/ajax-button.component";
 import { TooltipDirective } from "./tooltip.directive";
 import { FilterPipe } from './filter.pipe';
 
+
 @NgModule({
   declarations: [
     OrderByPipe,
@@ -32,7 +33,8 @@ import { FilterPipe } from './filter.pipe';
     BusyIndicatorDirective,
     AjaxButtonComponent,
     TooltipDirective,
-    FilterPipe
+    FilterPipe,
+
   ],
   imports: [
     CommonModule,

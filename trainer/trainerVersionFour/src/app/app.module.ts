@@ -35,6 +35,7 @@ import { WorkoutHistoryComponent } from "./workout-history/workout-history.compo
 import { WorkoutHistoryDialogComponent } from "./workout-history/workout-history-dialog/workout-history-dialog.component";
 import { HomeComponent } from "./home/home.component";
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,7 @@ import { HomeComponent } from "./home/home.component";
     FinishComponent,
     WorkoutHistoryComponent,
     WorkoutHistoryDialogComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
