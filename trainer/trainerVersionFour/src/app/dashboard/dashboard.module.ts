@@ -62,6 +62,7 @@ import { LoaderModule } from "../loader/loader.module";
     CoreModule,
     SharedModule,
     AuthModule,
+    LoaderModule
   ],
   providers: [RoleWiseResourcePermissionGuard]
 })

@@ -52,6 +52,7 @@ import { ExerciseBuilderService } from "./builder-services/exercise-builder.serv
 import { WorkoutResolverGuard } from "./workout/workout-resolver.guard";
 import { ExerciseResolverGuard } from "./exercise/exercise-resolver.guard";
 import { CoreModule } from "../core/core.module";
+import { LoaderModule } from "../loader/loader.module";
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { CoreModule } from "../core/core.module";
     SharedModule,
     WorkoutBuilderRoutingModule,
     CoreModule,
-    AuthModule
+    AuthModule,
+    LoaderModule
   ],
   providers: [
     WorkoutBuilderService,

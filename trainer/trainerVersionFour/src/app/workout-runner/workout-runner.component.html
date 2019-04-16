@@ -1,5 +1,6 @@
+<app-loader></app-loader>
 <app-workout-container
-[workoutName]="workoutName" 
+[workoutName]="workoutName"
 (exercisePaused)="wa.stop()"
 (exerciseResumed)="wa.resume()"
 (exerciseProgress)="wa.onExerciseProgress($event)"

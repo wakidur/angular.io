@@ -9,6 +9,7 @@ import { StartComponent } from "./start/start.component";
 import { FinishComponent } from "./finish/finish.component";
 import { WorkoutHistoryComponent } from "./workout-history/workout-history.component";
 import { HomeComponent } from "./home/home.component";
+import { AuthGuard } from "./auth/auth.guard";
 
 
 
@@ -23,22 +24,60 @@ import { HomeComponent } from "./home/home.component";
  * causing the app to navigate to the start page (defined in the redirectTo property).
  */
 
- /**
-  * loadChildren
-  * module file path + # + module name
-  *
-  */
+/**
+ * loadChildren
+ * module file path + # + module name
+ *
+ */
 const routes: Routes = [
-  { path: "home", component: HomeComponent, data: { title: "Home" }},
-  { path: "start", component: StartComponent, data: { title: "Start" } },
-  { path: "workout", component: LocalStorageWorkoutContainerComponent, data: { title: "Workout" } },
-  { path: "workout/:id", component: WorkoutRunnerComponent, data: { title: "Workout" } },
-  { path: "finish", component: FinishComponent, data: { title: "Finish" }  },
-  { path: "history", component: WorkoutHistoryComponent, data: { title: "History" }  },
-  { path: "dashboard", loadChildren: "./dashboard/dashboard.module#DashboardModule"},
-  { path: "builder", loadChildren: "./workout-builder/workout-builder.module#WorkoutBuilderModule" },
-  { path: "user", loadChildren: "./user/user.module#UserModule" },
-  { path: "**", redirectTo: "/home", pathMatch: "full" }
+  {
+    path: "home",
+    component: HomeComponent,
+    data: { title: "Home" }
+  },
+  {
+    path: "start",
+    component: StartComponent,
+    canActivate: [AuthGuard],
+    data: { title: "Start" }
+  },
+  {
+    path: "workout",
+    component: LocalStorageWorkoutContainerComponent,
+    data: { title: "Workout" }
+  },
+  {
+    path: "workout/:id",
+    component: WorkoutRunnerComponent,
+    data: { title: "Workout" }
+  },
+  {
+    path: "finish",
+    component: FinishComponent,
+    data: { title: "Finish" }
+  },
+  {
+    path: "history",
+    component: WorkoutHistoryComponent,
+    data: { title: "History" }
+  },
+  {
+    path: "dashboard",
+    loadChildren: "./dashboard/dashboard.module#DashboardModule"
+  },
+  {
+    path: "builder",
+    loadChildren: "./workout-builder/workout-builder.module#WorkoutBuilderModule"
+  },
+  {
+    path: "user",
+    loadChildren: "./user/user.module#UserModule"
+  },
+  {
+    path: "**",
+    redirectTo: "/home",
+    pathMatch: "full"
+   }
 ];
 
 /**
@@ -70,17 +109,17 @@ const routes: Routes = [
 
  */
 
- /**
-  * we register the Router service by importing the RouterModule into AppRoutingModule
-  */
- /**
-  * The AppRoutingModule is a module that exports multiple routes together
-  * with all the Angular-router-related services (technically it re-exports RouterModule).
-  */
+/**
+ * we register the Router service by importing the RouterModule into AppRoutingModule
+ */
+/**
+ * The AppRoutingModule is a module that exports multiple routes together
+ * with all the Angular-router-related services (technically it re-exports RouterModule).
+ */
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { enableTracing: true, useHash: true })
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

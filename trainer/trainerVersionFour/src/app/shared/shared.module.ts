@@ -20,6 +20,8 @@ import { AjaxButtonComponent } from "./ajax-button/ajax-button.component";
 import { TooltipDirective } from "./tooltip.directive";
 import { FilterPipe } from './filter.pipe';
 
+import {TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { FilterPipe } from './filter.pipe';
     BusyIndicatorDirective,
     AjaxButtonComponent,
     TooltipDirective,
-    FilterPipe
+    FilterPipe,
+    TranslateModule
   ]
 })
 export class SharedModule {}

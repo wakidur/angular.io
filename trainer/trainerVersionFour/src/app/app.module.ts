@@ -34,6 +34,9 @@ import { FinishComponent } from "./finish/finish.component";
 import { WorkoutHistoryComponent } from "./workout-history/workout-history.component";
 import { WorkoutHistoryDialogComponent } from "./workout-history/workout-history-dialog/workout-history-dialog.component";
 import { HomeComponent } from "./home/home.component";
+import { LoaderModule } from "./loader/loader.module";
+import { AuthModule } from "./auth/auth.module";
+
 
 
 @NgModule({
@@ -51,7 +54,9 @@ import { HomeComponent } from "./home/home.component";
     AppRoutingModule,
     WorkoutRunnerModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    LoaderModule,
+    AuthModule
   ],
   providers: [],
   entryComponents: [WorkoutHistoryDialogComponent],

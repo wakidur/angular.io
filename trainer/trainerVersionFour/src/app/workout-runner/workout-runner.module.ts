@@ -12,6 +12,7 @@ import { WorkoutContainerComponent } from "./workout-container/workout-container
 import { SharedModule } from "../shared/shared.module";
 import { LocalStorageWorkoutComponent } from "./local-storage-workout/local-storage-workout.component";
 import { LocalStorageWorkoutContainerComponent } from "./local-storage-workout-container/local-storage-workout-container.component";
+import { LoaderModule } from "../loader/loader.module";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,13 @@ import { LocalStorageWorkoutContainerComponent } from "./local-storage-workout-c
     LocalStorageWorkoutComponent,
     LocalStorageWorkoutContainerComponent
   ],
-  imports: [CommonModule, RouterModule, CoreModule, SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    CoreModule,
+    SharedModule,
+    LoaderModule
+  ],
   exports: [],
   entryComponents: [VideoDialogComponent]
 })
