@@ -1,0 +1,24 @@
+{
+  "PROJECT_NAME":"7 Minute Workout",
+  "JUMBOTRON_TITLE": "who want to be your own personal trainer!",
+  "JUMBOTRON_SUB_TITLE": "This is a self-improvement personal workouts website. Become your own personal trainer to lose weight and get fit with fast, simple daily workouts. If you want to lose weight, get a flat tummy & strengthen your abdominal muscles, Try 7 Minute Workout and get a six pack while strengthening your core and toning your abs, with videos that show you how to perform each exercise. You can also create a new workout base on your demand",
+  "HomeLink": "Home",
+  "DashboardLink": "Dashboard",
+  "HistoryLink": "History",
+  "WorkoutLink": "Workout",
+  "StartLink": "Start",
+  "FinishLink": "Finish",
+  "CreateAWorkoutLink": "Create a workout",
+  "LoginLink": "Login",
+  "SignUpLink": "Sign Up",
+  "UserLink": "User",
+  "ProfileLink": "Profile",
+  "SingOutLink": "Sing Out ",
+  "LANGUAGES": {
+    "ENGLISH": "English",
+    "SPANISH": "Spanis",
+    "FRENCH": "French",
+    "CHINESE": "Chinese",
+    "HINDI": "Hindi"
+  }
+}

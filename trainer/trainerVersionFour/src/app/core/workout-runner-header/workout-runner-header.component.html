@@ -1,67 +1,77 @@
 <!-- Fixed navbar -->
-<nav class="navbar navbar-expand-lg workout-main-nav fixed-top" style="background-color: #1b2060 !important;border-bottom: 1px solid #2d3073;">
+<nav class="navbar navbar-expand-lg workout-main-nav fixed-top"
+  style="background-color: #1b2060 !important;border-bottom: 1px solid #2d3073;">
   <div class="container">
     <a class="navbar-brand" routerLink="/start">
       <img src="/assets/images/logo.png" width="21" height="22" class="d-inline-block align-middle" alt="">
-      <span class="align-middle"> 7 Minute Workout </span>
+      <span class="align-middle"> {{ 'PROJECT_NAME' | translate }} </span>
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-      aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/home">Home</a>
+          <a class="nav-link" routerLink="/home">{{ 'HomeLink' | translate }}</a>
         </li>
-        <li *ngIf="checkUserLongInStatus && isDeshboardUser" class="nav-item"  routerLinkActive="active">
-          <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+        <li *ngIf="checkUserLongInStatus && isDeshboardUser" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/dashboard">{{ 'DashboardLink' | translate }}</a>
         </li>
-        <li  class="nav-item " *ngIf="showHistoryLink" routerLinkActive="active">
-          <a class="nav-link" routerLink="/history" title="Workout History">History </a>
+        <li class="nav-item " *ngIf="showHistoryLink" routerLinkActive="active">
+          <a class="nav-link" routerLink="/history" title="Workout History">{{ 'HistoryLink' | translate }} </a>
         </li>
         <li class="nav-item " *ngIf="showWorkoutLink && !checkUserLongInStatus" routerLinkActive="active">
-          <a class="nav-link" routerLink="/workout" title="Workout History">
-            Workout
-          </a>
+          <a class="nav-link" routerLink="/workout" title="Workout History">{{ 'WorkoutLink' | translate }}</a>
         </li>
         <li [hidden]="!checkUserLongInStatus" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/start"> Start </a>
+          <a class="nav-link" routerLink="/start">{{ 'StartLink' | translate }} </a>
         </li>
         <li [hidden]="!checkUserLongInStatus" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/finish">Finish</a>
+          <a class="nav-link" routerLink="/finish">{{ 'FinishLink' | translate }} </a>
         </li>
-        <li [hidden]="!checkUserLongInStatus" class="nav-item" *ngIf="showBuilderLink" routerLinkActive="active">
-          <a class="nav-link" routerLink="/builder">Create a Workout</a>
-        </li>
+        <!-- <li [hidden]="!checkUserLongInStatus" class="nav-item" *ngIf="showBuilderLink" routerLinkActive="active">
+          <a class="nav-link" routerLink="/builder">{{ 'CreateAWorkoutLink' | translate }} </a>
+        </li> -->
         <li class="nav-item dropdown" routerLinkActive="active">
           <a class="nav-link dropdown-toggle btn btn-outline-secondary" href="#" id="lenguageService" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="icon ion-ios-globe"></i> EN
+            <i class="icon ion-ios-globe"></i> {{ 'LANGUAGES.ENGLISH' | translate }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="lenguageService">
-            <a class="dropdown-item">English</a>
-            <a class="dropdown-item">Spanish</a>
-            <a class="dropdown-item">French</a>
+            <a (click)="changeLanguage('en')" style="cursor: pointer"
+              class="dropdown-item">{{ 'LANGUAGES.ENGLISH' | translate }} </a>
+            <a (click)="changeLanguage('spa')" style="cursor: pointer" class="dropdown-item">
+              {{ 'LANGUAGES.SPANISH' | translate }} </a>
+            <a (click)="changeLanguage('fr')" style="cursor: pointer"
+              class="dropdown-item">{{ 'LANGUAGES.FRENCH' | translate }} </a>
+            <a (click)="changeLanguage('cn')" style="cursor: pointer"
+              class="dropdown-item">{{ 'LANGUAGES.CHINESE' | translate }} </a>
+            <a (click)="changeLanguage('hi')" style="cursor: pointer"
+              class="dropdown-item">{{ 'LANGUAGES.HINDI' | translate }} </a>
           </div>
         </li>
         <li [hidden]="checkUserLongInStatus" class="nav-item" *ngIf="showBuilderLink" routerLinkActive="active">
-          <a class="nav-link" routerLink="/user/sign-in">Login</a>
+          <a class="nav-link" routerLink="/user/sign-in">{{ 'LoginLink' | translate }} </a>
         </li>
         <li [hidden]="checkUserLongInStatus" class="nav-item" *ngIf="showBuilderLink" routerLinkActive="active">
-          <a class="nav-link btn btn-outline-secondary" routerLink="/user/sign-up" style="background-color: #2c306f;">Sign Up</a>
+          <a class="nav-link btn btn-outline-secondary" routerLink="/user/sign-up" style="background-color: #2c306f;">
+            {{ 'SignUpLink' | translate }}</a>
         </li>
         <li [hidden]="!checkUserLongInStatus" class="nav-item dropdown" routerLinkActive="active">
           <a class="nav-link dropdown-toggle" href="#" id="userManageService" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            User
+            {{ 'UserLink' | translate }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userManageService">
             <a class="dropdown-item" routerLink="/user/user-profile">
-              <i class="fa fa-user" aria-hidden="true"></i>  Profile
+              <i class="fa fa-user" aria-hidden="true"></i> {{ 'ProfileLink' | translate }}
+            </a>
+            <a class="dropdown-item" style="cursor: pointer" routerLink="/builder">
+              <i class="fa fa-add" aria-hidden="true"></i> {{ 'CreateAWorkoutLink' | translate }}
             </a>
             <a class="dropdown-item" style="cursor: pointer" (click)="onLogout()">
-              <i class="fa fa-sign-out" aria-hidden="true"></i> Sing out
+              <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'SingOutLink' | translate }}
             </a>
           </div>
         </li>

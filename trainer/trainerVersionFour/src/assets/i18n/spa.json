@@ -1,0 +1,25 @@
+{
+  "PROJECT_NAME": "Entrenamiento de 7 minutos",
+  "JUMBOTRON_TITLE": "Quien quiera ser tu propio entrenador personal!",
+  "JUMBOTRON_SUB_TITLE": "Este es un sitio web de autoayuda de entrenamientos personales. Conviértase en su propio entrenador personal para perder peso y ponerse en forma con entrenamientos diarios rápidos y simples. Si quieres perder peso, consigue una barriga plana y fortalece tus músculos abdominales, prueba el entrenamiento de 7 minutos y obtén un paquete de seis mientras fortaleces tu centro y tonifica tus abdominales, con videos que te muestran cómo realizar cada ejercicio. También puede crear una nueva base de entrenamiento en su demanda",
+  "HELLO": "Hola",
+  "HomeLink": "casa",
+  "DashboardLink": "Tablero",
+  "HistoryLink": "Historia",
+  "WorkoutLink": "Rutina de ejercicio",
+  "StartLink": "comienzo",
+  "FinishLink": "Terminar",
+  "CreateAWorkoutLink": "Crear un entrenamiento",
+  "LoginLink": "Iniciar sesión",
+  "SignUpLink": "Regístrate",
+  "UserLink": "Usuaria",
+  "ProfileLink": "Perfil",
+  "SingOutLink": "Gritar",
+  "LANGUAGES": {
+    "ENGLISH": "Inglesa",
+    "SPANISH": "Español",
+    "FRENCH": "Francesa",
+    "CHINESE": "China",
+    "HINDI": "hindi"
+  }
+}

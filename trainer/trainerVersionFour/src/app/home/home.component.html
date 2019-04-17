@@ -9,14 +9,11 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <section class="jumbotron text-white" style=" background-color: #1b1e63; border-radius: 0px;">
       <div class="container">
-        <h1 class="display-6">Who become your own personal trainer!</h1>
+        <h1 class="display-6">
+            {{ 'JUMBOTRON_TITLE' | translate }}
+        </h1>
         <p>
-          This is a Self-Improvement personal workouts website.
-          Become your own personal trainer to lose weight and get fit with fast, simple daily workouts.
-          If you want to lose weight, get a flat tummy & strengthen your abdominal muscles, Try 7 Minute Workout and
-          get
-          a six pack while strengthening your core and toning your abs, with videos that show you how to perform each
-          exercise. You can also create a new workout base on your demand
+            {{ 'JUMBOTRON_SUB_TITLE' | translate }}
         </p>
         <p>
           <a class="btn btn-primary my-2 mx-2" routerLink="/workout" role="button">Let Start &raquo; </a>

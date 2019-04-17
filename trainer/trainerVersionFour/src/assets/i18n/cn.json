@@ -1,0 +1,24 @@
+{ "PROJECT_NAME":"7分鐘鍛煉",
+  "JUMBOTRON_TITLE": "誰想成為你自己的私人教練！",
+  "JUMBOTRON_SUB_TITLE": "這是一個自我完善的個人鍛煉網站。 成為您自己的私人教練，通過快速，簡單的日常鍛煉來減肥和健身。 如果你想減肥，平腹和加強你的腹部肌肉，嘗試7分鐘鍛煉，並獲得六包，同時加強你的核心和調節你的腹肌，視頻，向您展示如何進行每項運動。 您還可以根據需要創建新的鍛煉基礎",
+  "HELLO": "家",
+  "HomeLink": "你好",
+  "DashboardLink": "儀表板",
+  "HistoryLink": "历史",
+  "WorkoutLink": "锻炼",
+  "StartLink": "开始",
+  "FinishLink": "完",
+  "CreateAWorkoutLink": "创造一个锻炼",
+  "LoginLink": "登录",
+  "SignUpLink": "注册",
+  "UserLink": "用户",
+  "ProfileLink": "轮廓",
+  "SingOutLink": "唱出来",
+  "LANGUAGES": {
+    "ENGLISH": "英语",
+    "SPANISH": "西班牙语",
+    "FRENCH": "法国",
+    "CHINESE": "中文",
+    "HINDI": "印地语"
+  }
+}

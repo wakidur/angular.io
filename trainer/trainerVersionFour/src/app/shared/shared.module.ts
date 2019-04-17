@@ -20,8 +20,7 @@ import { AjaxButtonComponent } from "./ajax-button/ajax-button.component";
 import { TooltipDirective } from "./tooltip.directive";
 import { FilterPipe } from './filter.pipe';
 
-import {TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
 
 @NgModule({
   declarations: [
@@ -37,10 +36,11 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     TooltipDirective,
     FilterPipe,
 
+
   ],
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   exports: [
     OrderByPipe,
@@ -54,7 +54,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     AjaxButtonComponent,
     TooltipDirective,
     FilterPipe,
-    TranslateModule
+
   ]
 })
 export class SharedModule {}

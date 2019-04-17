@@ -3,7 +3,7 @@
  */
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 
 /**
@@ -31,6 +31,22 @@ import { SessionStorageService } from "./session-storage.service";
 import { WorkoutRunnerHeaderComponent } from "./workout-runner-header/workout-runner-header.component";
 import { WorkoutRunnerFooterComponent } from "./workout-runner-footer/workout-runner-footer.component";
 import { AlertNotificationsComponent } from "./alert-notifications/alert-notifications.component";
+// import ngx-translate and the http loader
+import {TranslateModule, TranslateLoader, TranslateService} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+// export function createTranslateLoader(http: Http) {
+//   return new TranslateStaticLoader(http, './assets/i18n', '.json');
+// // }
+// export class MyMissingTranslationHandler implements MissingTranslationHandler {
+//   handle(params: MissingTranslationHandlerParams) {
+//     return 'Translations not available for ' + params.key;
+//   }
+// }
 
 @NgModule({
   declarations: [
@@ -43,18 +59,38 @@ import { AlertNotificationsComponent } from "./alert-notifications/alert-notific
     RouterModule,
     ModalModule.forRoot(),
     BootstrapModalModule,
-    HttpClientModule
+    HttpClientModule,
+     // configure the imports
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      },
+      isolate: false
+
+  })
   ],
-providers: [
-  AlertNotificationsService,
-  UserService,
-  SessionStorageService
-],
+  providers: [
+    AlertNotificationsService,
+    UserService,
+    SessionStorageService
+  ],
   exports: [
     WorkoutRunnerHeaderComponent,
     WorkoutRunnerFooterComponent,
     AlertNotificationsComponent,
+    TranslateModule
 
   ]
 })
-export class CoreModule {}
+export class CoreModule {
+  constructor(private translate: TranslateService) {
+
+    translate.addLangs(["en", "fr"]);
+    translate.setDefaultLang('en');
+
+    let browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+}
+}

@@ -1,0 +1,25 @@
+{
+  "PROJECT_NAME":"7 minutes d'entraînement",
+  "JUMBOTRON_TITLE": "qui veulent être votre propre entraîneur personnel!",
+  "JUMBOTRON_SUB_TITLE": "Ceci est un site personnel d'entraînement personnel d'auto-amélioration. Devenez votre entraîneur personnel pour perdre du poids et vous mettre en forme avec des entraînements quotidiens rapides et simples. Si vous souhaitez perdre du poids, obtenir un ventre plat et renforcer vos muscles abdominaux, essayez 7 Minute Workout et obtenez un pack de six tout en renforçant votre cœur et en raffermissant vos abdominaux, avec des vidéos qui montrent comment effectuer chaque exercice. Vous pouvez également créer une nouvelle base d'entraînement selon votre demande.",
+  "HELLO": "Bonjour",
+  "HomeLink": "maison",
+  "DashboardLink": "Tableau de bord",
+  "HistoryLink": "L'histoire",
+  "WorkoutLink": "Faire des exercices",
+  "StartLink": "Début",
+  "FinishLink": "terminer",
+  "CreateAWorkoutLink": "Créer un entraînement",
+  "LoginLink": "S'identifier",
+  "SignUpLink": "S'inscrire",
+  "UserLink": "Utilisatrice",
+  "ProfileLink": "Profil",
+  "SingOutLink": "Chanter",
+  "LANGUAGES": {
+    "ENGLISH": "Anglaise",
+    "SPANISH": "Espanol",
+    "FRENCH": "Française",
+    "CHINESE": "Chinoise",
+    "HINDI": "hindi"
+  }
+}

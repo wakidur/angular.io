@@ -11,11 +11,11 @@ import { map, filter, mergeMap } from "rxjs/operators";
 })
 export class AppComponent implements OnInit {
   title = "trainerVersionThree";
-
+  param = {value: 'world'};
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
   ) {}
 
   ngOnInit() {

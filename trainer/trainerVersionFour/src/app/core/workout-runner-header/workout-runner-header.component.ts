@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router, NavigationEnd, ActivatedRoute, ParamMap } from "@angular/router";
 import { map, filter, mergeMap } from "rxjs/operators";
+import {Subscription } from 'rxjs';
 import * as _ from "lodash";
+import { TranslateService } from '@ngx-translate/core';
 
 import { UserService } from "../user.service";
 
@@ -10,7 +12,7 @@ import { UserService } from "../user.service";
   templateUrl: "./workout-runner-header.component.html",
   styles: []
 })
-export class WorkoutRunnerHeaderComponent implements OnInit {
+export class WorkoutRunnerHeaderComponent implements OnInit, OnDestroy {
   public deshborarUser: Array<string> = [
     "superAdmin",
     "administrator",
@@ -22,7 +24,13 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
   public showWorkoutLink = true;
   public showBuilderLink = true;
   public isDeshboardUser: boolean = false;
-  constructor(private router: Router, private userService: UserService) {
+  private subscription: Subscription;
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private translate: TranslateService,
+    private route: ActivatedRoute
+    ) {
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((e: NavigationEnd) => {
@@ -40,13 +48,10 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
   }
   ngOnInit() {
     this.checkUserLongInStatus = this.userService.isLoggedIn();
-    console.log(this.checkUserLongInStatus);
-    console.log(this.isDeshboardUser);
     const getRole = this.userService.getUserPayload();
-    console.log(getRole);
     if (getRole !== null && getRole["roles"]) {
       if (getRole.roles.length > 0) {
-        const statusValueFilter = _.filter(getRole.roles, function(o) {
+        const statusValueFilter = _.filter(getRole.roles, function (o) {
           return o === "superAdmin" || o === "administrator" || o === "admin";
         });
         if (statusValueFilter.length > 0) {
@@ -56,6 +61,16 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
         console.log("Not role");
       }
     }
+
+    // subscribe to router event
+   
+    this.subscription = this.route.queryParams.subscribe(
+      (param: any) => {
+        let locale = param['locale'];
+        if (locale !== undefined) {
+            this.translate.use(locale);
+        }
+      });
   }
 
   /**
@@ -64,5 +79,17 @@ export class WorkoutRunnerHeaderComponent implements OnInit {
   public onLogout() {
     this.userService.deleteToken();
     this.router.navigate(["/home"]);
+  }
+
+  /**
+   * changeLanguage
+   */
+  public changeLanguage(language: string) {
+    this.translate.use(language);
+  }
+
+  ngOnDestroy() {
+    // prevent memory leak by unsubscribing
+    this.subscription.unsubscribe();
   }
 }
