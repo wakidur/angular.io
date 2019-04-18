@@ -13,6 +13,12 @@ import { RouterModule } from "@angular/router";
 import { ModalModule } from "ngx-modialog";
 import { BootstrapModalModule } from "ngx-modialog/plugins/bootstrap";
 
+
+// import ngx-translate and the http loader
+import { TranslateModule, TranslateLoader, TranslateService, MissingTranslationHandler, MissingTranslationHandlerParams } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+
 /**
  * Application Service List
  *
@@ -31,22 +37,22 @@ import { SessionStorageService } from "./session-storage.service";
 import { WorkoutRunnerHeaderComponent } from "./workout-runner-header/workout-runner-header.component";
 import { WorkoutRunnerFooterComponent } from "./workout-runner-footer/workout-runner-footer.component";
 import { AlertNotificationsComponent } from "./alert-notifications/alert-notifications.component";
-// import ngx-translate and the http loader
-import {TranslateModule, TranslateLoader, TranslateService} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+
+// AoT requires an exported function for factories
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-// export function createTranslateLoader(http: Http) {
-//   return new TranslateStaticLoader(http, './assets/i18n', '.json');
-// // }
-// export class MyMissingTranslationHandler implements MissingTranslationHandler {
-//   handle(params: MissingTranslationHandlerParams) {
-//     return 'Translations not available for ' + params.key;
-//   }
-// }
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export class MyMissingTranslationHandler implements MissingTranslationHandler {
+  handle(params: MissingTranslationHandlerParams) {
+    return 'Translations not available for ';
+  }
+}
 
 @NgModule({
   declarations: [
@@ -60,16 +66,22 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalModule.forRoot(),
     BootstrapModalModule,
     HttpClientModule,
-     // configure the imports
+
+
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       },
-      isolate: false
+      isolate: false,
+      missingTranslationHandler: {
+        provide: MissingTranslationHandler,
+        useClass: MyMissingTranslationHandler
+      },
+      useDefaultLang: false
+    }),
 
-  })
   ],
   providers: [
     AlertNotificationsService,
@@ -80,17 +92,17 @@ export function HttpLoaderFactory(http: HttpClient) {
     WorkoutRunnerHeaderComponent,
     WorkoutRunnerFooterComponent,
     AlertNotificationsComponent,
-    TranslateModule
-
+    TranslateModule,
   ]
 })
 export class CoreModule {
   constructor(private translate: TranslateService) {
-
-    translate.addLangs(["en", "fr"]);
+    translate.addLangs(["en", "fr", "cn", "hi", "spa"]);
+     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
-
+    // get the current UserLang
     let browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
-}
+    // the lang to use, if the lang isn't available, it will use the current loader to get them
+    translate.use(browserLang.match(/en|fr|cn|hi|spa/) ? browserLang : 'en');
+  }
 }

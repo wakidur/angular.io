@@ -31,6 +31,7 @@ import { SignUpComponent } from "./sign-up/sign-up.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { SignInComponent } from "./sign-in/sign-in.component";
 import { LoaderModule } from "../loader/loader.module";
+import { SharedLazyModule } from "../core/shared-lazy.module";
 
 
 
@@ -49,7 +50,7 @@ import { LoaderModule } from "../loader/loader.module";
     SharedModule,
     CoreModule,
     AuthModule,
-    LoaderModule
+    LoaderModule,
   ],
   providers: []
 })
