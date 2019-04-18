@@ -63,7 +63,6 @@ export class WorkoutRunnerHeaderComponent implements OnInit, OnDestroy {
     }
 
     // subscribe to router event
-   
     this.subscription = this.route.queryParams.subscribe(
       (param: any) => {
         let locale = param['locale'];
