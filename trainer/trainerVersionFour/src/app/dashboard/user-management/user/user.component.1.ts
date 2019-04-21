@@ -2,7 +2,7 @@
  * Frameworks dependency
  */
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { NgForm } from "@angular/forms";
 
 /**
  * Application dependency
@@ -10,8 +10,6 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserService } from "../../../core/user.service";
 import { AlertNotificationsService } from "../../../core/alert-notifications.service";
 import { User } from "../../../core/model/user.model";
-import { throwIfEmpty } from "rxjs/operators";
-import { mimeType } from "../../../shared/mime-type.validator";
 
 @Component({
   selector: "app-user",
@@ -29,9 +27,7 @@ export class UserComponent implements OnInit {
   users: Array<User>;
   // Checkbox field
   termsOfUse = true;
-
-  form: FormGroup;
-  imagePreview: any;
+  emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   constructor(
     private userService: UserService,
@@ -39,21 +35,6 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.form = new FormGroup({
-      fullname: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      }),
-      email: new FormControl(null, {
-        validators: [Validators.required]
-      }),
-      password: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(4)]
-      }),
-      userImage: new FormControl(null, {
-        validators: [Validators.required],
-        asyncValidators: [mimeType]
-      })
-    });
     this.getAllUser();
   }
 
@@ -73,30 +54,16 @@ export class UserComponent implements OnInit {
     );
   }
 
-  onImagePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({ userImage: file });
-    this.form.get("userImage").updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result;
-    };
-    reader.readAsDataURL(file);
-  }
   /**
    * onSubmit(signUpForm)
    */
-  public onSubmit() {
-    if (this.form.invalid) {
-      return;
-    }
+  public onSubmit(signUpForm: NgForm) {
+    console.log(signUpForm);
     const objectValue = {
-      fullname: this.form.value.fullname,
-      email: this.form.value.email,
-      password: this.form.value.password,
-      userImage: this.form.value.userImage
+      fullname: signUpForm.value.fullname,
+      email: signUpForm.value.email,
+      password: signUpForm.value.password
     };
-    console.log(objectValue);
     this.userService.createUser(objectValue).subscribe(
       res => {
         if (res["message"]) {
@@ -104,7 +71,7 @@ export class UserComponent implements OnInit {
         } else {
           this.alertNotificationsService.successAlert("Success save");
           this.getAllUser();
-          this.form.reset();
+          this.resetForm(signUpForm);
         }
       },
       err => {
@@ -117,6 +84,16 @@ export class UserComponent implements OnInit {
         }
       }
     );
+  }
+
+  public resetForm(form: NgForm) {
+    this.selectedUser = {
+      fullname: "",
+      email: "",
+      password: ""
+    };
+    form.resetForm();
+
   }
 
   /**

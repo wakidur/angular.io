@@ -1,6 +1,16 @@
 /*
 ** workout-main-nav
 */
+input[type="file"] {
+  visibility: hidden;
+}
+
+
+
+.image-preview img {
+  height: 100%;
+}
+
 .workout-main-nav .nav-link,
 .workout-main-nav .navbar-brand {
   color: #fff;

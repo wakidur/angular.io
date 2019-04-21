@@ -22,6 +22,7 @@ export class User {
   fullname: string;
   email: string;
   password: string;
+  userImage?: File;
 }
 
 export class UserProfile {

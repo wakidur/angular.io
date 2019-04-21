@@ -138,8 +138,14 @@ export class UserService {
    * /api/users/signup
    */
   public createUser(user: User): Observable<User> {
+    const userData = new FormData();
+    userData.append('fullname', user.fullname);
+    userData.append('email', user.email);
+    userData.append('password', user.password);
+    userData.append('userImage', user.userImage);
+
     return this.httpClient
-      .post(this.contactsUrlPort + "/signup", user, this.noAuthHeader)
+      .post(this.contactsUrlPort + "/signup", userData, this.noAuthHeader)
       .pipe(
         map(response => response as User),
         catchError(this.handleError)
