@@ -24,7 +24,7 @@ export class WorkoutHistoryTrackerServerInteractionsService {
   private workoutTracked: boolean;
   private storageKey = "workouts";
   private contactsUrlApi = "/api";
-  private contactsUrlPort = "http://localhost:3000";
+  private contactsUrlPort = "http://localhost:3000/api";
   // public currentLog: WorkoutLogEntry = null;
 
   constructor(public httpClient: HttpClient) {}
@@ -32,7 +32,7 @@ export class WorkoutHistoryTrackerServerInteractionsService {
   public getHistoryByObservable(): Observable<WorkoutLogEntry[]> {
     return this.httpClient
       .get<WorkoutLogEntry[]>(
-        this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry"
+        this.contactsUrlPort  + "/workoutLogEntry"
       )
       .pipe(
         map((item: Array<any>) => {
@@ -73,7 +73,7 @@ export class WorkoutHistoryTrackerServerInteractionsService {
 
     return this.httpClient
       .post(
-        this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/create",
+        this.contactsUrlPort  + "/workoutLogEntry/create",
         body
       )
       .pipe(
@@ -98,7 +98,7 @@ export class WorkoutHistoryTrackerServerInteractionsService {
 
     return this.httpClient
       .put(
-        this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/",
+        this.contactsUrlPort  + "/workoutLogEntry/",
         body
       )
       .pipe(catchError(this.handleError<WorkoutLogEntry>()));
@@ -120,7 +120,7 @@ export class WorkoutHistoryTrackerServerInteractionsService {
     }
     this.workoutHistory.push(this.currentWorkoutLog);
     const postUrl =
-      this.contactsUrlPort + this.contactsUrlApi + "/workoutLogEntry/create";
+      this.contactsUrlPort  + "/workoutLogEntry/create";
     const body = {
       startedOn: this.currentWorkoutLog.startedOn,
       endedOn: this.currentWorkoutLog.endedOn,
@@ -148,10 +148,7 @@ export class WorkoutHistoryTrackerServerInteractionsService {
     currentLog
   ): Promise<Object | WorkoutLogEntry> {
     const putUrl =
-      this.contactsUrlPort +
-      this.contactsUrlApi +
-      "/workoutLogEntry/" +
-      currentLog._id;
+      this.contactsUrlPort + "/workoutLogEntry/" + currentLog._id;
     this.currentWorkoutLog.lastExercise = exercise.exercise.title;
     ++this.currentWorkoutLog.exercisesDone;
     const body = {
@@ -181,9 +178,7 @@ export class WorkoutHistoryTrackerServerInteractionsService {
    */
   public endTracking(completed: boolean, currentLog) {
     const putUrl =
-      this.contactsUrlPort +
-      this.contactsUrlApi +
-      "/workoutLogEntry/" +
+      this.contactsUrlPort + "/workoutLogEntry/" +
       currentLog._id;
     if (this.currentWorkoutLog.completed === true) {
       this.currentWorkoutLog.completed = true;
