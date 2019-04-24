@@ -3,7 +3,7 @@
  */
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-
+import { Subject } from "rxjs";
 /**
  * Application dependency
  */
@@ -27,16 +27,20 @@ export class UserComponent implements OnInit {
   public tableDataNotFound: boolean = false;
   userObject: User;
   users: Array<User>;
-  // Checkbox field
-  termsOfUse = true;
 
+
+
+  getAllUsersData: Array<User> = [];
+  usersUpdated = new Subject<Array<User>>();
   form: FormGroup;
   imagePreview: any;
+  private mode = "create";
+  user: User;
 
   constructor(
     private userService: UserService,
     private alertNotificationsService: AlertNotificationsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -65,6 +69,8 @@ export class UserComponent implements OnInit {
       x => {
         this.tableDataNotFound = !x.length ? true : false;
         this.users = x;
+        this.getAllUsersData = x;
+        this.usersUpdated.next([...this.getAllUsersData]);
       },
       err => {
         this.tableDataNotFound = true;
@@ -138,6 +144,33 @@ export class UserComponent implements OnInit {
    * name
    */
   public updateUser(item) {
+    console.log(item);
+    if (item._id) {
+      this.mode = "edit";
+      this.userService.getUserAccountById(item._id).subscribe(
+        selected => {
+          this.user = {
+            _id: selected._id,
+            fullname: selected.fullname,
+            email: selected.email,
+            userImage: selected.userImage,
+            password: selected.password,
+          }
+          this.form.setValue({
+            fullname: this.user.fullname,
+            email: this.user.email,
+            userImage: this.user.userImage,
+            password: this.user.password
+          });
+        });
+    } else {
+      this.mode = "create";
+    }
 
+  }
+
+
+  private getPostUpdateListener() {
+    return this.usersUpdated.asObservable();
   }
 }

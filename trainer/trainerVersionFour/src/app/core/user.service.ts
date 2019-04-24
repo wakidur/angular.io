@@ -8,7 +8,7 @@ import {
   HttpHeaders
 } from "@angular/common/http";
 import { Http, Response } from "@angular/http";
-import { Observable, of, throwError, forkJoin } from "rxjs";
+import { Observable, of, throwError, forkJoin, Subject } from "rxjs";
 import { catchError, map, throwIfEmpty } from "rxjs/operators";
 
 /**
@@ -24,6 +24,8 @@ export class UserService {
   private storageKey = "session";
   users: Array<User> = [];
   user: User;
+  getAllUsersData: User[] = [];
+  usersUpdated = new Subject<Array<User>>();
   private contactsUrlPort = "http://localhost:3000/api/users";
 
   private noAuthHeader = { headers: new HttpHeaders({ NoAuth: "True" }) };
@@ -102,14 +104,16 @@ export class UserService {
     }
   }
 
+
+  /**********             User account managment          ********* */
   /**
    * getAllUserByObservable
    * /api/users/account
    */
 
-  getAllUserByObservable(): Observable<User[]> {
+  getAllUserByObservable(): Observable<Array<User>> {
     return this.httpClient.get(this.contactsUrlPort + "/account").pipe(
-      map(res => res as User[]),
+      map(res =>res as User[]),
       catchError(this.handleError)
     );
   }
@@ -128,6 +132,13 @@ export class UserService {
       map(res => {
         return "List of User Role  successfully Delete";
       }),
+      catchError(this.handleError)
+    );
+  }
+
+  public getUserAccountById(id: string): Observable<User> {
+    return this.httpClient.get(this.contactsUrlPort + "/account/" + id).pipe(
+      map(res => res as User ),
       catchError(this.handleError)
     );
   }

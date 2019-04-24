@@ -9,6 +9,8 @@
           <!-- get alert notification -->
           <app-alert-notifications></app-alert-notifications>
           <!-- get alert notification -->
+
+          <!-- Create user using  Reactive Forms -->
           <form [formGroup]="form" (submit)="onSubmit()">
             <div class="row">
               <div class="col-xl-6">
@@ -56,6 +58,8 @@
 
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
+
+          <!-- Create user using  Reactive Forms -->
         </div>
       </div>
 
@@ -64,6 +68,7 @@
           Users
         </div>
         <div class="card-body">
+          <pre>{{getAllUsersData|json}}</pre>
           <div class="table-responsive">
             <table class="table table-striped table-sm table-bordered">
               <thead>
@@ -76,7 +81,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of users; let i = index">
+                <tr *ngFor="let item of getAllUsersData; let i = index">
                   <td>{{i + 1}}</td>
                   <td>{{item.fullname}}</td>
                   <td>{{item.email}}</td>
