@@ -25,7 +25,6 @@ export class UserProfileComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       res => {
         if (res["user"]["role"]) {
-          console.log("role" + res["user"]);
           this.roleStatus = true;
           this.userDetails = res["user"];
           this.userProfileForm.fullname = res["user"].fullname;

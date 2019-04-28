@@ -15,7 +15,7 @@ import { catchError, map, throwIfEmpty } from "rxjs/operators";
  * Application dependency
  */
 import { CoreModule } from "./core.module";
-import { User, Login, ListOfRoles, SearchName, UserProfileForm } from "../core/model/user.model";
+import { User, Login, ListOfRoles, SearchName, UserProfileForm, UserProfile } from "../core/model/user.model";
 import { SessionStorageService } from "../core/session-storage.service";
 
 @Injectable()
@@ -188,10 +188,10 @@ export class UserService {
    * logInUser
    * /api/users/account/profile
    */
-
-  getUserProfile() {
+  // http://localhost:3000/api/users/account/profile
+  getUserProfile(): Observable<UserProfile> {
     return this.httpClient.get(this.contactsUrlPort + "/account/profile").pipe(
-      map(res  => res ),
+      map(res  => res as UserProfile),
       catchError(this.handleError)
     );
   }
