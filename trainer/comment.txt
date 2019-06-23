@@ -1,6 +1,5 @@
-trainerVersionOne
-trainerVersionTwo
-trainerVersionThree
+### reduce the size of build files
+ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer
 
 npm install -g @angular/cli@latest
 npm install -g @angular/cli // by the default it add latest versing 
