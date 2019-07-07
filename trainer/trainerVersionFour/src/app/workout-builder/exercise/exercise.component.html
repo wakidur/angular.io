@@ -57,11 +57,14 @@
           <div class="form-group">
             <img id="img-preview" class="img-preview" [src]="exerciseForm.controls['image'].value? '/assets/images/' + exerciseForm.controls['image'].value: '/assets/images/' + 'running.png'" /><br />
             <label for="exercise-image">Exercise Image (Will be scaled to: 540 X 360 px):</label>
+			
             <input type="text" formControlName="image" class="form-control" id="exercise-image" placeholder="Enter exercise image url.">
 
             <small *ngIf="exerciseForm.controls['image'].hasError('required') && (exerciseForm.controls['image'].touched || submitted)"
               class="form-text text-danger">Image url is required</small>
           </div>
+		  
+		  
           <div class="form-group" formArrayName="videos">
             <label>Videos:</label>
             <div *ngFor="let video of videoArray.controls; let i=index" class="form-row align-items-center">

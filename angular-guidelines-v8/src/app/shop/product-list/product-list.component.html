@@ -1,1 +1,35 @@
-<p>product-list works!</p>
+<app-top-bar></app-top-bar>
+
+<h2>Products</h2>
+
+<div class="list-group">
+  <a [routerLink]="['/products', productId]" *ngFor="let product of products; index as productId"
+    class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"> {{ product.name }}</h5>
+    </div>
+    <p class="mb-1" *ngIf="product.description">Description: {{ product.description }}</p>
+    <button class="btn btn-primary" (click)="share()">
+      Share
+    </button>
+    <app-product-alerts [product]="product" (notify)="onNotify()"></app-product-alerts>
+  </a>
+</div>
+
+<!-- <div *ngFor="let product of products">
+
+  <h3>
+    <a [title]="product.name + ' details'">
+      {{ product.name }}
+    </a>
+  </h3>
+
+  <p *ngIf="product.description">
+    Description: {{ product.description }}
+  </p>
+
+  <button (click)="share()">
+    Share
+  </button>
+
+</div> -->
