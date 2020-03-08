@@ -1,3 +1,4 @@
+ng serve --o --host 10.10.60.230 --port 4200
 ### reduce the size of build files
 ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer
 
@@ -69,6 +70,8 @@ ng g g role-wise-resource-permission
 ## create a Model class
 ng g class user --type=model
 
+
+Note: g is a shortcut for generate, and c and s are shortcuts for component and service, respectively. Therefore, ng g c is equivalent to ng generate component. The --no-spec flag indicates that *.spec.ts files should not be generated. The --it and --is flags stand for "inline template" and "inline styles" and --flat indicates that a containing folder should not be created.
 
 
 
