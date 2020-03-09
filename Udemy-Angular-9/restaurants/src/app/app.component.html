@@ -1,5 +1,8 @@
-
 <p appBasicHighlight> Style me with basic directive</p>
 <p appBetterHighlight [defaultColor]="'yellow'" [highlightColor]="'red'"> Style me with better directive</p>
+
+<div *appUnless="onlyOdd">
+  <span> Hello world </span>
+</div>
 
 <router-outlet></router-outlet>
